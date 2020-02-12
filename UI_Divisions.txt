@@ -19,5 +19,9 @@ Tyler:
 	- Login (no. 4)
 	- Edit Profile (no. 5)
 
+Dakota:
+	- Search View (no. 6)
+	- Detailed Book View (no. 7)
+
 All:
-	- Homepage
+	- Homepage (no. 1)
