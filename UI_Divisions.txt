@@ -1,7 +1,7 @@
 This is how we chose to divide the UI work after the meeting on 02/12/2020.
 
 Color Scheme: White Background (#FOF3F4), Black Text, Green Accents (#196F3D)
-Boostrap 4
+Boostrap 4.1
 
 Kimberly:
 	Admin View: (no. 11-14)
