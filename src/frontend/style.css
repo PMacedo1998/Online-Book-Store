@@ -1,0 +1,31 @@
+/*we can use this css style sheet for all style necesisties just include it in header of your files!*/
+/*TOP NAV BAR MAIN PAGE*/
+
+a{
+    background-color:black !important;
+	border-color:black !important;
+	color: white !important;
+  }
+
+a:hover {
+    border-color:#196F3D !important;
+    background-color: #196F3D  !important;
+
+}
+
+body{
+    background-color: #FOF3F4 !important;
+
+
+
+}
+
+
+.topBar > ul li a{ 
+	text-align:right;
+	 padding: 0 3em 0 0;
+	 margin:0 0 0 0;
+}
+
+/*END OF NAV BAR*/
+
