@@ -11,15 +11,31 @@
 
   </head>
   <style>
+
+    .nav-pills > li > a
+    {
+      margin-left:10px;
+      margin-right:10px;
+      background-color:white !important;
+      border-color:white !important;
+      color: black;
+      width: 150px;
+      font-size: 12px;
+
+    }
+
+
+
   a{
     background-color:black !important;
     border-color:black !important;
-    font-color: white;
+
   }
 
-  a:hover {
+  a:hover, .nav-pills > li > a:hover {
     border-color:#196F3D !important;
     background-color: #196F3D  !important;
+    color: white;
 
 }
 
@@ -34,11 +50,51 @@
 
 
 
-<br><br><br>
+
+
+
+
+    <nav class="navbar navbar-dark bg-dark">
+
+      <ul class="nav nav-pills nav-justified" >
+    <li class="nav-item">
+      <a class="nav-link " id="home-tab" data-toggle="pill" href="#home" role="pill" aria-controls="home"  >Home Page</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" >Manage Books</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" >Manage Users</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" >Manage Promotions</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" >Logout</a>
+    </li>
+  </ul>
+
+
+
+  <span class="navbar-text">
+      ID# 999999999
+    </span>
+  <!--searchbar
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+  -->
+
+</nav>
+
+
+
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-  <h1 class="display-4">Welcome</h1>
-  
+  <h1 class="display-4">Welcome Kimberly Kimberly</h1>
+
   <p class="lead">Please select one of the following options:</p>
   </div>
 </div>
