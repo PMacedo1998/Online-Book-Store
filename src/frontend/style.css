@@ -2,9 +2,8 @@
 /*TOP NAV BAR MAIN PAGE*/
 
 a{
-
 	color: #196f3d !important;
-  }
+}
 
 a:hover {
     border-color:#196f3d !important;
@@ -14,9 +13,6 @@ a:hover {
 
 body{
     background-color: #FOF3F4 !important;
-
-
-
 }
 
 .cardHeader{
@@ -34,9 +30,15 @@ button{
 	 padding: 0 3em 0 0;
 	 margin:0 0 0 0;
 }
+
 img {
     height: 100px;
     width: 50px;
+}
+
+.searchImg {
+    height: 150px !important;
+    width: 90px;
 }
 /*END OF NAV BAR*/
 
