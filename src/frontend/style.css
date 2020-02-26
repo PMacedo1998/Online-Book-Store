@@ -2,15 +2,14 @@
 /*TOP NAV BAR MAIN PAGE*/
 
 a{
-    background-color:black !important;
-	border-color:black !important;
-	color: white !important;
+
+	color: #196f3d !important;
   }
 
 a:hover {
-    border-color:#196F3D !important;
+    border-color:#196f3d !important;
     background-color: #196F3D  !important;
-
+    color: white !important;
 }
 
 body{
@@ -20,9 +19,18 @@ body{
 
 }
 
+.cardHeader{
+    color: #196f3d !important;
+
+}
+button{
+    color: #196f3d !important;
+    background-color: white !important;
+    border-color: white;
+}
 
 .topBar > ul li a{ 
-	text-align:right;
+	text-align:left;
 	 padding: 0 3em 0 0;
 	 margin:0 0 0 0;
 }
