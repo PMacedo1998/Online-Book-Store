@@ -12,17 +12,38 @@
   </head>
   <style>
 
+
+
     .nav-pills > li > a
     {
-      margin-left:10px;
-      margin-right:10px;
-      background-color:white !important;
-      border-color:white !important;
-      color: black;
-      width: 150px;
-      font-size: 12px;
+      margin-left: 17px;
+      margin-right: 5px;
+      background-color:#196F3D !important;
+      border-color:#196F3D !important;
+
+      color: white;
+      width: 225px;
+      font-size: 15px;
 
     }
+
+.nav-pills > li > a:hover {
+  background-color:white !important;
+  border-color:white !important;
+  color: black;
+  width: 225px;
+  font-size: 15px;
+
+}
+
+.nav-pills > li > a:active {
+  background-color:yellow !important;
+  border-color:yellow !important;
+  color: black !important;
+  width: 225px;
+  font-size: 12px;
+
+}
 
 
 
@@ -32,7 +53,7 @@
 
   }
 
-  a:hover, .nav-pills > li > a:hover {
+  a:hover {
     border-color:#196F3D !important;
     background-color: #196F3D  !important;
     color: white;
@@ -54,11 +75,13 @@
 
 
 
+
+
     <nav class="navbar navbar-dark bg-dark">
 
       <ul class="nav nav-pills nav-justified" >
-    <li class="nav-item">
-      <a class="nav-link " id="home-tab" data-toggle="pill" href="#home" role="pill" aria-controls="home"  >Home Page</a>
+    <li class="nav-item ">
+      <a class="nav-link active" id="home-tab" data-toggle="pill" href="admin.html" role="pill" aria-controls="home"  >Home Page</a>
     </li>
 
     <li class="nav-item">
@@ -74,12 +97,14 @@
       <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" >Logout</a>
     </li>
   </ul>
+<br><br>
 
-
-
+<!--
   <span class="navbar-text">
       ID# 999999999
     </span>
+  -->
+
   <!--searchbar
   <form class="form-inline">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -93,8 +118,22 @@
 
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-  <h1 class="display-4">Welcome Kimberly Kimberly</h1>
+    <div class="row">
 
+<div class="col-9">
+
+
+  <h1 class="display-4">Welcome Kimberly Kimberly</h1>
+  </div>
+  <div class="col-3">
+<br>
+
+  <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="ID# 999999999">
+    Click This to Show ID
+  </button>
+    </div>
+  </div>
+ <hr class="my-4">
   <p class="lead">Please select one of the following options:</p>
   </div>
 </div>
@@ -109,5 +148,12 @@
       <a class="btn btn-primary btn-lg btn-block" href="#" role="button">Manage Promotions</a>
 </div>
 
+<script type="text/javascript">
+$(function () {
+$('[data-toggle="popover"]').popover()
+})
+</script>
+
   </body>
+
 </html>
