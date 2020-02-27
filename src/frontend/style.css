@@ -40,5 +40,15 @@ img {
     height: 160px !important;
     width: 100px;
 }
+
+.bookDetailsImg {
+    height: 370px;
+    width: 240px;
+}
+
+.cartButton {
+    background-color: #196f3d !important;
+    color: white !important;
+}
 /*END OF NAV BAR*/
 
