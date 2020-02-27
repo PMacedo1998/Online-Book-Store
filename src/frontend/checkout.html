@@ -104,15 +104,23 @@
                     </li>
                 </ul>
 
-                <div class="input-group mb-3">
-                    <label for="inputPromo">Promo Code:  </label>
-                    <input type="text" id="inputPromo" class="form-control" placeholder="Enter Code" aria-label="searchCode" aria-describedby="button-addon2">
+                <div class="input-group">
+                    <label for="promoCode">Promo Code:  </label>
+                    <input type="text" id="promocode" class="form-control" placeholder="Enter Code" aria-label="searchCode" aria-describedby="button-addon2">
 
-                    <div class="input-group-append">
+                    <div class="form-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2">Apply</button>
                       </div>
                 </div>
+                <hr class = "my-4">
+                <div class="row-6">
+                <p>Sub-total:</p>
+                <p>Taxes: Input taxes</p>
+                <p>Fees: Input fees</p>
+                <p>Total: input Total</p>
+                </div>
         </div>
+        
    </div>
 
     <!--second column-->
@@ -132,14 +140,22 @@
           <div id="collapseOne" class="collapse show" aria-labelledby="customerHeader" data-parent="#checkout">
             <div class="card-body">
                 <form>
-                    <div class="row">
-                      <div class="col">
-                        <input type="text" class="form-control" placeholder="First name from database">
+                    <div class="form-row">
+                      <div class="form-group col">
+                        <label for ="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="First name from database">
                       </div>
-                      <div class="col">
-                        <input type="text" class="form-control" placeholder="Last name from database">
+                      <div class="form-group col">
+                        <label for ="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Last name from database">
                       </div>
                     </div>
+                  
+                      <div class="form-group">
+                      <label for ="email">Email: </label>
+                      <input type="text" class = "form-control" id="email" placeholder="youremail@email.com">
+                        </div>
+                    
                   </form>
             </div>
           </div>
