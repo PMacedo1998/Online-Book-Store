@@ -33,8 +33,8 @@
 
   .nav-pills > .active > a
   {
-    background-color:yellow !important;
-    border-color:yellow !important;
+    background-color:#FBFFB6 !important;
+    border-color:#FBFFB6 !important;
     color:black !important;
     width:225px;
     font-size:15px;
@@ -57,6 +57,24 @@
   {
     background-color:#FOF3F4 !important;
   }
+
+  input
+  {
+    border-color:#196F3D !important;
+  }
+
+  form > button:hover
+  {
+    background-color:#196F3D !important;
+    border-color:#196F3D !important;
+  }
+
+  form > button
+  {
+    background-color:black !important;
+    border-color:white !important;
+    color:white !important;
+  }
   </style>
   <body>
 
@@ -65,23 +83,23 @@
 
     <ul class="nav nav-pills nav-justified">
       <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="admin.html" role="pill" aria-controls="home">Home Page</a>
+        <a class="nav-link" href="admin.html" aria-controls="home">Home Page</a>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" data-toggle="pill" href="manage_books.html" role="pill" aria-controls="mbooks">Manage Books</a>
+        <a class="nav-link" href="manage_books.html" aria-controls="mbooks">Manage Books</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="manage_users.html" role="pill" aria-controls="musers">Manage Users</a>
+        <a class="nav-link" href="manage_users.html" aria-controls="musers">Manage Users</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="manage_promos.html" role="pill" aria-controls="mpromotions">Manage Promotions</a>
+        <a class="nav-link" href="manage_promos.html" aria-controls="mpromotions">Manage Promotions</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#logout" role="pill" aria-controls="logout">Logout</a>
+        <a class="nav-link" href="#logout" aria-controls="logout">Logout</a>
       </li>
     </ul>
     <br><br>
@@ -145,14 +163,19 @@
           <ul class="list-unstyled">
               <li class = "media">
                 <img src="./Icons and temporary book pics/Book1.jpg"  class="align-self-start mr-3 searchImg" alt="...">
-                  <div class="media-body" style="padding-left: 20px;">
+                  <div class="media-body">
                     <h4 class="mt-0 mb-1" style="font-weight: bold;">Book Name</h4>
-                    <p style="font-size: 14px;">by Author </p>
-                    <p style="font-size: 14px;">Rating: 10/10</p>
-                    <p style="font-size: 14px">Price: </p>
-                    <button type="button" class="btn btn-secondary">Edit</button>
-                    <br><br>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <p>by Author </p>
+                    <p>Rating: 10/10</p>
+                    <p>ISBN: </p>
+                    <p>Category: </p>
+                    <p>Edition: </p>
+                    <p>Publisher: </p>
+                    <p>Publication Year: </p>
+                    <p>Quantity-In-Stock: </p>
+                    <p>Buying Price: </p>
+                    <p>Selling Price: </p>
+
                   </div>
               </li>
           </ul>
@@ -164,7 +187,7 @@
   <form>
   <div class="form">
     <label for="isbn">ISBN</label>
-    <input type="text" class="form-control" aria-describedby="emailHelp">
+    <input type="number" class="form-control" aria-describedby="emailHelp">
   </div>
 
   <br>
@@ -172,7 +195,55 @@
     <div class="form">
       <label for="category">Category</label>
       <select class="form-control">
-        <option>Book Literature</option>
+        <!--book genres: https://reference.yourdictionary.com/books-literature/different-types-of-books.html-->
+        <option value="fiction">Action and Adventure</option>
+        <option value="fiction">Alternative History</option>
+        <option value="fiction">Anthology</option>
+        <option value="fiction">Chick Lit</option>
+        <option value="fiction">Children's</option>
+        <option value="fiction">Comic Book</option>
+        <option value="fiction">Coming-Of-Age</option>
+        <option value="fiction">Crime</option>
+        <option value="fiction">Drama</option>
+        <option value="fiction">Fairytale</option>
+        <option value="fiction">Fantasy</option>
+        <option value="fiction">Graphic Novel</option>
+        <option value="fiction">Historical Fiction</option>
+        <option value="fiction">Horror</option>
+        <option value="fiction">Mystery</option>
+        <option value="fiction">Paranormal Romance</option>
+        <option value="fiction">Picture Book</option>
+        <option value="fiction">Poetry</option>
+        <option value="fiction">Political Thriller</option>
+        <option value="fiction">Romance</option>
+        <option value="fiction">Satire</option>
+        <option value="fiction">Science Fiction</option>
+        <option value="fiction">Short Story</option>
+        <option value="fiction">Suspense</option>
+        <option value="fiction">Thriller</option>
+        <option value="fiction">Young Adult</option>
+        <option value="nonfiction">Art</option>
+        <option value="nonfiction">Autobiography</option>
+        <option value="nonfiction">Biography</option>
+        <option value="nonfiction">Book Review</option>
+        <option value="nonfiction">Cookbook</option>
+        <option value="nonfiction">Diary</option>
+        <option value="nonfiction">Dictionary</option>
+        <option value="nonfiction">Encyclopedia</option>
+        <option value="nonfiction">Guide</option>
+        <option value="nonfiction">Health</option>
+        <option value="nonfiction">History</option>
+        <option value="nonfiction">Journal</option>
+        <option value="nonfiction">Math</option>
+        <option value="nonfiction">Memoir</option>
+        <option value="nonfiction">Prayer</option>
+        <option value="nonfiction">Religion, Spirtuality, and New Age</option>
+        <option value="nonfiction">Textbook</option>
+        <option value="nonfiction">Review</option>
+        <option value="nonfiction">Science</option>
+        <option value="nonfiction">Self Help</option>
+        <option value="nonfiction">Travel</option>
+        <option value="nonfiction">True Crime</option>
       </select>
     </div>
 
@@ -194,7 +265,7 @@
 
     <div class="form">
       <label for="edition">Edition</label>
-      <input type="text" class="form-control" id="edition">
+      <input type="number" class="form-control" id="edition">
     </div>
 
     <br>
