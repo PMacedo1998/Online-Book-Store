@@ -132,20 +132,24 @@
     <hr class="my-4">
     <p class="lead">View and/or add users:</p>
     <form class="form">
-      <div class="row">
-
-        <div class="col-9">
-
-
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-
-      </div>
-      <div class="col-3">
-
-
-      <button class="btn btn-outline-success" type="submit">Search</button>
-</div>
-      </div>
+      <div class="input-group mt-3 mb-3">
+            <div class="input-group-prepend">
+              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                Apply Filter
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Subject</a>
+                <a class="dropdown-item" href="#">Title</a>
+                <a class="dropdown-item" href="#">Author</a>
+                <a class="dropdown-item" href="#">ISBN</a>
+                <a class="dropdown-item" href="#">None</a>
+              </div>
+            </div>
+            <input type="text" class="form-control" placeholder="Enter keyword...">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+            </div>
+          </div>
     </form>
   </div>
 </div>
