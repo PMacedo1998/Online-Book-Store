@@ -13,34 +13,47 @@
 </head>
 <body>
    
-    <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-2">Promotion/News</h1>
-          <p class="lead">This is where we can advertise promos and stuff</p>
-        </div>
-      <hr class = "my-4">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Enter Keywords" aria-label="searchInput" aria-describedby="button-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-        </div>
+   <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-2">Promotion/News</h1>
+        <p class="lead">This is where we can advertise promos and stuff</p>
       </div>
-      <hr class = "my-4"> 
-      <ul class="nav nav-pills nav-justified">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Account</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Manage Orders</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-    </ul>
-</div>
+          <hr class = "my-4">
+          <div class="input-group mt-3 mb-3">
+            <div class="input-group-prepend">
+              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                Apply Filter
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Subject</a>
+                <a class="dropdown-item" href="#">Title</a>
+                <a class="dropdown-item" href="#">Author</a>
+                <a class="dropdown-item" href="#">ISBN</a>
+                <a class="dropdown-item" href="#">None</a>
+              </div>
+            </div>
+            <input type="text" class="form-control" placeholder="Enter keyword...">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+            </div>
+          </div>
+         
+          <hr class = "my-4"> 
+          <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Manage Orders</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+        </ul>
+    </div>
 
 <h4>Open Orders</h4>
 <hr class="row">
