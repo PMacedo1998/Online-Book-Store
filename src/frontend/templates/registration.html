@@ -232,11 +232,28 @@
             </div>
             <div id="collapseTwo" class="collapse" data-parent="#accordion">
               <div class="card-body">
+                <div class = "row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Name on Card</label>
+                      <input class="form-control" id="name" placeholder="***" name="name">
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Type</label>
+                      <select class="form-control" id="cardType" name="cardType">
+                        <option>Credit</option>
+                        <option>Debit</option>
+                        </select>
+                    </div>
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col">
                     <div class="form-group">
                       <label>Credit Card #:</label>
-                      <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="ccn">
+                      <input class="form-control" id="cardNumber" placeholder="**** **** **** ****" name="cardNumber">
                     </div>
                   </div>
                   <div class="col">
@@ -248,7 +265,7 @@
                   <div class="col">
                     <div class="form-group">
                       <label>Expiration Date</label>
-                      <input class="form-control" id="exp" placeholder="MM/YY" name="exp">
+                      <input class="form-control" id="expirationDate" placeholder="MM/YY" name="expirationDate">
                     </div>
                   </div>
                 </div>

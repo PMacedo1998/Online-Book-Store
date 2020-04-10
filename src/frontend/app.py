@@ -35,6 +35,19 @@ def register():
         email = request.form['email']
         password = request.form['password']
         phoneNumber = request.form['phoneNumber']
+    
+
+        #get payment info
+        name = request.form['name']
+        cardType = request.form['cardType']
+        cardNumber = request.form['cardNumber']
+        ccv = request.form['ccv']
+        expirationDate = request.form['expirationDate']
+
+        #store into dB
+        cursor.execute("INSERT INTO profile(firstName, lastName, email, pswd, phoneNum, shippingAddress) VALUES (%s,%s,%s,%s,%s,%s)", (firstName, lastName, email, password, phoneNumber, shipAdd))
+        cursor.execute("INSERT INTO paymentMethod(name, type, cardNumber, expirationDate, ccv) VALUES (%s,%s,%s,%s,%s)", (name, cardType, cardNumber, expirationDate, ccv))
+
 
 
         #get payment info
@@ -49,6 +62,7 @@ def register():
         cursor.execute("INSERT INTO paymentMethod(name, type, cardNumber, expirationDate, ccv) VALUES (%s,%s,%s,%s,%s)", (name, cardType, cardNumber, expirationDate, ccv))
 
         con.commit()
+
 
         return redirect(url_for('verify'))
     return render_template('registration.html')
@@ -77,3 +91,5 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
+
+

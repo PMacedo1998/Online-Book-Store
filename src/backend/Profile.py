@@ -9,10 +9,9 @@ class Profile():
 	string password
 	string shippingAddress = None
 	PaymentMethod paymentMethod = None
-	bool promoStatus = None
 	UserType userType
 
-	def __init__(firstName, lastName, phoneNum, email, password, shippingAddress, paymentMethod, promoStatus, userType):
+	def __init__(firstName, lastName, phoneNum, email, password, shippingAddress, paymentMethod, userType):
 		this.firstName = firstName
 		this.lastName =lastName
 		this.phoneNum = phoneNum
@@ -20,7 +19,6 @@ class Profile():
 		this.password = password
 		this.shippingAddress = shippingAddress
 		this.paymentMethod = paymentMethod
-		this.promoStatus = promoStatus
 		this.userType = userType
 
 	def getName():
@@ -40,9 +38,6 @@ class Profile():
 
 	def getPaymentMethod():
 		return this.paymentMethod
-
-	def getPromoStatus():
-		return this.promoStatus
 
 	def getType():
 		return this.userType
@@ -65,9 +60,6 @@ class Profile():
 
 	def updatePaymentMethod(paymentMethod):
 		this.paymentMethod = paymentMethod
-
-	def updatePromoStatus(promoStatus):
-		this.promoStatus = promoStatus
 
 	def updateUserType(userType):
 		this.userType = userType
