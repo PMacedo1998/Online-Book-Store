@@ -11,23 +11,14 @@ mysql = MySQL(app)
 
 con = mysql.connect()
 cursor=con.cursor()
-@app.route('/', methods = ['GET','POST'])
+@app.route('/')
 def register():
-    if request.method == 'POST':
-        firstName = request.form['firstName']
-        lastName = request.form['lastName']
-        email = request.form['email']
-        password = request.form['password']
-        phoneNumber = request.form['phoneNumber']
+    cursor.execute("SELECT firstName,lastName,email FROM profile")
 
-        cursor.execute("INSERT INTO profile(firstName, lastName, email, pswd, phoneNum) VALUES (%s,%s,%s,%s,%s)", (firstName, lastName, email, password, phoneNumber))
-        status=0
-        verificationCode=""
-        cursor.execute("INSERT INTO registeredUser(status,verificationCode) VALUES (%s,%s)", (status,verificationCode))
-        con.commit()
-        cursor.close()
-        return 'success'
-    return render_template('edit_profile.html')
+    data=cursor.fetchall()
+
+    print(data)
+    return render_template('edit_profile.html', user=data)
 
 if __name__ == '__main__':
     app.run(debug=True)
