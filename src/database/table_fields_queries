@@ -74,5 +74,32 @@ ADD COLUMN buyingPrice INT NOT NULL,
 ADD COLUMN sellingPrice INT NOT NULL,
 ADD COLUMN bookRating INT NOT NULL;
 
+/*Table userType*/
+
+CREATE TABLE userType(userType INT PRIMARY KEY);
+
+/*Table registeredUser*/
+
+CREATE TABLE registeredUser(accountID INT PRIMARY KEY);
+
+ALTER TABLE registeredUser
+ADD COLUMN profileID INT,
+ADD COLUMN status BOOLEAN NOT NULL,
+ADD COLUMN shoppingCartID INT,
+ADD COLUMN orderConfirmationNum INT,
+ADD COLUMN userType INT,
+ADD CONSTRAINT fk_registeredUser_profile
+    FOREIGN KEY (profileID)
+    REFERENCES profile (id),
+ADD CONSTRAINT fk_registeredUser_shoppingCart
+    FOREIGN KEY (shoppingCartID)
+    REFERENCES shoppingCart (shoppingCartID),
+ADD CONSTRAINT fk_registeredUser_orders
+    FOREIGN KEY (orderConfirmationNum)
+    REFERENCES orders (confirmationNum),
+ADD CONSTRAINT fk_registeredUser_userType
+    FOREIGN KEY (userType)
+    REFERENCES userType (userType);
+
 
 
