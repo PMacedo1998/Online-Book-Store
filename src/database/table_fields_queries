@@ -134,6 +134,10 @@ ADD CONSTRAINT fk_admin_book
 ADD CONSTRAINT fk_admin_userType
     FOREIGN KEY (userType)
     REFERENCES userType (userType);
+    
+/*Modified type of profile:phoneNum to VARCHAR(45)*/
+ALTER TABLE profile
+MODIFY COLUMN phoneNum VARCHAR(45) NOT NULL;
 
 
 
