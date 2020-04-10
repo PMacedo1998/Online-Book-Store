@@ -100,6 +100,28 @@ ADD CONSTRAINT fk_registeredUser_orders
 ADD CONSTRAINT fk_registeredUser_userType
     FOREIGN KEY (userType)
     REFERENCES userType (userType);
+    
+/*Table systemAdministrator*/
+
+CREATE TABLE systemAdministrator(adminID INT PRIMARY KEY);
+
+ALTER TABLE systemAdministrator
+ADD COLUMN profileID INT,
+ADD COLUMN promoCode INT,
+ADD COLUMN isbn INT,
+ADD COLUMN userType INT,
+ADD CONSTRAINT fk_admin_profile
+    FOREIGN KEY (profileID)
+    REFERENCES profile (id),
+ADD CONSTRAINT fk_admin_promotion
+    FOREIGN KEY (promoCode)
+    REFERENCES promotion (promoCode),
+ADD CONSTRAINT fk_admin_book
+    FOREIGN KEY (isbn)
+    REFERENCES book (isbn),
+ADD CONSTRAINT fk_admin_userType
+    FOREIGN KEY (userType)
+    REFERENCES userType (userType);
 
 
 
