@@ -37,4 +37,12 @@ ALTER TABLE promotion
 ADD COLUMN promoPrice DOUBLE NOT NULL,
 ADD COLUMN expirationDate VARCHAR(45) NOT NULL;
 
+/*Table shoppingCart*/
+
+CREATE TABLE shoppingCart(shoppingCartID INT PRIMARY KEY);
+
+ALTER TABLE shoppingCart
+ADD COLUMN isbn INT NULL,
+ADD COLUMN confirmationNum INT NULL;
+
 
