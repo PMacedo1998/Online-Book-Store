@@ -14,18 +14,22 @@ cursor=con.cursor()
 
 #this app.route is specific to register page
 
+#route for homepage or INDEX
 @app.route('/', methods = ['GET','POST'])
 def index():
     return render_template('homepage.html')
 
+#route for main only for logged in users
 @app.route('/main', methods = ['GET','POST'])
 def main():
     return render_template('main.html')
 
+#goes to this after submitting registration info
 @app.route('/account_verification', methods = ['GET','POST'])
 def verify():
     return render_template('account_verification.html')
 
+#register function
 @app.route('/register', methods = ['GET','POST'])
 def register():
     if request.method == 'POST':
@@ -41,43 +45,49 @@ def register():
         name = request.form['name']
         cardType = request.form['cardType']
         cardNumber = request.form['cardNumber']
-        ccv = request.form['ccv']
         expirationDate = request.form['expirationDate']
 
         #store into dB
-        cursor.execute("INSERT INTO profile(firstName, lastName, email, pswd, phoneNum, shippingAddress) VALUES (%s,%s,%s,%s,%s,%s)", (firstName, lastName, email, password, phoneNumber, shipAdd))
-        cursor.execute("INSERT INTO paymentMethod(name, type, cardNumber, expirationDate, ccv) VALUES (%s,%s,%s,%s,%s)", (name, cardType, cardNumber, expirationDate, ccv))
-
-
-
-        #get payment info
-        name = request.form['name']
-        cardType = request.form['cardType']
-        cardNumber = request.form['cardNumber']
-        ccv = request.form['ccv']
-        expirationDate = request.form['expirationDate']
-
-        #store into dB
-        cursor.execute("INSERT INTO profile(firstName, lastName, email, pswd, phoneNum, shippingAddress) VALUES (%s,%s,%s,%s,%s,%s)", (firstName, lastName, email, password, phoneNumber, shipAdd))
-        cursor.execute("INSERT INTO paymentMethod(name, type, cardNumber, expirationDate, ccv) VALUES (%s,%s,%s,%s,%s)", (name, cardType, cardNumber, expirationDate, ccv))
+        cursor.execute("INSERT INTO profile(firstName, lastName, phoneNum, email, pswd) VALUES (%s,%s,%s,%s,%s)", (firstName, lastName, phoneNumber, email, password))
+        cursor.execute("INSERT INTO paymentMethod(type, cardNumber, expirationDate, name) VALUES (%s,%s,%s,%s)", (cardType, cardNumber, expirationDate, name))
 
         con.commit()
-
-
+        
         return redirect(url_for('verify'))
     return render_template('registration.html')
 
 #login function
 @app.route('/login/', methods = ['GET','POST'])
 def login():
-    if request.method == 'GET':
-        #get personal info
-        return render_template("login.html",error=False)
+    inputEmail=''
+    inputPass=''
+    if request.method == 'POST':
 
-    if request.form['email']!="email@gmail.com" or request.form['password']!= "password":
-        return render_template('login.html',error = True)
+        inputEmail = request.form['email']
+        inputPass = request.form['password']
 
+    cursor.execute('SELECT * FROM profile')
+    users = cursor.fetchall()
+    isUser = False
+
+    for x in users:
+        email = x[4]
+        passWord = x[5]
+        if inputEmail == email and inputPass ==passWord:
+            isUser = True
+            
+    if isUser == False:
+        return render_template("login.html")
     return redirect(url_for('main'))
+ #   if request.method == 'GET':
+        #get personal info
+   #     return render_template("login.html",error=False)
+
+ #   if request.form['email']!="email@gmail.com" or request.form['password']!= "password":
+   #     return render_template('login.html',error = True)
+
+    return render_template("login.html")
+
 
 
 if __name__ == '__main__':
