@@ -164,63 +164,63 @@ LOCK TABLES
 
 ALTER TABLE orders
     DROP FOREIGN KEY fk_orders_paymentMethod,
-    MODIFY paymentMethodID SMALLINT UNSIGNED,
+    MODIFY paymentMethodID INT UNSIGNED,
     DROP FOREIGN KEY fk_orders_registeredUser,
-    MODIFY registeredUserID SMALLINT UNSIGNED,
+    MODIFY registeredUserID INT UNSIGNED,
     DROP FOREIGN KEY fk_orders_shoppingCart,
-    MODIFY shoppingCartID SMALLINT UNSIGNED;
+    MODIFY shoppingCartID INT UNSIGNED;
     
 ALTER TABLE profile
     DROP FOREIGN KEY fk_profile_paymentMethod,
-    MODIFY paymentMethodID SMALLINT UNSIGNED;
+    MODIFY paymentMethodID INT UNSIGNED;
 
 ALTER TABLE registeredUser
     DROP FOREIGN KEY fk_registeredUser_orders,
-    MODIFY orderConfirmationNum SMALLINT UNSIGNED,
+    MODIFY orderConfirmationNum INT UNSIGNED,
     DROP FOREIGN KEY fk_registeredUser_profile,
-    MODIFY profileID SMALLINT UNSIGNED,
+    MODIFY profileID INT UNSIGNED,
     DROP FOREIGN KEY fk_registeredUser_shoppingCart,
-    MODIFY shoppingCartID SMALLINT UNSIGNED,
+    MODIFY shoppingCartID INT UNSIGNED,
     DROP FOREIGN KEY fk_registeredUser_userType,
-    MODIFY userType SMALLINT UNSIGNED;
+    MODIFY userType INT UNSIGNED;
 
 ALTER TABLE shoppingCart
     DROP FOREIGN KEY fk_shoppingCart_orders,
-    MODIFY confirmationNum SMALLINT UNSIGNED;
+    MODIFY confirmationNum INT UNSIGNED;
 
 ALTER TABLE systemAdministrator
     DROP FOREIGN KEY fk_admin_profile,
-    MODIFY profileID SMALLINT UNSIGNED,
+    MODIFY profileID INT UNSIGNED,
     DROP FOREIGN KEY fk_admin_promotion,
-    MODIFY promoCode SMALLINT UNSIGNED,
+    MODIFY promoCode INT UNSIGNED,
     DROP FOREIGN KEY fk_admin_userType,
-    MODIFY userType SMALLINT UNSIGNED;
+    MODIFY userType INT UNSIGNED;
     
 /*Auto-increment primary key*/
 
 ALTER TABLE orders 
-    MODIFY confirmationNum SMALLINT UNSIGNED AUTO_INCREMENT;
+    MODIFY confirmationNum INT UNSIGNED AUTO_INCREMENT;
 
 ALTER TABLE paymentMethod 
-    MODIFY paymentMethodID SMALLINT UNSIGNED AUTO_INCREMENT;
+    MODIFY paymentMethodID INT UNSIGNED AUTO_INCREMENT;
 
 ALTER TABLE profile 
-    MODIFY id SMALLINT UNSIGNED AUTO_INCREMENT;
+    MODIFY id INT UNSIGNED AUTO_INCREMENT;
 
 ALTER TABLE promotion 
-    MODIFY promoCode SMALLINT UNSIGNED AUTO_INCREMENT;
+    MODIFY promoCode INT UNSIGNED AUTO_INCREMENT;
 
 ALTER TABLE registeredUser 
-    MODIFY accountID SMALLINT UNSIGNED AUTO_INCREMENT;
+    MODIFY accountID INT UNSIGNED AUTO_INCREMENT;
 
 ALTER TABLE shoppingCart 
-    MODIFY shoppingCartID SMALLINT UNSIGNED AUTO_INCREMENT;
+    MODIFY shoppingCartID INT UNSIGNED AUTO_INCREMENT;
 
 ALTER TABLE systemAdministrator 
-    MODIFY adminID SMALLINT UNSIGNED AUTO_INCREMENT;
+    MODIFY adminID INT UNSIGNED AUTO_INCREMENT;
 
 ALTER TABLE userType 
-    MODIFY userType SMALLINT UNSIGNED AUTO_INCREMENT;
+    MODIFY userType INT UNSIGNED AUTO_INCREMENT;
 
 /*Recreate foreign key*/
 
