@@ -1,6 +1,7 @@
 /*Table profile*/
 
 CREATE TABLE profile(id INT PRIMARY KEY);
+
 ALTER TABLE profile
 ADD COLUMN firstName VARCHAR(45) NOT NULL,
 ADD COLUMN lastName VARCHAR(45) NOT NULL,
@@ -14,6 +15,7 @@ ADD COLUMN promoApplied BOOLEAN NULL;
 /*Table paymentMethod*/
 
 CREATE TABLE paymentMethod(paymentMethodID INT PRIMARY KEY);
+
 ALTER TABLE paymentMethod
 ADD COLUMN type VARCHAR(45) NOT NULL,
 ADD COLUMN cardNumber INT NOT NULL,
@@ -49,7 +51,7 @@ ADD COLUMN confirmationNum INT NULL;
 
 CREATE TABLE book(isbn INT PRIMARY KEY);
 
-ALTER TABLE shoppingCart
+ALTER TABLE book
 ADD COLUMN category VARCHAR(45) NOT NULL,
 ADD COLUMN authorName VARCHAR(45) NOT NULL,
 ADD COLUMN title VARCHAR(45) NOT NULL,
