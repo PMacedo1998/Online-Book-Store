@@ -56,11 +56,14 @@ ADD COLUMN expirationDate VARCHAR(45) NOT NULL;
 CREATE TABLE shoppingCart(shoppingCartID INT PRIMARY KEY);
 
 ALTER TABLE shoppingCart
-ADD COLUMN isbn INT NULL,
 ADD COLUMN confirmationNum INT,
+ADD COLUMN isbn INT,
 ADD CONSTRAINT fk_shoppingCart_orders
     FOREIGN KEY (confirmationNum)
-    REFERENCES orders (confirmationNum);
+    REFERENCES orders (confirmationNum),
+ADD CONSTRAINT fk_shoppingCart_book
+    FOREIGN KEY (isbn)
+    REFERENCES book (isbn);
 
 /*Table book*/
 
