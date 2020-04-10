@@ -20,4 +20,14 @@ ADD COLUMN cardNumber INT NOT NULL,
 ADD COLUMN expirationDate INT NOT NULL,
 ADD COLUMN name VARCHAR(45) NOT NULL;
 
+/*Table orders*/
+
+CREATE TABLE orders(confirmationNum INT PRIMARY KEY);
+
+ALTER TABLE orders
+ADD COLUMN customerID INT NOT NULL,
+ADD COLUMN cart VARCHAR(45) NOT NULL;
+/*Can't add foreign key bc of syntax error. Need help on this.*/
+
+
 
