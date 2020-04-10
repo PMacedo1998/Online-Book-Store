@@ -1,0 +1,28 @@
+This is how we chose to divide the UI work after the meeting on 02/12/2020.
+
+Color Scheme: White Background (#FOF3F4), Black Text, Green Accents (#196F3D)
+Boostrap 4.1
+
+Kimberly:
+	Admin View: (no. 11-14)
+	      - Admin Homepage
+	      - Manage Books
+	      - Manage Users
+	      - Manage Promotions
+
+Patrick:
+	- Check Out (no. 8)
+	- Order History (no. 9)
+	- Return Order (no. 10)
+
+Tyler:
+	- Registration (no. 2-3)
+	- Login (no. 4)
+	- Edit Profile (no. 5)
+
+Dakota:
+	- Search View (no. 6)
+	- Detailed Book View (no. 7)
+
+All:
+	- Homepage (no. 1)

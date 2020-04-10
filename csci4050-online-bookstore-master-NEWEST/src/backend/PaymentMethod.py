@@ -1,0 +1,4 @@
+
+
+class PaymentMethod():
+	pass
