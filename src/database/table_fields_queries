@@ -279,5 +279,15 @@ UNLOCK TABLES;
 ALTER TABLE paymentMethod
 MODIFY COLUMN cardNumber VARCHAR(45) NOT NULL;
 
+/*Delete promoApplied from profile table*/
+
+ALTER TABLE profile
+DROP COLUMN promoApplied;
+
+/*Add promoApplied to registeredUser table*/
+
+ALTER TABLE registeredUser
+ADD COLUMN promoApplied BOOLEAN NULL;
+
 
 
