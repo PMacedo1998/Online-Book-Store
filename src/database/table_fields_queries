@@ -29,5 +29,12 @@ ADD COLUMN customerID INT NOT NULL,
 ADD COLUMN cart VARCHAR(45) NOT NULL;
 /*Can't add foreign key bc of syntax error. Need help on this.*/
 
+/*Table promotion*/
+
+CREATE TABLE promotion(promoCode INT PRIMARY KEY);
+
+ALTER TABLE promotion
+ADD COLUMN promoPrice DOUBLE NOT NULL,
+ADD COLUMN expirationDate VARCHAR(45) NOT NULL;
 
 
