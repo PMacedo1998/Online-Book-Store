@@ -10,7 +10,10 @@ ADD COLUMN email VARCHAR(45) NOT NULL,
 ADD COLUMN pswd VARCHAR(45) NOT NULL,
 ADD COLUMN shippingAddress VARCHAR(45) NULL,
 ADD COLUMN promoApplied BOOLEAN NULL;
-/*Can't add foreign key bc of syntax error. Need help on this.*/
+ADD COLUMN paymentMethodID INT,
+ADD CONSTRAINT fk_profile_paymentMethod
+    FOREIGN KEY (paymentMethodID)
+    REFERENCES paymentMethod (paymentMethodID);
 
 /*Table paymentMethod*/
 
@@ -28,8 +31,11 @@ CREATE TABLE orders(confirmationNum INT PRIMARY KEY);
 
 ALTER TABLE orders
 ADD COLUMN customerID INT NOT NULL,
-ADD COLUMN cart VARCHAR(45) NOT NULL;
-/*Can't add foreign key bc of syntax error. Need help on this.*/
+ADD COLUMN cart VARCHAR(45) NOT NULL,
+ADD COLUMN paymentMethodID INT,
+ADD CONSTRAINT fk_orders_paymentMethod
+    FOREIGN KEY (paymentMethodID)
+    REFERENCES paymentMethod (paymentMethodID);
 
 /*Table promotion*/
 
@@ -45,7 +51,10 @@ CREATE TABLE shoppingCart(shoppingCartID INT PRIMARY KEY);
 
 ALTER TABLE shoppingCart
 ADD COLUMN isbn INT NULL,
-ADD COLUMN confirmationNum INT NULL;
+ADD COLUMN confirmationNum INT,
+ADD CONSTRAINT fk_shoppingCart_orders
+    FOREIGN KEY (confirmationNum)
+    REFERENCES orders (confirmationNum);
 
 /*Table book*/
 
