@@ -1,3 +1,5 @@
+/*Assumption: database already created and in use.*/
+
 /*Table profile*/
 
 CREATE TABLE profile(id INT PRIMARY KEY);
