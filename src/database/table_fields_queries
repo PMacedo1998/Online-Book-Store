@@ -148,5 +148,131 @@ SET promoApplied = 0;
 UPDATE registeredUser
 SET status = 0;
 
+/*Lock tables - INITIATE AUTO-INCREMENTING PRIMARY KEY PHASE*/
+
+LOCK TABLES
+    orders WRITE,
+    paymentMethod WRITE,
+    profile WRITE,
+    promotion WRITE,
+    registeredUser WRITE,
+    shoppingCart WRITE,
+    systemAdministrator WRITE,
+    userType WRITE;
+
+/*Drop foreign key and modify type of foreign key var*/
+
+ALTER TABLE orders
+    DROP FOREIGN KEY fk_orders_paymentMethod,
+    MODIFY paymentMethodID SMALLINT UNSIGNED,
+    DROP FOREIGN KEY fk_orders_registeredUser,
+    MODIFY registeredUserID SMALLINT UNSIGNED,
+    DROP FOREIGN KEY fk_orders_shoppingCart,
+    MODIFY shoppingCartID SMALLINT UNSIGNED;
+    
+ALTER TABLE profile
+    DROP FOREIGN KEY fk_profile_paymentMethod,
+    MODIFY paymentMethodID SMALLINT UNSIGNED;
+
+ALTER TABLE registeredUser
+    DROP FOREIGN KEY fk_registeredUser_orders,
+    MODIFY orderConfirmationNum SMALLINT UNSIGNED,
+    DROP FOREIGN KEY fk_registeredUser_profile,
+    MODIFY profileID SMALLINT UNSIGNED,
+    DROP FOREIGN KEY fk_registeredUser_shoppingCart,
+    MODIFY shoppingCartID SMALLINT UNSIGNED,
+    DROP FOREIGN KEY fk_registeredUser_userType,
+    MODIFY userType SMALLINT UNSIGNED;
+
+ALTER TABLE shoppingCart
+    DROP FOREIGN KEY fk_shoppingCart_orders,
+    MODIFY confirmationNum SMALLINT UNSIGNED;
+
+ALTER TABLE systemAdministrator
+    DROP FOREIGN KEY fk_admin_profile,
+    MODIFY profileID SMALLINT UNSIGNED,
+    DROP FOREIGN KEY fk_admin_promotion,
+    MODIFY promoCode SMALLINT UNSIGNED,
+    DROP FOREIGN KEY fk_admin_userType,
+    MODIFY userType SMALLINT UNSIGNED;
+    
+/*Auto-increment primary key*/
+
+ALTER TABLE orders 
+    MODIFY confirmationNum SMALLINT UNSIGNED AUTO_INCREMENT;
+
+ALTER TABLE paymentMethod 
+    MODIFY paymentMethodID SMALLINT UNSIGNED AUTO_INCREMENT;
+
+ALTER TABLE profile 
+    MODIFY id SMALLINT UNSIGNED AUTO_INCREMENT;
+
+ALTER TABLE promotion 
+    MODIFY promoCode SMALLINT UNSIGNED AUTO_INCREMENT;
+
+ALTER TABLE registeredUser 
+    MODIFY accountID SMALLINT UNSIGNED AUTO_INCREMENT;
+
+ALTER TABLE shoppingCart 
+    MODIFY shoppingCartID SMALLINT UNSIGNED AUTO_INCREMENT;
+
+ALTER TABLE systemAdministrator 
+    MODIFY adminID SMALLINT UNSIGNED AUTO_INCREMENT;
+
+ALTER TABLE userType 
+    MODIFY userType SMALLINT UNSIGNED AUTO_INCREMENT;
+
+/*Recreate foreign key*/
+
+ALTER TABLE profile
+ADD CONSTRAINT fk_profile_paymentMethod
+    FOREIGN KEY (paymentMethodID)
+    REFERENCES paymentMethod (paymentMethodID);
+    
+ALTER TABLE orders
+ADD CONSTRAINT fk_orders_paymentMethod
+    FOREIGN KEY (paymentMethodID)
+    REFERENCES paymentMethod (paymentMethodID),
+ADD CONSTRAINT fk_orders_registeredUser
+    FOREIGN KEY (registeredUserID)
+    REFERENCES registeredUser (accountID),
+ADD CONSTRAINT fk_orders_shoppingCart
+    FOREIGN KEY (shoppingCartID)
+    REFERENCES shoppingCart (shoppingCartID);
+
+ALTER TABLE shoppingCart
+ADD CONSTRAINT fk_shoppingCart_orders
+    FOREIGN KEY (confirmationNum)
+    REFERENCES orders (confirmationNum);
+    
+ALTER TABLE registeredUser
+ADD CONSTRAINT fk_registeredUser_profile
+    FOREIGN KEY (profileID)
+    REFERENCES profile (id),
+ADD CONSTRAINT fk_registeredUser_shoppingCart
+    FOREIGN KEY (shoppingCartID)
+    REFERENCES shoppingCart (shoppingCartID),
+ADD CONSTRAINT fk_registeredUser_orders
+    FOREIGN KEY (orderConfirmationNum)
+    REFERENCES orders (confirmationNum),
+ADD CONSTRAINT fk_registeredUser_userType
+    FOREIGN KEY (userType)
+    REFERENCES userType (userType);
+    
+ALTER TABLE systemAdministrator
+ADD CONSTRAINT fk_admin_profile
+    FOREIGN KEY (profileID)
+    REFERENCES profile (id),
+ADD CONSTRAINT fk_admin_promotion
+    FOREIGN KEY (promoCode)
+    REFERENCES promotion (promoCode),
+ADD CONSTRAINT fk_admin_userType
+    FOREIGN KEY (userType)
+    REFERENCES userType (userType);
+    
+/*Unlock tables - END AUTO-INCREMENTING PRIMARY KEY PHASE*/
+
+UNLOCK TABLES;
+
 
 
