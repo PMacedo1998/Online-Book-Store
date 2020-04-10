@@ -6,6 +6,7 @@ class RegisteredUser():
 	int accountID
 	Profile profile
 	ShoppingCart cart
+	bool promoStatus
 
 	def logout():
 		pass
@@ -15,23 +16,11 @@ class RegisteredUser():
 		pass
 		# TODO implement
 
-	def updatePromoStatus(promoStatus):
-		profile.updatePromoStatus(promoStatus)
-
 	def resetPassword(password):
 		profile.updatePassword(password)
 
-	def checkout():
-		pass
-		# TODO implement
-
 	def returnBook(b):
 		pass
-		# TODO implement
-
-
-	def updateCart()
-		pass 
 		# TODO implement
 
 	def getProfile():
@@ -43,3 +32,13 @@ class RegisteredUser():
 
 	def getCart():
 		return cart
+
+	def getPromoStatus():
+		return promoStatus
+
+	def updatePromoStatus(promoStatus):
+		this.promoStatus = promoStatus
+
+	def updateCart()
+		pass 
+		# TODO implement
