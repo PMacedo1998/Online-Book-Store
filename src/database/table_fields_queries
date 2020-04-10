@@ -136,8 +136,17 @@ ADD CONSTRAINT fk_admin_userType
     REFERENCES userType (userType);
     
 /*Modified type of profile:phoneNum to VARCHAR(45)*/
+
 ALTER TABLE profile
 MODIFY COLUMN phoneNum VARCHAR(45) NOT NULL;
+
+/*Set all bool vars to 0*/
+
+UPDATE profile
+SET promoApplied = 0;
+
+UPDATE registeredUser
+SET status = 0;
 
 
 
