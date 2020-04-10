@@ -73,15 +73,16 @@
 
     <div class="container">
         <h2>User Log In</h2>
-        <p>Need an account? <a>Create one here!</a></p>
-      <form>
+        <p>Need an account? <a href= "{{url_for('register')}}">Create one here!</a></p>
+  
+      <form action="." method = "POST">
           <div class="form-group">
             <label for="email">User ID / Email address:</label>
-            <input type="email" class="form-control" placeholder="Enter User ID or email address" id="email">
+            <input type="email" class="form-control" placeholder="Enter User ID or email address" name="email">
           </div>
           <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" placeholder="Enter password" id="pwd">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" placeholder="Enter password" name="password">
           </div>
           <button type="submit" class="btn btn-primary">Log In</button>
       </form>
