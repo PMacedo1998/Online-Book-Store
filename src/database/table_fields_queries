@@ -1,0 +1,23 @@
+/*Table profile*/
+
+CREATE TABLE profile(id INT PRIMARY KEY);
+ALTER TABLE profile
+ADD COLUMN firstName VARCHAR(45) NOT NULL,
+ADD COLUMN lastName VARCHAR(45) NOT NULL,
+ADD COLUMN phoneNum INT NOT NULL,
+ADD COLUMN email VARCHAR(45) NOT NULL,
+ADD COLUMN pswd VARCHAR(45) NOT NULL,
+ADD COLUMN shippingAddress VARCHAR(45) NULL,
+ADD COLUMN promoApplied BOOLEAN NULL;
+/*Can't add foreign key bc of syntax error. Need help on this.*/
+
+/*Table paymentMethod*/
+
+CREATE TABLE paymentMethod(paymentMethodID INT PRIMARY KEY);
+ALTER TABLE paymentMethod
+ADD COLUMN type VARCHAR(45) NOT NULL,
+ADD COLUMN cardNumber INT NOT NULL,
+ADD COLUMN expirationDate INT NOT NULL,
+ADD COLUMN name VARCHAR(45) NOT NULL;
+
+
