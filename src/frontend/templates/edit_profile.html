@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Profile</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </head>
+  <style>
+    p {
+      display: inline
+    }
+  </style>
+
+<body>
+
+    <div class="topBar">
+
+        <ul style="list-style-type: none;">
+        <li class="nav-item dropdown">
+            <a class="nav-lifnk dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Edit Payment Info</a>
+              <a class="dropdown-item" href="#">Edit Information</a>
+              <a class="dropdown-item" href="#">Order History</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Logout</a>
+            </div>
+          </li>
+       </ul>
+    </div>
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-2">Promotion/News</h1>
+        <p class="lead">This is where we can advertise promos and stuff</p>
+      </div>
+          <hr class = "my-4">
+          <div class="input-group mt-3 mb-3">
+            <div class="input-group-prepend">
+              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+                Apply Filter
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Subject</a>
+                <a class="dropdown-item" href="#">Title</a>
+                <a class="dropdown-item" href="#">Author</a>
+                <a class="dropdown-item" href="#">ISBN</a>
+                <a class="dropdown-item" href="#">None</a>
+              </div>
+            </div>
+            <input type="text" class="form-control" placeholder="Enter keyword...">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+            </div>
+          </div>
+
+          <hr class = "my-4">
+          <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Manage Orders</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h2>User Profile</h2>
+        <br>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#person">Personal Details</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#address">Address Details</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#payment">Payment Details</a>
+          </li>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#promo">Promotion Preferences</a>
+        </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+          <!-- person-->
+          <div id="person" class="container tab-pane active"><br>
+            <div class="container">
+              <h3>Personal Details</h3>
+                <form><table class="table"><tbody>
+                    <tr>
+                      <td>
+                        <div class= "row">
+                          <div class="col">
+                          <div class="form-group">
+                              <h6>First Name:</h6><p>John</p>
+                              <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#fNameCollapse">Edit</button>
+                              <div id="fNameCollapse" class="collapse">
+                                  <input class="form-control" id="fName" placeholder="Enter new first name" name="fName">
+                              </div>
+                        </div>
+                      </div>
+                        <div class="col">
+                        <div class="form-group">
+                          <h6>Last Name:</h6><p>Doe</p>
+                          <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#lNameCollapse">Edit</button>
+                          <div id="lNameCollapse" class="collapse">
+                              <input class="form-control" id="lName" placeholder="Enter new last name" name="lName">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                    </tr>
+                  <tr>
+                    <td>
+                  <div class="form-group">
+                        <h6>Email:</h6> <p>john@email.com</p>
+                        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#emailCollapse">Edit</button>
+                        <div id="emailCollapse" class="collapse">
+                            <input type="email" class="form-control" id="email" placeholder="Enter new email" name="email">
+                        </div>
+                    </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                    <div class="form-group">
+                        <h6>Password:</h6><p>*******</p>
+                        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#passwordCollapse">Edit</button>
+                        <div id="passwordCollapse" class="collapse">
+                            <input type="password" class="form-control" id="pwd" placeholder="Enter new password" name="pswd">
+                        </div>
+                    </div>
+                    </td>
+                    </tr>
+                    <tr><td>
+                  <div class="form-group">
+                    <h6>Phone Number:</h6><p>(123) 456-7890</p>
+                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#phoneCollapse">Edit</button>
+                    <div id="phoneCollapse" class="collapse">
+                        <input class="form-control" id="phone" placeholder="Enter new phone number" name="phone">
+                    </div>
+                  </div>
+                  </td>
+                  </tr>
+                  </tbody>
+                  </table>
+
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+              </div>
+          </div>
+
+          <!--Address-->
+          <div id="address" class="container tab-pane fade"><br>
+            <div class="container">
+              <h3>Address Details</h3>
+              <form><table class="table"><tbody>
+                  <tr>
+                    <td>
+                <div class="form-group">
+                  <h6>Address Line 1:</h6><p>123 example st</p>
+                  <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#add1Collapse">Edit</button>
+                  <div id="add1Collapse" class="collapse">
+                      <input class="form-control" id="add1" placeholder="Enter new address" name="add1">
+                  </div>
+                </div>
+                </td>
+                  </tr>
+                  <tr>
+                    <td>
+                <div class="form-group">
+                  <h6>Address Line 2 (optional):</h6><p>apt 117</p>
+                  <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#add2Collapse">Edit</button>
+                  <div id="add2Collapse" class="collapse">
+                      <input class="form-control" id="add2" placeholder="Enter new address" name="add2">
+                  </div>
+                </div>
+                </td>
+                  </tr>
+                </tr>
+                <tr>
+                  <td>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <h6>Zip Code:</h6><p>10098</p>
+                      <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#zipCollapse">Edit</button>
+                      <div id="zipCollapse" class="collapse">
+                          <input class="form-control" id="zip" placeholder="Enter new zip code" name="zip">
+                      </div>
+                    </div>
+                      </div>
+                  <div class="col">
+              <div class="form-group">
+                <h6>City:</h6><p>Los Angeles</p>
+                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cityCollapse">Edit</button>
+                <div id="cityCollapse" class="collapse">
+                    <input class="form-control" id="city" placeholder="Enter new city" name="city">
+                </div>
+              </div>
+                  </div>
+                  <div class="col">
+                <div class="form-group">
+                  <h6>State:</h6>
+                  <select class="form-control" id="state" name="state">
+                    <option>AL</option>
+                    <option>AK</option>
+                    <option>AS</option>
+                    <option>AZ</option>
+                    <option>AR</option>
+                    <option>CA</option>
+                    <option>CO</option>
+                    <option>CT</option>
+                    <option>DE</option> <!--I'm already regretting this-->
+                    <option>DC</option>
+                    <option>FL</option>
+                    <option>GA</option>
+                    <option>GU</option>
+                    <option>HI</option>
+                    <option>ID</option>
+                    <option>IL</option>
+                    <option>IN</option>
+                    <option>IA</option>
+                    <option>KS</option>
+                    <option>KY</option>
+                    <option>LA</option>
+                    <option>ME</option>
+                    <option>MD</option>
+                    <option>MH</option>
+                    <option>MA</option>
+                    <option>MI</option>
+                    <option>FM</option>
+                    <option>MN</option>
+                    <option>MS</option>
+                    <option>MO</option>
+                    <option>MT</option>
+                    <option>NE</option>
+                    <option>NV</option>
+                    <option>NH</option>
+                    <option>NJ</option>
+                    <option>NM</option>
+                    <option>NY</option>
+                    <option>NC</option>
+                    <option>ND</option>
+                    <option>MP</option>
+                    <option>OH</option>
+                    <option>OK</option>
+                    <option>OR</option>
+                    <option>PW</option>
+                    <option>PA</option>
+                    <option>PR</option>
+                    <option>RI</option>
+                    <option>SC</option>
+                    <option>SD</option>
+                    <option>TN</option>
+                    <option>TX</option>
+                    <option>UT</option>
+                    <option>VT</option>
+                    <option>VA</option>
+                    <option>VI</option>
+                    <option>WA</option>
+                    <option>WV</option>
+                    <option>WI</option>
+                    <option>WY</option>
+                  </select>
+
+                </div>
+                </div>
+                </div>
+                </td>
+                  </tr>
+                </tbody>
+                </table>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+              </form>
+            </div>
+          </div>
+
+          <!--Payment-->
+          <div id="payment" class="container tab-pane fade"><br>
+            <div class="container">
+              <h3>Payment Details</h3>
+              <form><table class="table"><tbody>
+                  <tr>
+                    <td>
+                  <div class="form-group">
+                      <h6>Credit Card #:</h6><p>**** **** **** 6789</p>
+                      <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cardNumberCollapse">Edit</button>
+                      <div id="cardNumberCollapse" class="collapse">
+                          <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="ccn">
+                      </div>
+                </div>
+                  </td>
+
+                    <td>
+                <div class="form-group">
+                  <h6>CCV:</h6><p>***</p>
+                  <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#ccvCollapse">Edit</button>
+                  <div id="ccvCollapse" class="collapse">
+                      <input class="form-control" id="ccv" placeholder="Enter new CCV" name="ccv">
+                  </div>
+                </div>
+                </td>
+                  <td>
+                <div class="form-group">
+                  <h6>Expiration Date:</h6><p>MM/YY</p>
+                  <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#expCollapse">Edit</button>
+                  <div id="expCollapse" class="collapse">
+                      <input class="form-control" id="exp" placeholder="MM/YY" name="exp">
+                  </div>
+                </div>
+                </td>
+                </tr>
+                </tbody>
+                </table>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+              </form>
+            </div>
+          </div>
+
+          <!--Promo-->
+          <div id="promo" class="container tab-pane fade"><br>
+            <form>
+            <div class="form-group form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="subscribe"> Send me promotional emails
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+          </form>
+          </div>
+        </div>
+      </div>
+<br>
+</body>
+</html>
