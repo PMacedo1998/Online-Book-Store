@@ -27,7 +27,7 @@ def register():
         con.commit()
         cursor.close()
         return 'success'
-    return render_template('registration.html')
+    return render_template('edit_profile.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
