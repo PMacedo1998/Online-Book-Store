@@ -30,12 +30,18 @@ ADD COLUMN name VARCHAR(45) NOT NULL;
 CREATE TABLE orders(confirmationNum INT PRIMARY KEY);
 
 ALTER TABLE orders
-ADD COLUMN customerID INT NOT NULL,
-ADD COLUMN cart VARCHAR(45) NOT NULL,
 ADD COLUMN paymentMethodID INT,
+ADD COLUMN registeredUserID INT,
+ADD COLUMN shoppingCartID INT,
 ADD CONSTRAINT fk_orders_paymentMethod
     FOREIGN KEY (paymentMethodID)
-    REFERENCES paymentMethod (paymentMethodID);
+    REFERENCES paymentMethod (paymentMethodID),
+ADD CONSTRAINT fk_orders_registeredUser
+    FOREIGN KEY (registeredUserID)
+    REFERENCES registeredUser (accountID),
+ADD CONSTRAINT fk_orders_shoppingCart
+    FOREIGN KEY (shoppingCartID)
+    REFERENCES shoppingCart (shoppingCartID);
 
 /*Table promotion*/
 
