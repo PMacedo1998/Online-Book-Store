@@ -274,5 +274,10 @@ ADD CONSTRAINT fk_admin_userType
 
 UNLOCK TABLES;
 
+/*Modified type of paymentMethod:cardNumber to VARCHAR(45)*/
+
+ALTER TABLE paymentMethod
+MODIFY COLUMN cardNumber VARCHAR(45) NOT NULL;
+
 
 
