@@ -97,6 +97,7 @@ ADD COLUMN status BOOLEAN NOT NULL,
 ADD COLUMN shoppingCartID INT,
 ADD COLUMN orderConfirmationNum INT,
 ADD COLUMN userType INT,
+ADD COLUMN verificationCode VARCHAR(45) NOT NULL,
 ADD CONSTRAINT fk_registeredUser_profile
     FOREIGN KEY (profileID)
     REFERENCES profile (id),
