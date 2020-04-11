@@ -33,7 +33,7 @@
         //db connection
         $servername = "localhost";
          $user= 'root';
-         $pass = "pw";
+         $pass = "";
          $dbname = 'bookstore';
         if ($conn = new mysqli($servername, $user, $pass, $dbname))
           echo "<p>connected</p>";
@@ -90,7 +90,7 @@
          //retrieve code from database
          $servername = "localhost";
          $user= 'root';
-         $pass = "pw";
+         $pass = "";
          $dbname = 'bookstore';
          $conn = new mysqli($servername, $user, $pass, $dbname);
          $sql = "SELECT verificationCode FROM profile WHERE email='".$address."'";
