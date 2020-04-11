@@ -31,9 +31,9 @@
         $title = "Bookstore verification code";
 
         //db connection
-        $servername = "192.168.1.79";
-         $user= 'foo';
-         $pass = "team";
+        $servername = "localhost";
+         $user= 'root';
+         $pass = "pw";
          $dbname = 'bookstore';
         if ($conn = new mysqli($servername, $user, $pass, $dbname))
           echo "<p>connected</p>";
@@ -88,9 +88,9 @@
          $inputCode = strval($_POST["code"]);
          $dbCode = 'aaaaa'; //temp code; never valid
          //retrieve code from database
-         $servername = "192.168.1.79";
-         $user= 'foo';
-         $pass = "team";
+         $servername = "localhost";
+         $user= 'root';
+         $pass = "pw";
          $dbname = 'bookstore';
          $conn = new mysqli($servername, $user, $pass, $dbname);
          $sql = "SELECT verificationCode FROM profile WHERE email='".$address."'";
