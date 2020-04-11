@@ -309,7 +309,7 @@ DROP COLUMN promoApplied;
 ALTER TABLE registeredUser
 ADD COLUMN promoApplied BOOLEAN NULL;
 
-/*Add address table*/
+/*Add address table and modify profile table*/
 
 CREATE TABLE address(
     address1 VARCHAR(45),
@@ -321,6 +321,13 @@ CREATE TABLE address(
 
 ALTER TABLE address
 ADD COLUMN addressID INT UNSIGNED PRIMARY KEY AUTO_INCREMENT;
+
+ALTER TABLE profile
+ADD COLUMN address1 VARCHAR(45) NULL,
+ADD COLUMN address2 VARCHAR(45) NULL,
+ADD COLUMN zipcode VARCHAR(45) NULL,
+ADD COLUMN city VARCHAR(45) NULL,
+ADD COLUMN state VARCHAR(45) NULL;
 
 
 
