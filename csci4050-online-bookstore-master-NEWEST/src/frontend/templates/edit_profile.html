@@ -110,7 +110,8 @@
                         <div class= "row">
                           <div class="col">
                           <div class="form-group">
-                              <h6>First Name:</h6><p>John</p>
+                            {{user.firstName}}
+                              <h6>First Name:</h6><p>{{user.firstName}}</p>
                               <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#fNameCollapse">Edit</button>
                               <div id="fNameCollapse" class="collapse">
                                   <input class="form-control" id="fName" placeholder="Enter new first name" name="fName">
@@ -119,7 +120,7 @@
                       </div>
                         <div class="col">
                         <div class="form-group">
-                          <h6>Last Name:</h6><p>Doe</p>
+                          <h6>Last Name:</h6><p>{{user.lastName}}</p>
                           <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#lNameCollapse">Edit</button>
                           <div id="lNameCollapse" class="collapse">
                               <input class="form-control" id="lName" placeholder="Enter new last name" name="lName">
@@ -131,9 +132,10 @@
                     </tr>
                   <tr>
                     <td>
-                
-                        <h6>Email:</h6> <p>john@email.com</p>
+                  <div class="form-group">
+                        <h6>Email:</h6> <p>{{user.email}}</p>
 
+                    </div>
                     </td>
                   </tr>
                   <tr>

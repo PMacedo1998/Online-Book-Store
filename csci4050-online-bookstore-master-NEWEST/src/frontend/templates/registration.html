@@ -75,16 +75,16 @@
     <div class="container">
       <h2>User Registration</h2>
       <p>Already have an account? <a>Log in</a></p>
-    <form class="was-validated">
+    <form action = "" class="was-validated" method = "POST">
         <div class="form-group">
           <label for="email">Email address:</label>
-          <input type="email" class="form-control" placeholder="Enter email address" id="email" required>
+          <input type="text" class="form-control" placeholder="Enter email address" name="email" required>
           <div class="valid-feedback">Valid</div>
           <div class="invalid-feedback">Required</div>
         </div>
         <div class="form-group">
           <label for="pwd">Password:</label>
-          <input type="password" class="form-control" placeholder="Enter password" id="pwd" required>
+          <input type="text" class="form-control" placeholder="Enter password" name = "password" required>
           <div class="valid-feedback">Valid</div>
           <div class="invalid-feedback">Required</div>
         </div>
@@ -92,7 +92,7 @@
             <div class="col">
                 <div class="form-group">
                     <label>First Name:</label>
-                    <input class="form-control" id="fName" placeholder="Enter first name" name="fName" required>
+                    <input class="form-control" placeholder="Enter first name" type = "text" name="firstName" required>
                     <div class="valid-feedback">Valid</div>
                     <div class="invalid-feedback">Required</div>
                 </div>
@@ -100,13 +100,21 @@
             <div class="col">
                 <div class="form-group">
                     <label>Last Name:</label>
-                    <input class="form-control" id="lName" placeholder="Enter last name" name="lName" required>
+                    <input class="form-control" placeholder="Enter last name" type = "text" name="lastName" required>
                     <div class="valid-feedback">Valid</div>
                     <div class="invalid-feedback">Required</div>
                 </div>
             </div>
+            <div class="col">
+              <div class="form-group">
+                  <label>Phone Number:</label>
+                  <input class="form-control" placeholder="xxxxxxxxxx" type = "text" name="phoneNumber" required>
+                  <div class="valid-feedback">Valid</div>
+                  <div class="invalid-feedback">Required</div>
+              </div>
+          </div>
         </div>
-
+      
         <!--Optional Fields-->
         <div id="accordion">
           <br>
@@ -224,23 +232,34 @@
             </div>
             <div id="collapseTwo" class="collapse" data-parent="#accordion">
               <div class="card-body">
-                <div class="row">
+                <div class = "row">
                   <div class="col">
                     <div class="form-group">
-                      <label>Credit Card #:</label>
-                      <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="ccn">
+                      <label>Name on Card</label>
+                      <input class="form-control" id="name" placeholder="***" name="name">
                     </div>
                   </div>
                   <div class="col">
                     <div class="form-group">
-                      <label>CCV</label>
-                      <input class="form-control" id="ccv" placeholder="***" name="ccv">
+                      <label>Type</label>
+                      <select class="form-control" id="cardType" name="cardType">
+                        <option>Credit</option>
+                        <option>Debit</option>
+                        </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-group">
+                      <label>Credit Card #:</label>
+                      <input class="form-control" id="cardNumber" placeholder="**** **** **** ****" name="cardNumber">
                     </div>
                   </div>
                   <div class="col">
                     <div class="form-group">
                       <label>Expiration Date</label>
-                      <input class="form-control" id="exp" placeholder="MM/YY" name="exp">
+                      <input class="form-control" id="expirationDate" placeholder="MM/YY" name="expirationDate">
                     </div>
                   </div>
                 </div>
@@ -254,11 +273,11 @@
           <br>
         <div class="form-group form-check">
           <label class="form-check-label">
-            <input class="form-check-input" type="checkbox"> Sign me up for promotional emails with exclusive offers!
+            <input class="form-check-input" type="checkbox" name="promoApplied" value = "1"> Sign me up for promotional emails with exclusive offers!
           </label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+    </form>
     </div>
 <br>
 </body>

@@ -1,0 +1,54 @@
+/*we can use this css style sheet for all style necesisties just include it in header of your files!*/
+/*TOP NAV BAR MAIN PAGE*/
+
+a{
+	color: #196f3d !important;
+}
+
+a:hover {
+    border-color:#196f3d !important;
+    background-color: #196F3D  !important;
+    color: white !important;
+}
+
+body{
+    background-color: #FOF3F4 !important;
+}
+
+.cardHeader{
+    color: #196f3d !important;
+
+}
+button{
+    color: #196f3d !important;
+    background-color: white !important;
+    border-color: white;
+}
+
+.topBar > ul li a{ 
+	text-align:left;
+	 padding: 0 3em 0 0;
+	 margin:0 0 0 0;
+}
+
+img {
+    height: 100px;
+    width: 50px;
+}
+
+.searchImg {
+    height: 160px !important;
+    width: 100px;
+}
+
+.bookDetailsImg {
+    height: 370px;
+    width: 240px;
+}
+
+.cartButton {
+    background-color: #196f3d !important;
+    color: white !important;
+}
+/*END OF NAV BAR*/
+
