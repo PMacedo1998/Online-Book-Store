@@ -289,5 +289,15 @@ DROP COLUMN promoApplied;
 ALTER TABLE registeredUser
 ADD COLUMN promoApplied BOOLEAN NULL;
 
+/*Add address table*/
+
+CREATE TABLE address(
+    address1 VARCHAR(45),
+    address2 VARCHAR(45),
+    zipcode VARCHAR(45),
+    city VARCHAR(45),
+    state VARCHAR(45)
+);
+
 
 
