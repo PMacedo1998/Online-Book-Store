@@ -4,8 +4,8 @@ from flaskext.mysql import MySQL
 app = Flask(__name__)
 
 app.config['MYSQL_DATABASE_USER'] = "root"
-app.config['MYSQL_DATABASE_PASSWORD'] = "Clear1998"
-app.config['MYSQL_DATABASE_DB'] = "bookstore"
+app.config['MYSQL_DATABASE_PASSWORD'] = "whatWhat11"
+app.config['MYSQL_DATABASE_DB'] = "csci4050_bookstore"
 app.config['MYSQL__DATABASE_HOST'] = "localhost"
 mysql = MySQL(app)
 
@@ -35,7 +35,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
         phoneNumber = request.form['phoneNumber']
-    
+
 
         #get payment info
         name = request.form['name']
@@ -44,10 +44,13 @@ def register():
         ccv = request.form['ccv']
         expirationDate = request.form['expirationDate']
 
+        #
+        status=0
+        verificationcode=""
         #store into dB
-        cursor.execute("INSERT INTO profile(firstName, lastName, email, pswd, phoneNum, shippingAddress) VALUES (%s,%s,%s,%s,%s,%s)", (firstName, lastName, email, password, phoneNumber, shipAdd))
+        cursor.execute("INSERT INTO profile(firstName, lastName, email, pswd, phoneNum) VALUES (%s,%s,%s,%s,%s)", (firstName, lastName, email, password, phoneNumber))
         cursor.execute("INSERT INTO paymentMethod(name, type, cardNumber, expirationDate, ccv) VALUES (%s,%s,%s,%s,%s)", (name, cardType, cardNumber, expirationDate, ccv))
-
+        cursor.execute("INSERT INTO registeredUser(status,verificationCode) VALUES (0,"")")
 
 
         #get payment info
@@ -56,7 +59,7 @@ def register():
         cardNumber = request.form['cardNumber']
         ccv = request.form['ccv']
         expirationDate = request.form['expirationDate']
-
+        shippingAdd=""
         #store into dB
         cursor.execute("INSERT INTO profile(firstName, lastName, email, pswd, phoneNum, shippingAddress) VALUES (%s,%s,%s,%s,%s,%s)", (firstName, lastName, email, password, phoneNumber, shipAdd))
         cursor.execute("INSERT INTO paymentMethod(name, type, cardNumber, expirationDate, ccv) VALUES (%s,%s,%s,%s,%s)", (name, cardType, cardNumber, expirationDate, ccv))
@@ -91,5 +94,3 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
-
-
