@@ -11,11 +11,8 @@ ADD COLUMN phoneNum INT NOT NULL,
 ADD COLUMN email VARCHAR(45) NOT NULL,
 ADD COLUMN pswd VARCHAR(45) NOT NULL,
 ADD COLUMN shippingAddress VARCHAR(45) NULL,
-ADD COLUMN promoApplied BOOLEAN NULL;
-ADD COLUMN paymentMethodID INT,
-ADD CONSTRAINT fk_profile_paymentMethod
-    FOREIGN KEY (paymentMethodID)
-    REFERENCES paymentMethod (paymentMethodID);
+ADD COLUMN promoApplied BOOLEAN NULL
+ADD COLUMN paymentMethodID INT;
 
 /*Table paymentMethod*/
 
@@ -34,16 +31,7 @@ CREATE TABLE orders(confirmationNum INT PRIMARY KEY);
 ALTER TABLE orders
 ADD COLUMN paymentMethodID INT,
 ADD COLUMN registeredUserID INT,
-ADD COLUMN shoppingCartID INT,
-ADD CONSTRAINT fk_orders_paymentMethod
-    FOREIGN KEY (paymentMethodID)
-    REFERENCES paymentMethod (paymentMethodID),
-ADD CONSTRAINT fk_orders_registeredUser
-    FOREIGN KEY (registeredUserID)
-    REFERENCES registeredUser (accountID),
-ADD CONSTRAINT fk_orders_shoppingCart
-    FOREIGN KEY (shoppingCartID)
-    REFERENCES shoppingCart (shoppingCartID);
+ADD COLUMN shoppingCartID INT;
 
 /*Table promotion*/
 
@@ -59,13 +47,7 @@ CREATE TABLE shoppingCart(shoppingCartID INT PRIMARY KEY);
 
 ALTER TABLE shoppingCart
 ADD COLUMN confirmationNum INT,
-ADD COLUMN isbn INT,
-ADD CONSTRAINT fk_shoppingCart_orders
-    FOREIGN KEY (confirmationNum)
-    REFERENCES orders (confirmationNum),
-ADD CONSTRAINT fk_shoppingCart_book
-    FOREIGN KEY (isbn)
-    REFERENCES book (isbn);
+ADD COLUMN isbn INT;
 
 /*Table book*/
 
@@ -99,7 +81,51 @@ ADD COLUMN status BOOLEAN NOT NULL,
 ADD COLUMN shoppingCartID INT,
 ADD COLUMN orderConfirmationNum INT,
 ADD COLUMN userType INT,
-ADD COLUMN verificationCode VARCHAR(45) NOT NULL,
+ADD COLUMN verificationCode VARCHAR(45) NOT NULL;
+    
+/*Table systemAdministrator*/
+
+CREATE TABLE systemAdministrator(adminID INT PRIMARY KEY);
+
+ALTER TABLE systemAdministrator
+ADD COLUMN profileID INT,
+ADD COLUMN promoCode INT,
+ADD COLUMN isbn INT,
+ADD COLUMN userType INT;
+   
+/*Add foreign keys for profile*/
+
+ALTER TABLE profile   
+ADD CONSTRAINT fk_profile_paymentMethod
+    FOREIGN KEY (paymentMethodID)
+    REFERENCES paymentMethod (paymentMethodID);
+    
+/*Add foreign keys for orders*/
+
+ALTER TABLE orders
+ADD CONSTRAINT fk_orders_paymentMethod
+    FOREIGN KEY (paymentMethodID)
+    REFERENCES paymentMethod (paymentMethodID),
+ADD CONSTRAINT fk_orders_registeredUser
+    FOREIGN KEY (registeredUserID)
+    REFERENCES registeredUser (accountID),
+ADD CONSTRAINT fk_orders_shoppingCart
+    FOREIGN KEY (shoppingCartID)
+    REFERENCES shoppingCart (shoppingCartID);
+    
+/*Add foreign keys for shoppingCart*/
+
+ALTER TABLE shoppingCart
+ADD CONSTRAINT fk_shoppingCart_orders
+    FOREIGN KEY (confirmationNum)
+    REFERENCES orders (confirmationNum),
+ADD CONSTRAINT fk_shoppingCart_book
+    FOREIGN KEY (isbn)
+    REFERENCES book (isbn);
+    
+/*Add foreign keys for registeredUser*/
+
+ALTER TABLE registeredUser
 ADD CONSTRAINT fk_registeredUser_profile
     FOREIGN KEY (profileID)
     REFERENCES profile (id),
@@ -113,15 +139,9 @@ ADD CONSTRAINT fk_registeredUser_userType
     FOREIGN KEY (userType)
     REFERENCES userType (userType);
     
-/*Table systemAdministrator*/
-
-CREATE TABLE systemAdministrator(adminID INT PRIMARY KEY);
+/*Add foreign keys for systemAdministrator*/
 
 ALTER TABLE systemAdministrator
-ADD COLUMN profileID INT,
-ADD COLUMN promoCode INT,
-ADD COLUMN isbn INT,
-ADD COLUMN userType INT,
 ADD CONSTRAINT fk_admin_profile
     FOREIGN KEY (profileID)
     REFERENCES profile (id),
@@ -298,6 +318,9 @@ CREATE TABLE address(
     city VARCHAR(45),
     state VARCHAR(45)
 );
+
+ALTER TABLE address
+ADD COLUMN addressID INT UNSIGNED PRIMARY KEY AUTO_INCREMENT;
 
 
 
