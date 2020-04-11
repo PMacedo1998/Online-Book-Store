@@ -23,12 +23,25 @@
       $msg = $greetingText.$code;
       
       
-      // send email
       if (!empty($_POST["email"])) {
+        //fields
         $address = strval($_POST["email"]);
-        $name = "Tyler Rosen";
+        $name = "book store";
         $sender = "tylerrosen97@gmail.com";
         $title = "Password reset code";
+
+        //db connection
+        $servername = "192.168.1.79";
+         $user= 'foo';
+         $pass = "team";
+         $dbname = 'bookstore';
+        if ($conn = new mysqli($servername, $user, $pass, $dbname))
+          echo "<p>connected</p>";
+        else
+          echo "<p>could not connect</p>";
+        $sql = "UPDATE profile SET verificationCode = '".$code."' WHERE email='".$address."'";
+        $conn->query($sql);
+        $conn->close();
         $ch = curl_init();
         $headers = array(
           "Authorization: Bearer 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", 'Content-Type: application/json'
@@ -69,21 +82,39 @@
       else {  
         
       }
-      if (!empty($_POST["code"])) {
-         $inputCode = strval($_POST["code"]);
-         $dbCode = 'aaaaa';
-         if ($inputCode == $dbCode) {
-           echo '<script type="text/javascript">';
-           echo ' alert("Email check complete")'; 
-           echo '</script>';
-           
+      if (!empty($_POST["code"])) { //code verification against user input
+        $inputCode = strval($_POST["code"]);
+        $dbCode = 'aaaaa'; //temp code; never valid
+        //retrieve code from database
+        $servername = "192.168.1.79";
+        $user= 'foo';
+        $pass = "team";
+        $dbname = 'bookstore';
+        $conn = new mysqli($servername, $user, $pass, $dbname);
+        $sql = "SELECT verificationCode FROM profile WHERE email='".$address."'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+         while($row = $result->fetch_assoc()) {
+             $dbCode= $row["verificationCode"];
          }
-         else {
-           echo '<script type="text/javascript">';
-           echo ' alert("Entered code was incorrect.")'; 
-           echo '</script>';
-         }
-       }
+        }
+        
+        
+       
+        if ($inputCode == $dbCode) {
+         // $csql = "UPDATE profile p JOIN RegisteredUser"
+          echo '<script type="text/javascript">';
+          echo ' alert("Account successfully identified")'; 
+          echo '</script>';
+          
+        }
+        else {
+          echo '<script type="text/javascript">';
+          echo ' alert("Entered code was incorrect.")'; 
+          echo '</script>';
+        }
+        $conn->close();
+      }
       
     ?>
      
