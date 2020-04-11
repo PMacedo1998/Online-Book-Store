@@ -10,6 +10,7 @@ class Profile():
 	string shippingAddress = None
 	PaymentMethod paymentMethod = None
 	UserType userType
+	string verificationCode
 
 	def __init__(firstName, lastName, phoneNum, email, password, shippingAddress, paymentMethod, userType):
 		this.firstName = firstName
@@ -41,6 +42,9 @@ class Profile():
 
 	def getType():
 		return this.userType
+
+	def getVerificationCode():
+		return verificationCode
 
 	def updateName(firstName, lastName):
 		this.firstName = firstName
