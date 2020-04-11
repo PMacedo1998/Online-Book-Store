@@ -108,7 +108,7 @@
            $sql = "UPDATE profile SET verificationCode = 'active' WHERE email='".$address."'";
            $conn->query($sql);
            echo '<script type="text/javascript">';
-           echo ' alert("Account successfully verified")'; 
+           echo " window.location.replace('finalVerification.html');"; 
            echo '</script>';
            
          }
