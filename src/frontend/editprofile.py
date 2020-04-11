@@ -4,7 +4,7 @@ from flaskext.mysql import MySQL
 app = Flask(__name__)
 
 app.config['MYSQL_DATABASE_USER'] = "root"
-app.config['MYSQL_DATABASE_PASSWORD'] = ""
+app.config['MYSQL_DATABASE_PASSWORD'] = "whatWhat11"
 app.config['MYSQL_DATABASE_DB'] = "csci4050_bookstore"
 app.config['MYSQL__DATABASE_HOST'] = "localhost"
 mysql = MySQL(app)
@@ -53,18 +53,9 @@ def updateinfo():
         password = request.form['password']
         phoneNumber = request.form['phoneNumber']
 
-        #edit address details
-        address1 = request.form['address1']
-        address2= request.form['address2']
-        zipcode = request.form['zipcode']
-        city = request.form['city']
-        state = request.form['state']
 
-        #edit payment details
-        cardName = request.form['cardName']
-        cardNumber= request.form['cardNumber']
-        cardType = request.form['cardType']
-        expDate = request.form['expDate']
+
+
 
 
 
@@ -84,8 +75,7 @@ def updateinfo():
             statement="UPDATE profile SET phoneNum='{}' WHERE id=23".format(phoneNumber)
             cursor.execute(statement)
 
-        cursor.execute("INSERT INTO paymentMethod(type, cardNumber, expirationDate, name) VALUES (%s,%s,%s,%s)", (cardType, cardNumber, expDate, cardName))
-        cursor.execute("INSERT INTO address(address1, address2, zipcode, city, state) VALUES (%s,%s,%s,%s,%s)", (address1, address2, zipcode, city, state))
+    
 
         con.commit()
 
