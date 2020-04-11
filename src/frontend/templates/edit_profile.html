@@ -80,6 +80,15 @@
     <div class="container">
         <h2>User Profile</h2>
         <br>
+
+
+          {%for user1 in user %}
+          {%for user2 in user1 %}
+        <p>  {{ user2[0] }}<p>
+  {%endfor%}
+            {%endfor%}
+
+
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item">
