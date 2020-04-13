@@ -4,8 +4,8 @@ from flaskext.mysql import MySQL
 app = Flask(__name__)
 
 app.config['MYSQL_DATABASE_USER'] = "root"
-app.config['MYSQL_DATABASE_PASSWORD'] = "Clear1998"
-app.config['MYSQL_DATABASE_DB'] = "bookstore"
+app.config['MYSQL_DATABASE_PASSWORD'] = "whatWhat11"
+app.config['MYSQL_DATABASE_DB'] = "csci4050_bookstore"
 app.config['MYSQL__DATABASE_HOST'] = "localhost"
 mysql = MySQL(app)
 
@@ -39,7 +39,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
         phoneNumber = request.form['phoneNumber']
-    
+
 
         #get payment info
         name = request.form['name']
@@ -52,7 +52,7 @@ def register():
         cursor.execute("INSERT INTO paymentMethod(type, cardNumber, expirationDate, name) VALUES (%s,%s,%s,%s)", (cardType, cardNumber, expirationDate, name))
 
         con.commit()
-        
+
         return redirect(url_for('verify'))
     return render_template('registration.html')
 
@@ -75,7 +75,7 @@ def login():
         passWord = x[5]
         if inputEmail == email and inputPass ==passWord:
             isUser = True
-            
+
     if isUser == False:
         return render_template("login.html")
     return redirect(url_for('main'))
@@ -101,5 +101,3 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
-
-
