@@ -11,7 +11,8 @@ ADD COLUMN phoneNum INT NOT NULL,
 ADD COLUMN email VARCHAR(45) NOT NULL,
 ADD COLUMN pswd VARCHAR(45) NOT NULL,
 ADD COLUMN shippingAddress VARCHAR(45) NULL,
-ADD COLUMN promoApplied BOOLEAN NULL
+ADD COLUMN promoApplied BOOLEAN NULL,
+ADD COLUMN verificationCode VARCHAR(45) NOT NULL,
 ADD COLUMN paymentMethodID INT;
 
 /*Table paymentMethod*/
@@ -80,8 +81,7 @@ ADD COLUMN profileID INT,
 ADD COLUMN status BOOLEAN NOT NULL,
 ADD COLUMN shoppingCartID INT,
 ADD COLUMN orderConfirmationNum INT,
-ADD COLUMN userType INT,
-ADD COLUMN verificationCode VARCHAR(45) NOT NULL;
+ADD COLUMN userType INT;
     
 /*Table systemAdministrator*/
 
