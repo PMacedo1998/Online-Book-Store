@@ -25,22 +25,8 @@ def displayinfo():
     cursor.execute("SELECT phoneNum FROM profile WHERE id=23;")
     phoneNumber=cursor.fetchall()
 
-    cursor.execute("SELECT address1 FROM address;")
-    address1=cursor.fetchall()
 
-    cursor.execute("SELECT address2 FROM address;")
-    address2=cursor.fetchall()
-
-    cursor.execute("SELECT zipcode FROM address;")
-    zipcode=cursor.fetchall()
-
-    cursor.execute("SELECT city FROM address;")
-    city=cursor.fetchall()
-
-    cursor.execute("SELECT state FROM address;")
-    state=cursor.fetchall()
-
-    return render_template('edit_profile.html', fName=firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state)
+    return render_template('edit_profile.html', fName=firstName,lName=lastName,email=email,phoneNum=phoneNumber)
 
 #register function
 @app.route('/', methods = ['GET','POST'])
@@ -75,7 +61,7 @@ def updateinfo():
             statement="UPDATE profile SET phoneNum='{}' WHERE id=23".format(phoneNumber)
             cursor.execute(statement)
 
-    
+
 
         con.commit()
 

@@ -75,7 +75,7 @@
     <div class="container">
       <h2>User Registration</h2>
       <p>Already have an account? <a>Log in</a></p>
-    <form action = "verification.php" class="was-validated" method = "POST">
+    <form  class="was-validated" method = "POST">
         <div class="form-group">
           <label for="email">Email address:</label>
           <input type="text" class="form-control" placeholder="Enter email address" name="email" required>
@@ -237,6 +237,8 @@
                     <div class="form-group">
                       <label>Name on Card</label>
                       <input class="form-control" id="name" placeholder="***" name="name" required>
+                      <div class="valid-feedback">Valid</div>
+                      <div class="invalid-feedback">Required</div>
                     </div>
                   </div>
                   <div class="col">
@@ -254,12 +256,16 @@
                     <div class="form-group">
                       <label>Credit Card #:</label>
                       <input class="form-control" id="cardNumber" placeholder="**** **** **** ****" name="cardNumber" required>
+                      <div class="valid-feedback">Valid</div>
+                      <div class="invalid-feedback">Required</div>
                     </div>
                   </div>
                   <div class="col">
                     <div class="form-group">
                       <label>Expiration Date</label>
                       <input class="form-control" id="expirationDate" placeholder="MM/YY" name="expirationDate" required>
+                      <div class="valid-feedback">Valid</div>
+                      <div class="invalid-feedback">Required</div>
                     </div>
                   </div>
                 </div>

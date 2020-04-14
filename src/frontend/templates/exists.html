@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Verification</title>
+    <title>Confirmation</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="style.css" type="text/css" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
-<body>    
+<body>
     
     <div class="topBar">
         
@@ -71,16 +71,11 @@
         </ul>
     </div>
 
-    <!--Veridication-->
+    <!--Confirmation-->
     <div class="container">
-        <h2>Email Verification</h2>
-      <form method="POST">
-          <div class="form-group">
-            <input class="form-control" placeholder="Verification Code" id="code" name="code">
-          </div>
-          <h6>Code accepted. Click below to activate verification.</h6>
-          <button type="submit" class="btn btn-primary">Verify</button>
-      </form>
+        <h2>Error</h2>
+        <h6>An account with this email already exists</h6>
+      
 <br>
 <br>
 </body>
