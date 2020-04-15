@@ -3,10 +3,10 @@ from flaskext.mysql import MySQL
 
 app = Flask(__name__)
 
-app.config['MYSQL_DATABASE_USER'] = "root"
-app.config['MYSQL_DATABASE_PASSWORD'] = "whatWhat11"
+app.config['MYSQL_DATABASE_USER'] = "admin"
+app.config['MYSQL_DATABASE_PASSWORD'] = "password"
 app.config['MYSQL_DATABASE_DB'] = "bookstore"
-app.config['MYSQL__DATABASE_HOST'] = "localhost"
+app.config['MYSQL_DATABASE_HOST'] = "bookstore.cxp6si0l0mcz.us-east-2.rds.amazonaws.com"
 mysql = MySQL(app)
 
 con = mysql.connect()
