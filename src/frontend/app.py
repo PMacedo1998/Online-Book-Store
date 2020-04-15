@@ -10,8 +10,8 @@ from passlib.hash import sha256_crypt
 app = Flask(__name__)
 
 app.config['MYSQL_DATABASE_USER'] = "root"
-app.config['MYSQL_DATABASE_PASSWORD'] = ""
-app.config['MYSQL_DATABASE_DB'] = "bookstore"
+app.config['MYSQL_DATABASE_PASSWORD'] = "whatWhat11"
+app.config['MYSQL_DATABASE_DB'] = "csci4050_bookstore"
 app.config['MYSQL__DATABASE_HOST'] = "localhost"
 mysql = MySQL(app)
 
@@ -56,7 +56,7 @@ def forgotPassword():
                 sg = sendgrid.SendGridAPIClient(api_key='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')
                 response = sg.client.mail.send.post(request_body=mail.get())
 
-                #store code 
+                #store code
                 cursor.execute ("""
                                 UPDATE profile
                                 SET verificationCode=%s
@@ -65,9 +65,9 @@ def forgotPassword():
                 con.commit()
                 return redirect(url_for('resetPassword'))
     return render_template("forgotPassword.html")
-    
 
-                
+
+
 #route to reset forgotten password
 @app.route('/resetPassword',  methods = ['GET', 'POST'])
 def resetPassword():
@@ -81,7 +81,7 @@ def resetPassword():
         users = cursor.fetchall()
         code = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
         for x in users:
-            
+
             code=x[7]
             if inputCode == code: #account found; need to make more secure
                 #store new password
@@ -128,7 +128,7 @@ def register():
         email = request.form['email']
         password =sha256_crypt.encrypt(request.form['password'])
         phoneNumber = request.form['phoneNumber']
-    
+
         #ensure account with this email does not already exist
         existingEmail = ''
         cursor.execute('SELECT * FROM profile')
@@ -153,7 +153,7 @@ def register():
         #send verification email
         sg = sendgrid.SendGridAPIClient(api_key='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')
         response = sg.client.mail.send.post(request_body=mail.get())
-            
+
         #get payment info
         name = request.form['name']
         cardType = request.form['cardType']
@@ -164,9 +164,9 @@ def register():
         #store into dB
         cursor.execute("INSERT INTO profile(firstName, lastName, phoneNum, email, pswd, shippingAddress, verificationCode) VALUES (%s,%s,%s,%s,%s,%s,%s)", (firstName, lastName, phoneNumber, email, password, shippingAddress, code))
         cursor.execute("INSERT INTO paymentMethod(type, cardNumber, expirationDate, name) VALUES (%s,%s,%s,%s)", (cardType, cardNumber, expirationDate, name))
-    
+
         con.commit()
-        
+
         return redirect(url_for('verify'))
     return render_template('registration.html')
 
@@ -183,14 +183,14 @@ def login():
     cursor.execute('SELECT * FROM profile')
     users = cursor.fetchall()
     isUser = False
-    
+
 
     for x in users:
         email = x[4]
         passWord = x[5]
         if inputEmail == email and sha256_crypt.verify(inputPass, passWord):
             isUser = True
-            
+
     if isUser == False:
         return render_template("login.html")
     return redirect(url_for('main'))
