@@ -41,7 +41,7 @@ ADD CONSTRAINT fk_profile_paymentMethod
 ALTER TABLE paymentMethod
 ADD COLUMN type VARCHAR(45) NOT NULL,
 ADD COLUMN cardNumber VARCHAR(100) NOT NULL,
-ADD COLUMN expirationDate INT NOT NULL,
+ADD COLUMN expirationDate VARCHAR(45) NOT NULL,
 ADD COLUMN name VARCHAR(45) NOT NULL;
 
 /*Table orders*/
