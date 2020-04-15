@@ -13,27 +13,13 @@
   </head>
 <body>
 
-  
-  <div class="topBar">
-        
-    <ul style="list-style-type: none;">    
-    <li class="nav-item dropdown">
-        <a class="nav-lifnk dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Edit Payment Info</a>
-          <a class="dropdown-item" href="#">Edit Information</a>
-          <a class="dropdown-item" href="#">Order History</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Logout</a>
-        </div>
-      </li>
-   </ul> 
-</div>
+
+
 
   <div class="jumbotron">
     <div class="container">
-      <h1 class="display-2">Promotion/News</h1>
-      <p class="lead">This is where we can advertise promos and stuff</p>
+      <h1 class="display-2">Registration</h1>
+      <p class="lead">Please enter the required information.</p>
     </div>
         <hr class = "my-4">
         <div class="input-group mt-3 mb-3">
@@ -54,8 +40,8 @@
             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
           </div>
         </div>
-       
-        <hr class = "my-4"> 
+
+        <hr class = "my-4">
         <ul class="nav nav-pills nav-justified">
           <li class="nav-item">
             <a class="nav-link" href="#">Account</a>
@@ -63,12 +49,7 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Manage Orders</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li>
+
       </ul>
   </div>
 
@@ -114,7 +95,7 @@
               </div>
           </div>
         </div>
-      
+
         <!--Optional Fields-->
         <div id="accordion">
           <br>
@@ -236,9 +217,9 @@
                   <div class="col">
                     <div class="form-group">
                       <label>Name on Card</label>
-                      <input class="form-control" id="name" placeholder="***" name="name" required>
-                      <div class="valid-feedback">Valid</div>
-                      <div class="invalid-feedback">Required</div>
+                      <input class="form-control" id="name" placeholder="***" name="name">
+                      <div class="valid-feedback"></div>
+                      <div class="invalid-feedback"></div>
                     </div>
                   </div>
                   <div class="col">
@@ -255,27 +236,27 @@
                   <div class="col">
                     <div class="form-group">
                       <label>Credit Card #:</label>
-                      <input class="form-control" id="cardNumber" placeholder="**** **** **** ****" name="cardNumber" required>
-                      <div class="valid-feedback">Valid</div>
-                      <div class="invalid-feedback">Required</div>
+                      <input class="form-control" id="cardNumber" placeholder="**** **** **** ****" name="cardNumber">
+                      <div class="valid-feedback"></div>
+                      <div class="invalid-feedback"></div>
                     </div>
                   </div>
                   <div class="col">
                     <div class="form-group">
                       <label>Expiration Date</label>
-                      <input class="form-control" id="expirationDate" placeholder="MM/YY" name="expirationDate" required>
-                      <div class="valid-feedback">Valid</div>
-                      <div class="invalid-feedback">Required</div>
+                      <input class="form-control" id="expirationDate" placeholder="MM/YY" name="expirationDate">
+                      <div class="valid-feedback"></div>
+                      <div class="invalid-feedback"></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        
+
 
           </div>
-        
+
           <br>
         <div class="form-group form-check">
           <label class="form-check-label">
@@ -283,6 +264,8 @@
           </label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+
+        <a href="/" class="btn btn-secondary">Cancel</a>
     </form>
     </div>
 <br>
