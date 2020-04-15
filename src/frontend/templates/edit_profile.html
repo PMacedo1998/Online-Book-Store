@@ -86,12 +86,7 @@
           <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#person">Personal Details</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#address">Address Details</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#payment">Payment Details</a>
-          </li>
+
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#promo">Promotion Preferences</a>
@@ -102,10 +97,11 @@
         <div class="tab-content">
 
           <!-- person-->
+
           <div id="person" class="container tab-pane active"><br>
             <div class="container">
               <h3>Personal Details</h3>
-                <form action = "" class="was-validated" method = "POST"><table class="table"><tbody>
+                <form action = "." class="was-validated" method = "POST"><table class="table"><tbody>
                     <tr>
                       <td>
                         <div class= "row">
@@ -160,193 +156,184 @@
                   </div>
                   </td>
                   </tr>
+
+
                   </tbody>
                   </table>
 
-                  <button type="submit" class="btn btn-primary">Update</button>
-                </form>
-              </div>
-          </div>
+                  <!--address-->
+                  <h3 id="address" >Address Details</h3>
+                  <table class="table"><tbody>
 
-          <!--Address-->
-          <div id="address" class="container tab-pane fade"><br>
-            <div class="container">
-              <h3>Address Details</h3>
-              <form><table class="table"><tbody>
-                  <tr>
-                    <td>
-                <div class="form-group">
-                  <h6>Address Line 1:</h6><p>{{address1}}</p>
-                  <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#add1Collapse">Edit</button>
-                  <div id="add1Collapse" class="collapse">
-                      <input class="form-control" id="add1" placeholder="Enter new address" name="address1">
-                  </div>
-                </div>
-                </td>
-                  </tr>
-                  <tr>
-                    <td>
-                <div class="form-group">
-                  <h6>Address Line 2 (optional):</h6><p>{{address2}}</p>
-                  <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#add2Collapse">Edit</button>
-                  <div id="add2Collapse" class="collapse">
-                      <input class="form-control" id="add2" placeholder="Enter new address" name="address2">
-                  </div>
-                </div>
-                </td>
-                  </tr>
-                </tr>
-                <tr>
-                  <td>
-                <div class="row">
-                  <div class="col">
+                      <tr>
+                        <td>
                     <div class="form-group">
-                      <h6>Zip Code:</h6><p>{{zipcode}}</p>
-                      <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#zipCollapse">Edit</button>
-                      <div id="zipCollapse" class="collapse">
-                          <input class="form-control" id="zip" placeholder="Enter new zip code" name="zipcode">
+                      <h6>Address Line 1:</h6><p>{{address1}}</p>
+                      <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#add1Collapse">Edit</button>
+                      <div id="add1Collapse" class="collapse">
+                          <input class="form-control" id="address1" placeholder="Enter new address" name="address1">
                       </div>
                     </div>
+                    </td>
+                      </tr>
+                      <tr>
+                        <td>
+                    <div class="form-group">
+                      <h6>Address Line 2 (optional):</h6><p>{{address2}}</p>
+                      <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#add2Collapse">Edit</button>
+                      <div id="add2Collapse" class="collapse">
+                          <input class="form-control" id="add2" placeholder="Enter new address" name="address2">
                       </div>
-                  <div class="col">
-              <div class="form-group">
-                <h6>City:</h6><p>{{city}}</p>
-                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cityCollapse">Edit</button>
-                <div id="cityCollapse" class="collapse">
-                    <input class="form-control" id="city" placeholder="Enter new city" name="city">
-                </div>
-              </div>
-                  </div>
-                  <div class="col">
-                <div class="form-group">
-                  <h6>State:</h6>
-                  <select class="form-control" id="state" name="state">
-                    <option>AL</option>
-                    <option>AK</option>
-                    <option>AS</option>
-                    <option>AZ</option>
-                    <option>AR</option>
-                    <option>CA</option>
-                    <option>CO</option>
-                    <option>CT</option>
-                    <option>DE</option> <!--I'm already regretting this-->
-                    <option>DC</option>
-                    <option>FL</option>
-                    <option>GA</option>
-                    <option>GU</option>
-                    <option>HI</option>
-                    <option>ID</option>
-                    <option>IL</option>
-                    <option>IN</option>
-                    <option>IA</option>
-                    <option>KS</option>
-                    <option>KY</option>
-                    <option>LA</option>
-                    <option>ME</option>
-                    <option>MD</option>
-                    <option>MH</option>
-                    <option>MA</option>
-                    <option>MI</option>
-                    <option>FM</option>
-                    <option>MN</option>
-                    <option>MS</option>
-                    <option>MO</option>
-                    <option>MT</option>
-                    <option>NE</option>
-                    <option>NV</option>
-                    <option>NH</option>
-                    <option>NJ</option>
-                    <option>NM</option>
-                    <option>NY</option>
-                    <option>NC</option>
-                    <option>ND</option>
-                    <option>MP</option>
-                    <option>OH</option>
-                    <option>OK</option>
-                    <option>OR</option>
-                    <option>PW</option>
-                    <option>PA</option>
-                    <option>PR</option>
-                    <option>RI</option>
-                    <option>SC</option>
-                    <option>SD</option>
-                    <option>TN</option>
-                    <option>TX</option>
-                    <option>UT</option>
-                    <option>VT</option>
-                    <option>VA</option>
-                    <option>VI</option>
-                    <option>WA</option>
-                    <option>WV</option>
-                    <option>WI</option>
-                    <option>WY</option>
-                  </select>
-
-                </div>
-                </div>
-                </div>
-                </td>
-                  </tr>
-                </tbody>
-                </table>
-
-                <button type="submit" class="btn btn-primary">Update</button>
-              </form>
-            </div>
-          </div>
-
-          <!--Payment-->
-          <div id="payment" class="container tab-pane fade"><br>
-            <div class="container">
-              <h3>Payment Details</h3>
-              <form><table class="table"><tbody>
-                  <tr>
-                    <td>
-                  <div class="form-group">
-                      <h6>Name:</h6><p>{{fName}} {{lName}}</p>
-                      <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cardNameCollapse">Edit</button>
-                      <div id="cardNameCollapse" class="collapse">
-                          <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="ccn">
-                      </div>
-                </div>
-                  </td>
-                    <td>
-                  <div class="form-group">
-                      <h6>Credit Card #:</h6><p>**** **** **** 6789</p>
-                      <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cardNumberCollapse">Edit</button>
-                      <div id="cardNumberCollapse" class="collapse">
-                          <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="ccn">
-                      </div>
-                </div>
-                  </td>
-                  <td>
-                <div class="form-group">
-                    <h6>Type:</h6><p>credit</p>
-                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cardTypeCollapse">Edit</button>
-                    <div id="cardTypeCollapse" class="collapse">
-                        <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="ccn">
                     </div>
-              </div>
-                </td>
-
-
-                  <td>
-                <div class="form-group">
-                  <h6>Expiration Date:</h6><p>MM/YY</p>
-                  <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#expCollapse">Edit</button>
-                  <div id="expCollapse" class="collapse">
-                      <input class="form-control" id="exp" placeholder="MM/YY" name="exp">
+                    </td>
+                      </tr>
+                    </tr>
+                    <tr>
+                      <td>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-group">
+                          <h6>Zip Code:</h6><p>{{zipcode}}</p>
+                          <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#zipCollapse">Edit</button>
+                          <div id="zipCollapse" class="collapse">
+                              <input class="form-control" id="zip" placeholder="Enter new zip code" name="zipcode">
+                          </div>
+                        </div>
+                          </div>
+                      <div class="col">
+                  <div class="form-group">
+                    <h6>City:</h6><p>{{city}}</p>
+                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cityCollapse">Edit</button>
+                    <div id="cityCollapse" class="collapse">
+                        <input class="form-control" id="city" placeholder="Enter new city" name="city">
+                    </div>
                   </div>
-                </div>
-                </td>
-                </tr>
-                </tbody>
-                </table>
+                      </div>
+                      <div class="col">
+                    <div class="form-group">
+                      <h6>State:</h6>
+                      <select class="form-control" id="state" name="state">
+                        <option>AL</option>
+                        <option>AK</option>
+                        <option>AS</option>
+                        <option>AZ</option>
+                        <option>AR</option>
+                        <option>CA</option>
+                        <option>CO</option>
+                        <option>CT</option>
+                        <option>DE</option> <!--I'm already regretting this-->
+                        <option>DC</option>
+                        <option>FL</option>
+                        <option>GA</option>
+                        <option>GU</option>
+                        <option>HI</option>
+                        <option>ID</option>
+                        <option>IL</option>
+                        <option>IN</option>
+                        <option>IA</option>
+                        <option>KS</option>
+                        <option>KY</option>
+                        <option>LA</option>
+                        <option>ME</option>
+                        <option>MD</option>
+                        <option>MH</option>
+                        <option>MA</option>
+                        <option>MI</option>
+                        <option>FM</option>
+                        <option>MN</option>
+                        <option>MS</option>
+                        <option>MO</option>
+                        <option>MT</option>
+                        <option>NE</option>
+                        <option>NV</option>
+                        <option>NH</option>
+                        <option>NJ</option>
+                        <option>NM</option>
+                        <option>NY</option>
+                        <option>NC</option>
+                        <option>ND</option>
+                        <option>MP</option>
+                        <option>OH</option>
+                        <option>OK</option>
+                        <option>OR</option>
+                        <option>PW</option>
+                        <option>PA</option>
+                        <option>PR</option>
+                        <option>RI</option>
+                        <option>SC</option>
+                        <option>SD</option>
+                        <option>TN</option>
+                        <option>TX</option>
+                        <option>UT</option>
+                        <option>VT</option>
+                        <option>VA</option>
+                        <option>VI</option>
+                        <option>WA</option>
+                        <option>WV</option>
+                        <option>WI</option>
+                        <option>WY</option>
+                      </select>
 
-                <button type="submit" class="btn btn-primary">Update</button>
-              </form>
+                    </div>
+                    </div>
+                    </div>
+                    </td>
+                      </tr>
+                    </tbody>
+                    </table>
+
+                    <!--payment-->
+                    <h3 id="payment">Payment Details</h3>
+                    <table class="table"><tbody>
+                        <tr>
+                          <td>
+                        <div class="form-group">
+                            <h6>Name:</h6><p>{{cardName}}</p>
+                            <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cardNameCollapse">Edit</button>
+                            <div id="cardNameCollapse" class="collapse">
+                                <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="cardName">
+                            </div>
+                      </div>
+                        </td>
+                          <td>
+                        <div class="form-group">
+                            <h6>Credit Card #:</h6><p>**** **** **** 6789</p>
+                            <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cardNumberCollapse">Edit</button>
+                            <div id="cardNumberCollapse" class="collapse">
+                                <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="ccn">
+                            </div>
+                      </div>
+                        </td>
+                        <td>
+                      <div class="form-group">
+                          <h6>Type:</h6><p>credit</p>
+                          <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cardTypeCollapse">Edit</button>
+                          <div id="cardTypeCollapse" class="collapse">
+                              <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="ccn">
+                          </div>
+                    </div>
+                      </td>
+
+
+                        <td>
+                      <div class="form-group">
+                        <h6>Expiration Date:</h6><p>MM/YY</p>
+                        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#expCollapse">Edit</button>
+                        <div id="expCollapse" class="collapse">
+                            <input class="form-control" id="exp" placeholder="MM/YY" name="exp">
+                        </div>
+                      </div>
+                      </td>
+                      </tr>
+                      </tbody>
+                      </table>
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+                </div>
             </div>
-          </div>
+
+
 
           <!--Promo-->
           <div id="promo" class="container tab-pane fade"><br>
