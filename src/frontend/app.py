@@ -5,11 +5,12 @@ import os
 import string
 import random
 from sendgrid.helpers.mail import *
+from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
 
 app.config['MYSQL_DATABASE_USER'] = "root"
-app.config['MYSQL_DATABASE_PASSWORD'] = "pw"
+app.config['MYSQL_DATABASE_PASSWORD'] = ""
 app.config['MYSQL_DATABASE_DB'] = "bookstore"
 app.config['MYSQL__DATABASE_HOST'] = "localhost"
 mysql = MySQL(app)
@@ -75,13 +76,13 @@ def resetPassword():
     if request.method == 'POST':
 
         inputCode = request.form['code']
-        inputPass = request.form['password']
-
+        inputPass = sha256_crypt.encrypt(request.form['password'])
         cursor.execute('SELECT * FROM profile')
         users = cursor.fetchall()
         code = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
         for x in users:
-            password = x[5]
+            
+            code=x[7]
             if inputCode == code: #account found; need to make more secure
                 #store new password
                 cursor.execute ("""
@@ -125,7 +126,7 @@ def register():
         firstName = request.form['firstName']
         lastName = request.form['lastName']
         email = request.form['email']
-        password = request.form['password']
+        password =sha256_crypt.encrypt(request.form['password'])
         phoneNumber = request.form['phoneNumber']
     
         #ensure account with this email does not already exist
@@ -156,7 +157,7 @@ def register():
         #get payment info
         name = request.form['name']
         cardType = request.form['cardType']
-        cardNumber = request.form['cardNumber']
+        sha256_crypt.encrypt(request.form['cardNumber'])
         expirationDate = request.form['expirationDate']
         shippingAddress = request.form['address1'] + request.form['address2'] + request.form['zip'] + request.form['city'] + request.form['state']
 
@@ -182,11 +183,12 @@ def login():
     cursor.execute('SELECT * FROM profile')
     users = cursor.fetchall()
     isUser = False
+    
 
     for x in users:
         email = x[4]
         passWord = x[5]
-        if inputEmail == email and inputPass ==passWord:
+        if inputEmail == email and sha256_crypt.verify(inputPass, passWord):
             isUser = True
             
     if isUser == False:
