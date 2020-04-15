@@ -204,7 +204,7 @@
                       </div>
                       <div class="col">
                     <div class="form-group">
-                      <h6>State:</h6>
+                      <h6>State: {{state}}</h6>
                       <select class="form-control" id="state" name="state">
                         <option>AL</option>
                         <option>AK</option>
@@ -290,19 +290,19 @@
                         </td>
                           <td>
                         <div class="form-group">
-                            <h6>Credit Card #:</h6><p>**** **** **** 6789</p>
+                            <h6>Credit Card #:</h6><p>****-****-****-****</p>
                             <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cardNumberCollapse">Edit</button>
                             <div id="cardNumberCollapse" class="collapse">
-                                <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="ccn">
+                                <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="cardNumber">
                             </div>
                       </div>
                         </td>
                         <td>
                       <div class="form-group">
-                          <h6>Type:</h6><p>credit</p>
+                          <h6>Type:</h6><p>{{cardType}}</p>
                           <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#cardTypeCollapse">Edit</button>
                           <div id="cardTypeCollapse" class="collapse">
-                              <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="ccn">
+                              <input class="form-control" id="ccn" placeholder="**** **** **** ****" name="cardType">
                           </div>
                     </div>
                       </td>
@@ -310,10 +310,10 @@
 
                         <td>
                       <div class="form-group">
-                        <h6>Expiration Date:</h6><p>MM/YY</p>
+                        <h6>Expiration Date:</h6><p>{{expirationDate}}</p>
                         <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#expCollapse">Edit</button>
                         <div id="expCollapse" class="collapse">
-                            <input class="form-control" id="exp" placeholder="MM/YY" name="exp">
+                            <input class="form-control" id="exp" placeholder="MMYY" name="expirationDate">
                         </div>
                       </div>
                       </td>
@@ -322,6 +322,7 @@
                       </table>
 
                 <button type="submit" class="btn btn-primary">Update</button>
+                <a href="/main" class="btn btn-secondary">Cancel</a>
     </form>
                 </div>
             </div>

@@ -261,12 +261,18 @@ def displayinfo():
     if cardName:
         cardName=cardName[0]
 
+    cursor.execute("SELECT type FROM paymentMethod WHERE paymentMethodID=(SELECT MAX(paymentMethodID) FROM paymentMethod);")
+    cardType=cursor.fetchone()
+    if cardType:
+        cardType=cardType[0]
+
+    cursor.execute("SELECT expirationDate FROM paymentMethod WHERE paymentMethodID=(SELECT MAX(paymentMethodID) FROM paymentMethod);")
+    expirationDate=cursor.fetchone()
+    if expirationDate:
+        expirationDate=expirationDate[0]
 
 
-
-
-
-    return render_template('edit_profile.html', fName=firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName)
+    return render_template('edit_profile.html', fName=firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
 
 #update profile information
@@ -284,40 +290,61 @@ def updateinfo():
         zipcode = request.form['zipcode']
         city = request.form['city']
         state = request.form['state']
+        cardName = request.form['cardName']
+        cardType = request.form['cardType']
+        cardNumber = request.form['cardNumber']
+        expirationDate = request.form['expirationDate']
 
         #update into dB
         if(firstName!=''):
-            statement="UPDATE profile SET firstName='{}' WHERE id=(MAX(id));".format(firstName)
+            statement="UPDATE profile SET firstName='{}' WHERE id=(SELECT MAX(id));".format(firstName)
             cursor.execute(statement)
         if(lastName!=''):
-            statement="UPDATE profile SET lastName='{}' WHERE id=23".format(lastName)
+            statement="UPDATE profile SET lastName='{}' WHERE id=(SELECT MAX(id))".format(lastName)
             cursor.execute(statement)
         if(password!=''):
-            statement="UPDATE profile SET phoneNum='{}' WHERE id=23".format(password)
+            statement="UPDATE profile SET phoneNum='{}' WHERE id=(SELECT MAX(id))".format(password)
             cursor.execute(statement)
         if(phoneNumber!=''):
-            statement="UPDATE profile SET phoneNum='{}' WHERE id=23".format(phoneNumber)
+            statement="UPDATE profile SET phoneNum='{}' WHERE id=(SELECT MAX(id))".format(phoneNumber)
             cursor.execute(statement)
 
         if(address1!=''):
-            statement="UPDATE profile SET address1='{}' WHERE id=23".format(address1)
+            statement="UPDATE profile SET address1='{}' WHERE id=(SELECT MAX(id))".format(address1)
             cursor.execute(statement)
 
         if(address2!=''):
-            statement="UPDATE profile SET address2='{}' WHERE id=23".format(address2)
+            statement="UPDATE profile SET address2='{}' WHERE id=(SELECT MAX(id))".format(address2)
             cursor.execute(statement)
 
         if(zipcode!=''):
-            statement="UPDATE profile SET zipcode='{}' WHERE id=23".format(zipcode)
+            statement="UPDATE profile SET zipcode='{}' WHERE id=(SELECT MAX(id))".format(zipcode)
             cursor.execute(statement)
 
         if(city!=''):
-            statement="UPDATE profile SET city='{}' WHERE id=23".format(city)
+            statement="UPDATE profile SET city='{}' WHERE id=(SELECT MAX(id))".format(city)
             cursor.execute(statement)
 
         if(state!=''):
-            statement="UPDATE profile SET state='{}' WHERE id=23".format(state)
+            statement="UPDATE profile SET state='{}' WHERE id=(SELECT MAX(id))".format(state)
             cursor.execute(statement)
+
+        if(cardName!=''):
+            statement="UPDATE paymentMethod SET name='{}' WHERE paymentMethodID=(SELECT MAX(paymentMethodID))".format(cardName)
+            cursor.execute(statement)
+
+        if(cardType!=''):
+            statement="UPDATE paymentMethod SET type='{}' WHERE paymentMethodID=(SELECT MAX(paymentMethodID))".format(cardType)
+            cursor.execute(statement)
+
+        if(cardNumber!=''):
+            statement="UPDATE paymentMethod SET cardNumber='{}' WHERE paymentMethodID=(SELECT MAX(paymentMethodID))".format(cardNumber)
+            cursor.execute(statement)
+
+        if(expirationDate!=''):
+            statement="UPDATE paymentMethod SET expirationDate='{}' WHERE paymentMethodID=(SELECT MAX(paymentMethodID))".format(expirationDate)
+            cursor.execute(statement)
+
 
 
         con.commit()
