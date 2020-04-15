@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS profile(id INT PRIMARY KEY);
 CREATE TABLE IF NOT EXISTS address(
     address1 VARCHAR(45),
     address2 VARCHAR(45),
-    zipcode VARCHAR(45),
+    zipcode VARCHAR(4),
     city VARCHAR(45),
     state VARCHAR(45)
 );
