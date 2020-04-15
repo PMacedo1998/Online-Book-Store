@@ -9,10 +9,10 @@ from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
 
-app.config['MYSQL_DATABASE_USER'] = "root"
-app.config['MYSQL_DATABASE_PASSWORD'] = ""
+app.config['MYSQL_DATABASE_USER'] = "admin"
+app.config['MYSQL_DATABASE_PASSWORD'] = "password"
 app.config['MYSQL_DATABASE_DB'] = "bookstore"
-app.config['MYSQL__DATABASE_HOST'] = "localhost"
+app.config['MYSQL_DATABASE_HOST'] = "bookstore.cxp6si0l0mcz.us-east-2.rds.amazonaws.com"
 mysql = MySQL(app)
 
 con = mysql.connect()
@@ -193,7 +193,7 @@ def login():
             
     if isUser == False:
         return render_template("login.html")
-    return redirect(url_for('main'))
+    return render_template("logged_in_homepage.html")
  #   if request.method == 'GET':
         #get personal info
    #     return render_template("login.html",error=False)
