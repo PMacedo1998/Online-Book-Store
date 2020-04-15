@@ -16,10 +16,10 @@ def displayinfo():
 
 
 
-    cursor.execute("SELECT firstName FROM profile WHERE id=23;")
+    cursor.execute("SELECT firstName FROM profile WHERE id=1;")
     firstName=cursor.fetchall()
 
-    cursor.execute("SELECT lastName FROM profile WHERE id=23;")
+    cursor.execute("SELECT lastName FROM profile WHERE id=1;")
     lastName=cursor.fetchall()
 
     cursor.execute("SELECT email FROM profile WHERE id=23;")
@@ -80,7 +80,8 @@ def updateinfo():
 
         #update into dB
         if(firstName!=''):
-            statement="UPDATE profile SET firstName={} WHERE id=23".format(firstName)
+            print(firstName)
+            statement="UPDATE profile SET firstName='{}' WHERE id=1;".format(firstName)
             cursor.execute(statement)
         if(lastName!=''):
             statement="UPDATE profile SET lastName='{}' WHERE id=23".format(lastName)
