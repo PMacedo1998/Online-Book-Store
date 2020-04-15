@@ -80,7 +80,7 @@ def updateinfo():
 
         #update into dB
         if(firstName!=''):
-            statement="UPDATE profile SET firstName={} WHERE id=23".format(firstName)
+            statement="UPDATE profile SET firstName='{}' WHERE id=23".format(firstName)
             cursor.execute(statement)
         if(lastName!=''):
             statement="UPDATE profile SET lastName='{}' WHERE id=23".format(lastName)
