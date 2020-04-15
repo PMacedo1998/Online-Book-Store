@@ -61,6 +61,7 @@ def forgotPassword():
                                 SET verificationCode=%s
                                 WHERE email=%s
                                 """, (code, inputEmail))
+                con.commit()
                 return redirect(url_for('resetPassword'))
     return render_template("forgotPassword.html")
     
@@ -88,6 +89,7 @@ def resetPassword():
                                 SET pswd=%s
                                 WHERE verificationCode=%s
                                 """, (inputPass, code))
+                con.commit()
                 return render_template("passwordUpdated.html")
     return render_template("resetPassword.html")
 
