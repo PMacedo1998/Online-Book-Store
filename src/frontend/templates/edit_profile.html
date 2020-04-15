@@ -25,11 +25,10 @@
         <li class="nav-item dropdown">
             <a class="nav-lifnk dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Edit Payment Info</a>
-              <a class="dropdown-item" href="#">Edit Information</a>
+              <a class="dropdown-item" href="/editprofile">Edit Profile</a>
               <a class="dropdown-item" href="#">Order History</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Logout</a>
+              <a class="dropdown-item" href="/">Logout</a>
             </div>
           </li>
        </ul>
@@ -37,8 +36,8 @@
 
     <div class="jumbotron">
       <div class="container">
-        <h1 class="display-2">Promotion/News</h1>
-        <p class="lead">This is where we can advertise promos and stuff</p>
+        <h1 class="display-2">Edit Profile</h1>
+        <p class="lead">Please update information, if needed.</p>
       </div>
           <hr class = "my-4">
           <div class="input-group mt-3 mb-3">
@@ -68,12 +67,6 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Manage Orders</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
         </ul>
     </div>
 
@@ -101,7 +94,7 @@
           <div id="person" class="container tab-pane active"><br>
             <div class="container">
               <h3>Personal Details</h3>
-                <form action = "." class="was-validated" method = "POST"><table class="table"><tbody>
+                <form action = "/editprofile" class="was-validated" method = "POST"><table class="table"><tbody>
                     <tr>
                       <td>
                         <div class= "row">
@@ -328,7 +321,7 @@
                       </tbody>
                       </table>
 
-                    <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">Update</button>
     </form>
                 </div>
             </div>
