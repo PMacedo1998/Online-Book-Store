@@ -157,7 +157,7 @@ def register():
         #get payment info
         name = request.form['name']
         cardType = request.form['cardType']
-        sha256_crypt.encrypt(request.form['cardNumber'])
+        cardNumber = sha256_crypt.encrypt(request.form['cardNumber'])
         expirationDate = request.form['expirationDate']
         shippingAddress = request.form['address1'] + request.form['address2'] + request.form['zip'] + request.form['city'] + request.form['state']
 
