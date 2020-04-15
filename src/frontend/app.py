@@ -348,7 +348,7 @@ def updateinfo():
 
 
         con.commit()
-
+        
         return redirect(url_for('displayinfo'))
     return render_template('edit_profile.html')
 
