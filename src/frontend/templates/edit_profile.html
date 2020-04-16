@@ -15,6 +15,39 @@
     p {
       display: inline
     }
+
+
+    form > button:hover
+    {
+      background-color:#196F3D !important;
+      border-color:#196F3D !important;
+      margin-right:10px;
+    }
+
+    form > button
+    {
+      background-color:black !important;
+      border-color:white !important;
+      color:white !important;
+      margin-right:10px;
+    }
+
+    form > a
+    {
+      color: white !important;
+      background-color: #839192    !important;
+      border-color:#839192   !important;
+    }
+
+    form > a:hover
+    {
+      color: white !important;
+      background-color: #717D7E  !important;
+      border-color:#717D7E !important;
+    }
+
+
+
   </style>
 
 <body>
@@ -102,7 +135,7 @@
                           <div class="form-group">
 
                               <h6>First Name:</h6><p>{{fName}}</p>
-                              <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#fNameCollapse">Edit</button>
+                            <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#fNameCollapse">Edit</button>
                               <div id="fNameCollapse" class="collapse">
                                   <input class="form-control" id="fName" placeholder="Enter new first name" name="firstName">
                               </div>
@@ -338,8 +371,9 @@
               </label>
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
+            <a href="/main" class="btn btn-secondary">Cancel</a>
           </form>
-          
+
           </div>
         </div>
       </div>
