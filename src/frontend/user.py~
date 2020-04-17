@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for
 from flaskext.mysql import MySQL
 import sendgrid
 import os
@@ -28,7 +28,7 @@ def index():
 #route for main only for logged in users
 @app.route('/main', methods = ['GET','POST'])
 def main():
-    return render_template('logged_in_homepage.html')
+    return render_template('main.html')
 
 #route for forgotten password
 @app.route('/forgotPassword', methods = ['GET', 'POST'])
@@ -176,6 +176,7 @@ def register():
 
 #login function
 @app.route('/login/', methods = ['GET','POST'])
+@login_required
 def login():
     inputEmail=''
     inputPass=''
@@ -194,9 +195,8 @@ def login():
         passWord = x[5]
         if inputEmail == email and sha256_crypt.verify(inputPass, passWord):
             isUser = True
-
+    user_id=session["user_id"]
     if isUser == False:
-
         return render_template("login.html")
     return render_template("logged_in_homepage.html")
  #   if request.method == 'GET':
@@ -349,7 +349,7 @@ def updateinfo():
 
 
         con.commit()
-
+        
         return redirect(url_for('displayinfo'))
     return render_template('edit_profile.html')
 

@@ -22,7 +22,6 @@ body{
 button{
     color: #196f3d !important;
     background-color: white !important;
-    border-color: white;
 }
 
 .topBar > ul li a{

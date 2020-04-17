@@ -11,39 +11,27 @@
   </head>
   <style>
 
-    .nav-pills > li > a
-    {
-      margin-left:17px;
-      margin-right:5px;
-      background-color:#196F3D !important;
-      border-color:#196F3D !important;
-      color:white;
-      width:225px;
-      font-size:15px;
-    }
 
-    .nav-pills > li > a:hover
-    {
-      background-color:white !important;
-      border-color:white !important;
-      color:black !important;
-      width:225px;
-      font-size:15px;
-    }
+  div > div > a
+{
 
-  .nav-pills > .active > a
-  {
-    background-color:#FBFFB6 !important;
-    border-color:#FBFFB6 !important;
-    color:black !important;
-    width:225px;
-    font-size:15px;
-  }
+  background-color:white !important;
+  border-color:white!important;
+  color:#196F3D;
+  width:225px;
+  font-size:15px;
+}
 
-  a
-  {
-    margin-left:375px;
-  }
+  div > div > a:hover
+{
+  background-color:#196F3D !important;
+  border-color:#196F3D !important;
+  color:white !important;
+}
+
+
+
+
 
   body
   {
@@ -70,38 +58,27 @@
   </style>
   <body>
 
-<!--navbar-->
-  <nav class="navbar sticky-top navbar-dark bg-dark">
+    <!--navbar-->
+        <div class="topBar">
 
-    <ul class="nav nav-pills nav-justified">
-      <li class="nav-item">
-        <a class="nav-link" href="admin.html" aria-controls="home">Home Page</a>
-      </li>
-
-      <li class="nav-item active">
-        <a class="nav-link" href="manage_books.html" aria-controls="mbooks">Manage Books</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="manage_users.html" aria-controls="musers">Manage Users</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="manage_promos.html" aria-controls="mpromotions">Manage Promotions</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="#logout" aria-controls="logout">Logout</a>
-      </li>
-    </ul>
-    <br><br>
-  <!--searchbar
-  <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </form>
-  -->
-  </nav>
+              <div class = "row">
+                <div class="col-2">
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-2">
+                </div>
+               <div class="col-2">
+               </div>
+                 <div class="col-2">
+                 </div>
+             <div class="col-2">
+               <a href="/"> Admin Homepage</a>
+               <br>
+                <a href="/viewbooks">View Books</a>
+               </div>
+               </div>
+             </div>
 
 
 <!--welcome-->
@@ -110,7 +87,7 @@
 
     <div class="row">
       <div class="col-9">
-        <h1 class="display-4">Mange Books</h1>
+        <h1 class="display-4">Add a Book</h1>
       </div>
       <div class="col-3">
         <br>
@@ -122,23 +99,8 @@
     </div>
 
     <hr class="my-4">
-    <p class="lead">Edit book information:</p>
-    <form class="form">
-      <div class="row">
+    <p class="lead">Add book information:</p>
 
-        <div class="col-9">
-
-
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-
-      </div>
-      <div class="col-3">
-
-
-      <button class="btn btn-outline-success" type="submit">Search</button>
-</div>
-      </div>
-    </form>
   </div>
 </div>
 
@@ -172,6 +134,8 @@
               </li>
           </ul>
 
+<a href="/viewbooks">Return back to View Books.</a>
+
 </div>
 
 <div class="col-6">
@@ -179,14 +143,15 @@
   <form>
   <div class="form">
     <label for="isbn">ISBN</label>
-    <input type="number" class="form-control" aria-describedby="emailHelp">
+    <input type="number" class="form-control" id="isbn" name="isbn" required>
+
   </div>
 
   <br>
 
     <div class="form">
       <label for="category">Category</label>
-      <select class="form-control">
+      <select class="form-control" id="category" name="category">
         <!--book genres: https://reference.yourdictionary.com/books-literature/different-types-of-books.html-->
         <option value="fiction">Action and Adventure</option>
         <option value="fiction">Alternative History</option>
@@ -243,62 +208,78 @@
 
     <div class="form">
       <label for="authorname">Author(s)' Name</label>
-      <input type="text" class="form-control" id="authorname">
+      <input type="text" class="form-control" id="author" name="author" required>
     </div>
 
     <br>
 
     <div class="form">
       <label for="title">Title</label>
-      <input type="text" class="form-control" id="title">
+      <input type="text" class="form-control" id="title" name="title" required>
     </div>
 
     <br>
 
     <div class="form">
       <label for="edition">Edition</label>
-      <input type="number" class="form-control" id="edition">
+      <input type="number" class="form-control" id="edition" name="edition" required>
     </div>
 
     <br>
 
     <div class="form">
       <label for="publisher">Publisher</label>
-      <input type="text" class="form-control" id="publisher">
+      <input type="text" class="form-control" id="publisher" name="publisher" required>
     </div>
 
     <br>
 
   <div class="form">
     <label for="year">Publication Year</label>
-    <input type="number" class="form-control" id="year">
+    <input type="number" class="form-control" id="publicationYear" name="publicationYear" required>
   </div>
 
   <br>
 
   <div class="form">
     <label for="quantity">Quantity-In-Stock</label>
-    <input type="number" class="form-control" id="quantity">
+    <input type="number" class="form-control" id="quantity" name="quantity" required>
   </div>
 
   <br>
 
   <div class="form">
     <label for="buying">Buying Price</label>
-    <input type="number" class="form-control" id="buying">
+    <input type="number" class="form-control" id="buyingPrice" name="buyingPrice" required>
   </div>
 
   <br>
 
   <div class="form">
     <label for="selling">Selling Price</label>
-    <input type="number" class="form-control" id="selling">
+    <input type="number" class="form-control" id="sellingPrice" name="sellingPrice" required>
+  </div>
+
+  <br>
+
+  <div class="form">
+    <label for="rating">Rating (out of 5)</label>
+    <input type="number" class="form-control" id="rating" name="rating" required>
+  </div>
+
+  <br>
+
+  <div class="form">
+    <label for="coverPicture">Cover Picture</label>
+    <br>
+    <input type="file" id="coverPicture" name="coverPicture" required>
   </div>
 
   <br>
 
   <button type="submit" class="btn btn-primary">Update</button>
-  <a class="btn btn-secondary" href="manage_books.html" role="button">Cancel</a>
+  <a href="/" class="btn btn-secondary">Cancel</a>
+
   <br><br>
 </form>
 
