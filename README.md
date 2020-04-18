@@ -1,26 +1,30 @@
 # csci4050-online-bookstore
-CSCI 4050
-
-Team Members:
+CSCI 4050 - Team 5b
 
 Python Developers: Dakota Vickers, Patricio Macedo-Flores, Tyler Rosen, Kimberly Nguyen
+Web Developers: everyone
+Database Designers: everyone
+Documentation: everyone
 
-Web Developers: also everyone
+Prerequisites: Flask should be installed for program to run.
 
-Database Designer: also everyone
+To activate flask:
+$ . venv/bin/activate
 
-All group members contributed to the documentation of project.
+Installation of other programs necesary:
+$ pip install ...
+[needs to be added on to]
 
-TO run program: have FLASK installed.
-
-To run the registration, login page, home page:
-
+To run program:
 $ export FLASK_APP=app.py
 $ flask run
 
-To run the edit-profile page:
+To deactivate flask:
+$ deactivate
 
-$ export FLASK_APP=editprofile.py
-$ flask run
+Resources:
+
+
+
 
 
