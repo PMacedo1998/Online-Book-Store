@@ -22,10 +22,9 @@ body{
 button{
     color: #196f3d !important;
     background-color: white !important;
-    border-color: white;
 }
 
-.topBar > ul li a{ 
+.topBar > ul li a{
 	text-align:left;
 	 padding: 0 3em 0 0;
 	 margin:0 0 0 0;
@@ -51,4 +50,3 @@ img {
     color: white !important;
 }
 /*END OF NAV BAR*/
-
