@@ -26,22 +26,21 @@ def admin():
 #route for main only for logged in users
 @app.route('/viewbooks')
 def viewbooks():
-    cursor.execute("SELECT isbn FROM book;")
-    isbn = cursor.fetchall()
+    cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,coverPicture FROM book;")
+    book = cursor.fetchall()
 
-    cursor.execute("SELECT title FROM book;")
-    title = cursor.fetchall()
-
-    cursor.execute("SELECT authorName FROM book;")
-    authorName=cursor.fetchall()
-
-    return render_template('manage_books.html',isbn=isbn,title=title,author=authorName)
+    return render_template('manage_books.html',book=book)
 
 #route for main only for logged in users
-@app.route('/addbook')
-def displaybookinfo():
-    #from view books page
-    return render_template('edit_book.html')
+@app.route('/viewspecificbook')
+def viewspecificbook():
+    isbn = request.args.get('isbn')
+    print(isbn)
+    cursor.execute("SELECT isbn, title, authorName FROM book where isbn=%s;", (isbn))
+    book = cursor.fetchall()
+
+    return render_template('edit_book.html',book=book)
+
 
 #route for main only for logged in users
 @app.route('/addbook', methods = ['GET','POST'])
@@ -62,12 +61,16 @@ def addbook():
         rating = request.form['rating']
         coverPicture = request.form['coverPicture']
 
-        cursor.execute("INSERT INTO book(isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,coverPicture) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (isbn,category,authorName,title,edition,publisher,publicationYear,quantity,buyingPrice,sellingPrice,rating,coverPicture))
+        #check for duplicate isbn
+        cursor.execute("INSERT INTO book(isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,coverPicture) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (isbn,category,author,title,edition,publisher,publicationYear,quantity,buyingPrice,sellingPrice,rating,coverPicture))
 
         con.commit()
 
         return redirect(url_for('viewbooks'))
     return render_template('edit_book.html')
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

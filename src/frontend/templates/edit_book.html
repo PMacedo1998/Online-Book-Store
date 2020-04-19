@@ -92,8 +92,8 @@
       <div class="col-3">
         <br>
         <!--id popover-->
-        <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="ID# 999999999">
-          Click This to Show ID
+        <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="left" data-content="<pre>Name: Kimberly Nguyen<pre>Email: kimberly.nguyen@uga.edu<br>ID:01" data-html="true">
+          Show Account Information
         </button>
       </div>
     </div>
@@ -111,39 +111,17 @@
     <div class="row">
 
 
-    <div class="col-6">
 
 
-          <ul class="list-unstyled">
-              <li class = "media">
-                <img src="./Icons and temporary book pics/Book1.jpg"  class="align-self-start mr-3 searchImg" alt="...">
-                  <div class="media-body">
-                    <h4 class="mt-0 mb-1" style="font-weight: bold;">Book Name</h4>
-                    <p>by Author </p>
-                    <p>Rating: 10/10</p>
-                    <p>ISBN: </p>
-                    <p>Category: </p>
-                    <p>Edition: </p>
-                    <p>Publisher: </p>
-                    <p>Publication Year: </p>
-                    <p>Quantity-In-Stock: </p>
-                    <p>Buying Price: </p>
-                    <p>Selling Price: </p>
-
-                  </div>
-              </li>
-          </ul>
-
-<a href="/viewbooks">Return back to View Books.</a>
-
-</div>
-
-<div class="col-6">
-
-  <form>
+<div class="col-8 mx-auto">
+  <a href="/viewbooks">Return back to View Books</a>
+  <br><br>
+  <form action="/addbook" class="was-validated" method = "POST">
   <div class="form">
     <label for="isbn">ISBN</label>
-    <input type="number" class="form-control" id="isbn" name="isbn" required>
+    <input type="text" class="form-control" id="isbn" name="isbn" required>
+    <div class="valid-feedback">Valid</div>
+    <div class="invalid-feedback">Required</div>
 
   </div>
 
@@ -153,55 +131,21 @@
       <label for="category">Category</label>
       <select class="form-control" id="category" name="category">
         <!--book genres: https://reference.yourdictionary.com/books-literature/different-types-of-books.html-->
-        <option value="fiction">Action and Adventure</option>
-        <option value="fiction">Alternative History</option>
-        <option value="fiction">Anthology</option>
-        <option value="fiction">Chick Lit</option>
-        <option value="fiction">Children's</option>
-        <option value="fiction">Comic Book</option>
-        <option value="fiction">Coming-Of-Age</option>
-        <option value="fiction">Crime</option>
-        <option value="fiction">Drama</option>
-        <option value="fiction">Fairytale</option>
-        <option value="fiction">Fantasy</option>
-        <option value="fiction">Graphic Novel</option>
-        <option value="fiction">Historical Fiction</option>
-        <option value="fiction">Horror</option>
-        <option value="fiction">Mystery</option>
-        <option value="fiction">Paranormal Romance</option>
-        <option value="fiction">Picture Book</option>
-        <option value="fiction">Poetry</option>
-        <option value="fiction">Political Thriller</option>
-        <option value="fiction">Romance</option>
-        <option value="fiction">Satire</option>
-        <option value="fiction">Science Fiction</option>
-        <option value="fiction">Short Story</option>
-        <option value="fiction">Suspense</option>
-        <option value="fiction">Thriller</option>
-        <option value="fiction">Young Adult</option>
-        <option value="nonfiction">Art</option>
-        <option value="nonfiction">Autobiography</option>
-        <option value="nonfiction">Biography</option>
-        <option value="nonfiction">Book Review</option>
-        <option value="nonfiction">Cookbook</option>
-        <option value="nonfiction">Diary</option>
-        <option value="nonfiction">Dictionary</option>
-        <option value="nonfiction">Encyclopedia</option>
-        <option value="nonfiction">Guide</option>
-        <option value="nonfiction">Health</option>
-        <option value="nonfiction">History</option>
-        <option value="nonfiction">Journal</option>
-        <option value="nonfiction">Math</option>
-        <option value="nonfiction">Memoir</option>
-        <option value="nonfiction">Prayer</option>
-        <option value="nonfiction">Religion, Spirtuality, and New Age</option>
-        <option value="nonfiction">Textbook</option>
-        <option value="nonfiction">Review</option>
-        <option value="nonfiction">Science</option>
-        <option value="nonfiction">Self Help</option>
-        <option value="nonfiction">Travel</option>
-        <option value="nonfiction">True Crime</option>
+        <option disabled selected value> -- Select an option -- </option>
+        <option value="Action and Adventure">Action and Adventure</option>
+        <option value="Children's">Children's</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="Graphic Novel">Graphic Novel</option>
+        <option value="Mystery">Mystery</option>
+        <option value="Romance">Romance</option>
+        <option value="Science Fiction">Science Fiction</option>
+        <option value="Biography">Biography</option>
+        <option value="History">History</option>
+        <option value="Textbook">Textbook</option>
+
       </select>
+
+      <div class="invalid-feedback">Required</div>
     </div>
 
     <br>
@@ -209,6 +153,8 @@
     <div class="form">
       <label for="authorname">Author(s)' Name</label>
       <input type="text" class="form-control" id="author" name="author" required>
+      <div class="valid-feedback">Valid</div>
+      <div class="invalid-feedback">Required</div>
     </div>
 
     <br>
@@ -216,13 +162,17 @@
     <div class="form">
       <label for="title">Title</label>
       <input type="text" class="form-control" id="title" name="title" required>
+      <div class="valid-feedback">Valid</div>
+      <div class="invalid-feedback">Required</div>
     </div>
 
     <br>
 
     <div class="form">
       <label for="edition">Edition</label>
-      <input type="number" class="form-control" id="edition" name="edition" required>
+      <input type="text" class="form-control" id="edition" name="edition" required>
+      <div class="valid-feedback">Valid</div>
+      <div class="invalid-feedback">Required</div>
     </div>
 
     <br>
@@ -230,41 +180,53 @@
     <div class="form">
       <label for="publisher">Publisher</label>
       <input type="text" class="form-control" id="publisher" name="publisher" required>
+      <div class="valid-feedback">Valid</div>
+      <div class="invalid-feedback">Required</div>
     </div>
 
     <br>
 
   <div class="form">
     <label for="year">Publication Year</label>
-    <input type="number" class="form-control" id="publicationYear" name="publicationYear" required>
+    <input type="text" class="form-control" id="publicationYear" name="publicationYear" required>
+    <div class="valid-feedback">Valid</div>
+    <div class="invalid-feedback">Required</div>
   </div>
 
   <br>
 
   <div class="form">
     <label for="quantity">Quantity-In-Stock</label>
-    <input type="number" class="form-control" id="quantity" name="quantity" required>
+    <input type="text" class="form-control" id="quantity" name="quantity" required>
+    <div class="valid-feedback">Valid</div>
+    <div class="invalid-feedback">Required</div>
   </div>
 
   <br>
 
   <div class="form">
-    <label for="buying">Buying Price</label>
-    <input type="number" class="form-control" id="buyingPrice" name="buyingPrice" required>
+    <label for="buying">Buying Price ($)</label>
+    <input type="text" class="form-control" id="buyingPrice" name="buyingPrice" required>
+    <div class="valid-feedback">Valid</div>
+    <div class="invalid-feedback">Required</div>
   </div>
 
   <br>
 
   <div class="form">
-    <label for="selling">Selling Price</label>
-    <input type="number" class="form-control" id="sellingPrice" name="sellingPrice" required>
+    <label for="selling">Selling Price ($)</label>
+    <input type="text" class="form-control" id="sellingPrice" name="sellingPrice" required>
+    <div class="valid-feedback">Valid</div>
+    <div class="invalid-feedback">Required</div>
   </div>
 
   <br>
 
   <div class="form">
     <label for="rating">Rating (out of 5)</label>
-    <input type="number" class="form-control" id="rating" name="rating" required>
+    <input type="text" class="form-control" id="rating" name="rating" required>
+    <div class="valid-feedback">Valid</div>
+    <div class="invalid-feedback">Required</div>
   </div>
 
   <br>
@@ -273,6 +235,8 @@
     <label for="coverPicture">Cover Picture</label>
     <br>
     <input type="file" id="coverPicture" name="coverPicture" required>
+    <div class="valid-feedback">Valid</div>
+    <div class="invalid-feedback">Required</div>
   </div>
 
   <br>
@@ -286,6 +250,18 @@
 </div>
 </div>
   </div>
+
+<!--testing image upload-->
+  <p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
+<p><label for="file" style="cursor: pointer;">Upload Image</label></p>
+<p><img id="output" width="200" /></p>
+
+<script>
+var loadFile = function(event) {
+	var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+};
+</script>
 
   <!--script for id popover-->
   <script type="text/javascript">
