@@ -302,3 +302,39 @@ ADD COLUMN address2 VARCHAR(45) NULL,
 ADD COLUMN zipcode VARCHAR(45) NULL,
 ADD COLUMN city VARCHAR(45) NULL,
 ADD COLUMN state VARCHAR(45) NULL;
+
+/*Change isbn to type VARCHAR*/
+
+LOCK TABLES
+    book WRITE,
+    shoppingCart WRITE,
+    systemAdministrator WRITE;
+ 
+ALTER TABLE shoppingCart
+    DROP FOREIGN KEY fk_shoppingCart_book,
+    MODIFY isbn VARCHAR(100);
+    
+ALTER TABLE systemAdministrator
+    DROP FOREIGN KEY fk_admin_book,
+    MODIFY isbn VARCHAR(100);
+
+ALTER TABLE book 
+    MODIFY isbn VARCHAR(100);
+
+ALTER TABLE shoppingCart
+ADD CONSTRAINT fk_shoppingCart_book
+    FOREIGN KEY (isbn)
+    REFERENCES book (isbn);
+    
+ALTER TABLE systemAdministrator
+ADD CONSTRAINT fk_admin_book
+    FOREIGN KEY (isbn)
+    REFERENCES book (isbn);
+
+UNLOCK TABLES;
+
+
+
+
+
+
