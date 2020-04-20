@@ -147,10 +147,7 @@ ADD CONSTRAINT fk_admin_userType
     FOREIGN KEY (userType)
     REFERENCES userType (userType);
 
-/*Set all bool vars to 0*/
-
-UPDATE profile
-SET promoApplied = 0;
+/*Set status of newly registered user to 0 until account verified*/
 
 UPDATE registeredUser
 SET status = 0;
