@@ -1,10 +1,10 @@
 # csci4050-online-bookstore
 CSCI 4050 - Team 5b
 
-Python Developers: Dakota Vickers, Patricio Macedo-Flores, Tyler Rosen, Kimberly Nguyen
-Web Developers: everyone
-Database Designers: everyone
-Documentation: everyone
+-Python Developers: Dakota Vickers, Patricio Macedo-Flores, Tyler Rosen, Kimberly Nguyen
+-Web Developers: everyone
+-Database Designers: everyone
+-Documentation: everyone
 
 Prerequisites: Flask should be installed for program to run.
 
