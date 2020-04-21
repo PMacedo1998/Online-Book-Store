@@ -42,6 +42,7 @@ ADD COLUMN address2 VARCHAR(45) NULL,
 ADD COLUMN zipcode VARCHAR(45) NULL,
 ADD COLUMN city VARCHAR(45) NULL,
 ADD COLUMN state VARCHAR(45) NULL,
+ADD COLUMN filename VARCHAR(100),
 ADD CONSTRAINT fk_profile_paymentMethod
     FOREIGN KEY (paymentMethodID)
     REFERENCES paymentMethod (paymentMethodID);
