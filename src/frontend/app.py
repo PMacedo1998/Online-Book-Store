@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, sessions, session
 from flaskext.mysql import MySQL
 import sendgrid
 import os
@@ -9,6 +9,7 @@ from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
 
+app.secret_key = 'secret'
 app.config['MYSQL_DATABASE_USER'] = "admin"
 app.config['MYSQL_DATABASE_PASSWORD'] = "password"
 app.config['MYSQL_DATABASE_DB'] = "bookstore"
@@ -173,6 +174,14 @@ def register():
 
         return redirect(url_for('verify'))
     return render_template('registration.html')
+#logout
+@app.route('/login/logout', methods = ['GET', 'POST'])
+def logout():
+    session.pop('loggedin', None)
+    session.pop('id', None)
+    session.pop('username', None)
+    #return url_for('login')
+    return render_template("login.html")
 
 #login function
 @app.route('/login/', methods = ['GET','POST'])
@@ -194,10 +203,13 @@ def login():
         passWord = x[5]
         if inputEmail == email and sha256_crypt.verify(inputPass, passWord):
             isUser = True
+            session['loggedin'] = True
+            session['id'] = x[0]
 
     if isUser == False:
 
         return render_template("login.html")
+    print(session['id'])
     return render_template("logged_in_homepage.html")
  #   if request.method == 'GET':
         #get personal info
@@ -211,63 +223,63 @@ def login():
 #display profile information
 @app.route('/editprofile')
 def displayinfo():
-
-    cursor.execute("SELECT firstName FROM profile WHERE id=(SELECT MAX(id) FROM profile);")
+    sessionID = session['id']
+    cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
     firstName = cursor.fetchone()
     if firstName:
         firstName=firstName[0]
 
-    cursor.execute("SELECT lastName FROM profile WHERE id=(SELECT MAX(id) FROM profile);")
+    cursor.execute("SELECT lastName FROM profile WHERE id=%s;",(sessionID))
     lastName=cursor.fetchone()
     if lastName:
         lastName=lastName[0]
 
-    cursor.execute("SELECT email FROM profile WHERE id=(SELECT MAX(id) FROM profile);")
+    cursor.execute("SELECT email FROM profile WHERE id=%s;", (sessionID))
     email=cursor.fetchone()
     if email:
         email=email[0]
 
-    cursor.execute("SELECT phoneNum FROM profile WHERE id=(SELECT MAX(id) FROM profile);")
+    cursor.execute("SELECT phoneNum FROM profile WHERE id=%s;", (sessionID))
     phoneNumber=cursor.fetchone()
     if phoneNumber:
         phoneNumber=phoneNumber[0]
 
-    cursor.execute("SELECT address1 FROM profile WHERE id=(SELECT MAX(id) FROM profile);")
+    cursor.execute("SELECT address1 FROM profile WHERE id=%s;", (sessionID))
     address1=cursor.fetchone()
     if address1:
         address1=address1[0]
 
-    cursor.execute("SELECT address2 FROM profile WHERE id=(SELECT MAX(id) FROM profile);")
+    cursor.execute("SELECT address2 FROM profile WHERE id=%s;", (sessionID))
     address2=cursor.fetchone()
     if address2:
         address2=address2[0]
 
-    cursor.execute("SELECT zipcode FROM profile WHERE id=(SELECT MAX(id) FROM profile);")
+    cursor.execute("SELECT zipcode FROM profile WHERE id=%s;", (sessionID))
     zipcode=cursor.fetchone()
     if zipcode:
         zipcode=zipcode[0]
 
-    cursor.execute("SELECT city FROM profile WHERE id=(SELECT MAX(id) FROM profile);")
+    cursor.execute("SELECT city FROM profile WHERE id=%s;", (sessionID))
     city=cursor.fetchone()
     if city:
         city=city[0]
 
-    cursor.execute("SELECT state FROM profile WHERE id=(SELECT MAX(id) FROM profile);")
+    cursor.execute("SELECT state FROM profile WHERE id=%s;", (sessionID))
     state=cursor.fetchone()
     if state:
         state=state[0]
 
-    cursor.execute("SELECT name FROM paymentMethod WHERE paymentMethodID=(SELECT MAX(paymentMethodID) FROM paymentMethod);")
+    cursor.execute("SELECT name FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
     cardName=cursor.fetchone()
     if cardName:
         cardName=cardName[0]
 
-    cursor.execute("SELECT type FROM paymentMethod WHERE paymentMethodID=(SELECT MAX(paymentMethodID) FROM paymentMethod);")
+    cursor.execute("SELECT type FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
     cardType=cursor.fetchone()
     if cardType:
         cardType=cardType[0]
 
-    cursor.execute("SELECT expirationDate FROM paymentMethod WHERE paymentMethodID=(SELECT MAX(paymentMethodID) FROM paymentMethod);")
+    cursor.execute("SELECT expirationDate FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
     expirationDate=cursor.fetchone()
     if expirationDate:
         expirationDate=expirationDate[0]
@@ -279,6 +291,7 @@ def displayinfo():
 #update profile information
 @app.route('/editprofile', methods = ['GET','POST'])
 def updateinfo():
+    sessionID = session['id']
     if request.method == 'POST':
 
         #edit personal info
@@ -298,53 +311,40 @@ def updateinfo():
 
         #update into dB
         if(firstName!=''):
-            statement="UPDATE profile SET firstName='{}' WHERE id=(SELECT MAX(id));".format(firstName)
-            cursor.execute(statement)
+            cursor.execute("UPDATE profile SET firstName='{}' WHERE id=%s;".format(firstName), (sessionID))
         if(lastName!=''):
-            statement="UPDATE profile SET lastName='{}' WHERE id=(SELECT MAX(id))".format(lastName)
-            cursor.execute(statement)
+            cursor.execute("UPDATE profile SET lastName='{}' WHERE id=%s;".format(lastName), (sessionID))
         if(password!=''):
-            statement="UPDATE profile SET phoneNum='{}' WHERE id=(SELECT MAX(id))".format(password)
-            cursor.execute(statement)
+            cursor.execute("UPDATE profile SET phoneNum='{}' WHERE id=(SELECT MAX(id))".format(password))
         if(phoneNumber!=''):
-            statement="UPDATE profile SET phoneNum='{}' WHERE id=(SELECT MAX(id))".format(phoneNumber)
-            cursor.execute(statement)
+            cursor.execute("UPDATE profile SET phoneNum='{}' WHERE id=%s;".format(phoneNumber), (sessionID))
 
         if(address1!=''):
-            statement="UPDATE profile SET address1='{}' WHERE id=(SELECT MAX(id))".format(address1)
-            cursor.execute(statement)
+            cursor.execute("UPDATE profile SET address1='{}' WHERE id=%s;".format(address1), (sessionID))
 
         if(address2!=''):
-            statement="UPDATE profile SET address2='{}' WHERE id=(SELECT MAX(id))".format(address2)
-            cursor.execute(statement)
+            cursor.execute("UPDATE profile SET address2='{}' WHERE id=%s;".format(address2), (sessionID))
 
         if(zipcode!=''):
-            statement="UPDATE profile SET zipcode='{}' WHERE id=(SELECT MAX(id))".format(zipcode)
-            cursor.execute(statement)
+            cursor.execute("UPDATE profile SET zipcode='{}' WHERE id=%s;".format(zipcode), (sessionID))
 
         if(city!=''):
-            statement="UPDATE profile SET city='{}' WHERE id=(SELECT MAX(id))".format(city)
-            cursor.execute(statement)
+            cursor.execute("UPDATE profile SET city='{}' WHERE id=%s;".format(city), (sessionID))
 
         if(state!=''):
-            statement="UPDATE profile SET state='{}' WHERE id=(SELECT MAX(id))".format(state)
-            cursor.execute(statement)
+            cursor.execute("UPDATE profile SET state='{}' WHERE id=%s;".format(state), (sessionID))
 
         if(cardName!=''):
-            statement="UPDATE paymentMethod SET name='{}' WHERE paymentMethodID=(SELECT MAX(paymentMethodID))".format(cardName)
-            cursor.execute(statement)
+            cursor.execute("UPDATE paymentMethod SET name='{}' WHERE paymentMethodID=%s;".format(cardName), (sessionID))
 
         if(cardType!=''):
-            statement="UPDATE paymentMethod SET type='{}' WHERE paymentMethodID=(SELECT MAX(paymentMethodID))".format(cardType)
-            cursor.execute(statement)
+            cursor.execute("UPDATE paymentMethod SET type='{}' WHERE paymentMethodID=%s;".format(cardType), (sessionID))
 
         if(cardNumber!=''):
-            statement="UPDATE paymentMethod SET cardNumber='{}' WHERE paymentMethodID=(SELECT MAX(paymentMethodID))".format(cardNumber)
-            cursor.execute(statement)
+            cursor.execute("UPDATE paymentMethod SET cardNumber='{}' WHERE paymentMethodID=%s;".format(cardNumber), (sessionID))
 
         if(expirationDate!=''):
-            statement="UPDATE paymentMethod SET expirationDate='{}' WHERE paymentMethodID=(SELECT MAX(paymentMethodID))".format(expirationDate)
-            cursor.execute(statement)
+            cursor.execute("UPDATE paymentMethod SET expirationDate='{}' WHERE paymentMethodID=%s;".format(expirationDate), (sessionID))
 
 
 
