@@ -11,7 +11,10 @@
   </head>
   <style>
 
+  post{
+    color:red!important;
 
+  }
   div > div > a
 {
 
@@ -116,7 +119,12 @@
 <div class="col-8 mx-auto">
   <a href="/viewbooks">Return back to View Books</a>
   <br><br>
-  <form action="/addbook" class="was-validated" method = "POST">
+  <div class="flashes">
+  {% for message in get_flashed_messages() %}
+    {{ message }}
+  {% endfor %}
+</div>
+  <form action="/addbook" class="was-validated" method = "POST" enctype="multipart/form-data">
   <div class="form">
     <label for="isbn">ISBN</label>
     <input type="text" class="form-control" id="isbn" name="isbn" required>
@@ -239,6 +247,9 @@
     <div class="invalid-feedback">Required</div>
   </div>
 
+
+
+
   <br>
 
   <button type="submit" class="btn btn-primary">Update</button>
@@ -251,7 +262,8 @@
 </div>
   </div>
 
-<!--testing image upload-->
+
+<!--testing image upload
   <p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
 <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
 <p><img id="output" width="200" /></p>
@@ -262,6 +274,7 @@ var loadFile = function(event) {
 	image.src = URL.createObjectURL(event.target.files[0]);
 };
 </script>
+-->
 
   <!--script for id popover-->
   <script type="text/javascript">
