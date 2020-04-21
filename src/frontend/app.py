@@ -24,12 +24,18 @@ cursor=con.cursor()
 #route for homepage or INDEX
 @app.route('/', methods = ['GET','POST'])
 def index():
-    return render_template('homepage.html')
+    cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
+    book = cursor.fetchall()
+
+    return render_template('homepage.html',book=book)
 
 #route for main only for logged in users
 @app.route('/main', methods = ['GET','POST'])
 def main():
-    return render_template('logged_in_homepage.html')
+    cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
+    book = cursor.fetchall()
+
+    return render_template('logged_in_homepage.html',book=book)
 
 #route for forgotten password
 @app.route('/forgotPassword', methods = ['GET', 'POST'])
@@ -210,7 +216,7 @@ def login():
 
         return render_template("login.html")
     print(session['id'])
-    return render_template("logged_in_homepage.html")
+    return redirect(url_for('main'))
  #   if request.method == 'GET':
         #get personal info
    #     return render_template("login.html",error=False)

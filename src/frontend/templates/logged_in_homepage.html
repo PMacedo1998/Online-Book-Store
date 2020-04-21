@@ -14,11 +14,27 @@
 
 </head>
 <style>
-  .carousel-inner img {
-  margin: auto;
-  }
-  .card-img-top{
-    height: 100%;
+img {
+  height: 330px !important;
+
+}
+
+div > div > a
+{
+
+background-color:#196F3D !important;
+border-color:#196F3D!important;
+color:white !important;
+
+}
+
+div > div > a:hover
+{
+
+background-color:gray !important;
+border-color:gray!important;
+color:white !important;
+
 }
 
 </style>
@@ -91,122 +107,32 @@
 </div>
 
 <div class="container">
-    <h1>    Welcome to Lone Bookstore!</h1>
-        <h4>Use the tabs to explore!</h4>
-    <div id="homeCarousel" class="carousel slide" data-ride="carousel">
-
-    <!-- indicators -->
-    <ul class="carousel-indicators">
-        <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#homeCarousel" data-slide-to="1"></li>
-        <li data-target="#homeCarousel" data-slide-to="2"></li>
-    </ul>
-
-    <!--slides -->
-    <div class="carousel-inner">
-        <div class="carousel-item active" data-interval="100">
-        <img style="width:1100px;height:500px;margin:auto;"src="{{url_for('static', filename='images/books1.jpg')}}" alt="books1" width="1100" height="500">
-        <div class="carousel-caption">
-            <h1>Books.</h1>
-        </div>
-        </div>
-        <div class="carousel-item" data-interval="100">
-        <img style="width:1100px;height:500px;margin:auto;" src="{{url_for('static', filename='images/books2.jpg')}}" alt="books2" width="1100" height="500">
-        </div>
-        <div class="carousel-item" data-interval="100">
-        <img style="width:1100px;height:500px;margin:auto;" src="{{url_for('static', filename='images/books3.jpg')}}" alt="books3" width="1100" height="500">
-        </div>
-    </div>
-
-    <!-- Left and right controls -->
-    <a class="carousel-control-prev" href="#homeCarousel" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </a>
-    <a class="carousel-control-next" href="#homeCarousel" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </a>
-    </div>
-</div>
-
-<div class="container">
     <br>
-    <h2>Suggested Books</h2>
+    <h1>Recommended Books</h1>
+    <hr><br>
+
         <div class="row">
-            <div class="col">
-                    <div class="card"  >
-                        <img class="card-img-top" src="{{url_for('static', filename='images/book1.jpg')}}" alt="Card image">
-                        <div class="card-body">
-                        <h4 class="card-title">The Great Gatsby</h4>
-                        <p class="card-text">F. Scott Fitzgerald</p>
-                        <p class="card-text">$4.99</p>
-                        <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-            </div>
-            <div class= "col">
+          {% for info in book %}
+
+
+            <div class="col-3" >
                     <div class="card" >
-                        <img class="card-img-top" src="{{url_for('static', filename='images/book2.jpg')}}" alt="Card image">
+                        <img class="card-img-top" src="static/images/{{ info[3] }}" alt="cover picture of {{info[0]}}">
                         <div class="card-body">
-                        <h4 class="card-title">End of Watch</h4>
-                        <p class="card-text">Stephen King</p>
-                        <p class="card-text">$12.99</p>
-                        <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-            </div>
-            <div class= "col">
-                    <div class="card" >
-                        <img class="card-img-top" src="{{url_for('static', filename='images/book3.jpg')}}" alt="Card image">
-                        <div class="card-body">
-                        <h4 class="card-title">Werewolf Mountain</h4>
-                        <p class="card-text">C.W. Waters</p>
-                        <p class="card-text">$9.99</p>
-                        <a href="#" class="btn btn-primary">View Details</a>
+                        <h4 class="card-title">{{info[0]}}</h4>
+                        <i class="card-text">By {{info[1]}}</i>
+                        <p class="card-text">Price: ${{info[2]}}</p>
+                        <a href="#" class="btn btn-block">View Details</a>
                         </div>
                     </div>
             </div>
 
-        </div>
-        <div class="row">
-            <div class="col">
-                    <div class="card"  >
-                        <img class="card-img-top" src="{{url_for('static', filename='images/book1.jpg')}}" alt="Card image">
-                        <div class="card-body">
-                        <h4 class="card-title">The Great Gatsby</h4>
-                        <p class="card-text">F. Scott Fitzgerald</p>
-                        <p class="card-text">$4.99</p>
-                        <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-            </div>
-            <div class= "col">
-                    <div class="card" >
-                        <img class="card-img-top" src="{{url_for('static', filename='images/book2.jpg')}}" alt="Card image">
-                        <div class="card-body">
-                        <h4 class="card-title">End of Watch</h4>
-                        <p class="card-text">Stephen King</p>
-                        <p class="card-text">$12.99</p>
-                        <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-            </div>
-            <div class= "col">
-                    <div class="card" >
-                        <img class="card-img-top" src="{{url_for('static', filename='images/book3.jpg')}}" alt="Card image">
-                        <div class="card-body">
-                        <h4 class="card-title">Werewolf Mountain</h4>
-                        <p class="card-text">C.W. Waters</p>
-                        <p class="card-text">$9.99</p>
-                        <a href="#" class="btn btn-primary">View Details</a>
-                        </div>
-                    </div>
-            </div>
 
+{% endfor %}
         </div>
 
 
 </div>
-<br>
-<br>
+<br><br>
 </body>
 </html>
