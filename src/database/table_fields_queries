@@ -42,7 +42,6 @@ ADD COLUMN address2 VARCHAR(45) NULL,
 ADD COLUMN zipcode VARCHAR(45) NULL,
 ADD COLUMN city VARCHAR(45) NULL,
 ADD COLUMN state VARCHAR(45) NULL,
-ADD COLUMN filename VARCHAR(100),
 ADD CONSTRAINT fk_profile_paymentMethod
     FOREIGN KEY (paymentMethodID)
     REFERENCES paymentMethod (paymentMethodID);
@@ -103,7 +102,8 @@ ADD COLUMN quantityInStock VARCHAR(45) NOT NULL,
 ADD COLUMN minThreshold VARCHAR(45) NOT NULL,
 ADD COLUMN buyingPrice VARCHAR(45) NOT NULL,
 ADD COLUMN sellingPrice VARCHAR(45) NOT NULL,
-ADD COLUMN bookRating VARCHAR(45) NOT NULL;
+ADD COLUMN bookRating VARCHAR(45) NOT NULL,
+ADD COLUMN filename VARCHAR(100);
 
 /*Alter table registeredUser*/
 
