@@ -53,29 +53,13 @@
     <div class="jumbotron">
       <div class="container">
         <h1 class="display-2">Login</h1>
+        <hr class = "my-4">
         <p class="lead">Please enter your credentials.</p>
+        <hr class = "my-4">
       </div>
-          <hr class = "my-4">
-          <div class="input-group mt-3 mb-3">
-            <div class="input-group-prepend">
-              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-                Apply Filter
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Subject</a>
-                <a class="dropdown-item" href="#">Title</a>
-                <a class="dropdown-item" href="#">Author</a>
-                <a class="dropdown-item" href="#">ISBN</a>
-                <a class="dropdown-item" href="#">None</a>
-              </div>
-            </div>
-            <input type="text" class="form-control" placeholder="Enter keyword...">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-            </div>
-          </div>
 
-          <hr class = "my-4">
+
+
           <ul class="nav nav-pills nav-justified">
             <li class="nav-item">
               <a class="nav-link" href="#">Account</a>
@@ -88,7 +72,7 @@
     </div>
 
     <div class="container">
-        <h2>User Log In</h2>
+        <h2>User Login</h2>
 
         <div class="flashes">
         {% for message in get_flashed_messages() %}
@@ -101,8 +85,8 @@
 
       <form action="." method = "POST">
           <div class="form-group">
-            <label for="email">User ID / Email address:</label>
-            <input type="email" class="form-control" placeholder="Enter User ID or email address" name="email">
+            <label for="email">User ID / Email Address:</label>
+            <input type="email" class="form-control" placeholder="Enter user ID or email address" name="email">
           </div>
           <div class="form-group">
             <label for="password">Password:</label>

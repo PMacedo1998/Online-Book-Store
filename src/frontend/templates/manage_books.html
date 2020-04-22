@@ -83,8 +83,10 @@
         </button>
       </div>
     </div>
-
     <hr class="my-4">
+    <p class="lead">Search and view any book information:</p>
+
+    
     <form class="form" action="/viewbooks" method="POST">
       <div class="input-group mt-3 mb-3">
 
@@ -106,7 +108,7 @@
             </div>
           </div>
     </form>
-    <p class="lead">Search and view any book information:</p>
+
   </div>
 </div>
 
@@ -119,9 +121,9 @@
     <!--display books-->
     <div class="container">
       <!--book1-->
-      {%if request.form.search%}
+
       <p>Results for {{searchfilter}} : {{ request.form.search}}</p>
-{%endif%}
+
       <div class="row">
 
 

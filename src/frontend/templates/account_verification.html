@@ -13,47 +13,17 @@
   </head>
 <body>
 
-    <div class="topBar">
-
-        <ul style="list-style-type: none;">
-        <li class="nav-item dropdown">
-            <a class="nav-lifnk dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Edit Profile</a>
-              <a class="dropdown-item" href="#">Order History</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Logout</a>
-            </div>
-          </li>
-       </ul>
-    </div>
 
     <div class="jumbotron">
       <div class="container">
-        <h1 class="display-2">Promotion/News</h1>
-        <p class="lead">This is where we can advertise promos and stuff</p>
+        <h1 class="display-2">Email Verification</h1>
+        <hr class = "my-4">
+        <p class="lead">Please follow instructions to verify account.</p>
+        <hr class = "my-4">
       </div>
-          <hr class = "my-4">
-          <div class="input-group mt-3 mb-3">
-            <div class="input-group-prepend">
-              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-                Apply Filter
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Subject</a>
-                <a class="dropdown-item" href="#">Title</a>
-                <a class="dropdown-item" href="#">Author</a>
-                <a class="dropdown-item" href="#">ISBN</a>
-                <a class="dropdown-item" href="#">None</a>
-              </div>
-            </div>
-            <input type="text" class="form-control" placeholder="Enter keyword...">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-            </div>
-          </div>
 
-          <hr class = "my-4">
+
+
           <ul class="nav nav-pills nav-justified">
             <li class="nav-item">
               <a class="nav-link" href="#">Account</a>
@@ -61,12 +31,7 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Manage Orders</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
+
         </ul>
     </div>
 
@@ -74,6 +39,7 @@
     <div class="container">
         <h2>Email Verification</h2>
         <h6>Almost there! Please enter your email along with the verification code that was sent to your email.</h6>
+        <br>
         <!--<p>Didn't receive a code? <a>Click here to resend code</a></p>-->
       <form class="was-validated" method = "POST">
         <div class="form-group">
@@ -83,7 +49,8 @@
           <div class="invalid-feedback">Required</div>
         </div>
           <div class="form-group" >
-            <input class="form-control" placeholder="Verification Code" name="code" id="code" required>
+            <label for="code">Verification Code:</label>
+            <input class="form-control" placeholder="Enter verification code" name="code" id="code" required>
             <div class="valid-feedback">Valid</div>
             <div class="invalid-feedback">Required</div>
           </div>

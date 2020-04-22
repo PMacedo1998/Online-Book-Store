@@ -15,8 +15,23 @@
 </head>
 <style>
 img {
-  height: 330px !important;
+  height: 200px !important;
+  width: 198px !important;
 
+}
+
+.card-title {
+  font-size:15px !important;
+}
+.card-text {
+  font-size:13px !important;
+}
+.card {
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 200px !important;
+  height: 425px !important;
+  margin-bottom: 15px;
 }
 
 div > div > a
@@ -70,8 +85,8 @@ color:white !important;
 
 <div class="jumbotron">
       <div class="container">
-        <h1 class="display-2">Promotion/News</h1>
-        <p class="lead">This is where we can advertise promos and stuff</p>
+        <h1 class="display-2">Lone Bookstore</h1>
+        <p class="lead">Search and view books.</p>
       </div>
           <hr class = "my-4">
           <form class="form" action="/" method="POST">
@@ -91,7 +106,7 @@ color:white !important;
 
                   <div class="input-group-append">
 
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                    <button class="btn btn-secondary" type="submit" id="button-addon2">Search</button>
                   </div>
                 </div>
           </form>
@@ -112,9 +127,9 @@ color:white !important;
     <br>
     <h1>Recommended Books</h1>
     <hr>
-    {%if request.form.search%}
+
     <p>Results for {{searchfilter}} : {{ request.form.search}}</p>
-    {%endif%}
+
 
     <br>
 
@@ -122,18 +137,19 @@ color:white !important;
           {% for info in book|sort(attribute='title') %}
 
 
-            <div class="col-3" >
-                    <div class="card" >
-                        <img class="card-img-top" src="static/images/{{ info[3] }}" alt="cover picture of {{info[0]}}">
-                        <div class="card-body">
-                        <h4 class="card-title">{{info[0]}}</h4>
-                        <i class="card-text">By {{info[1]}}</i>
-                        <p class="card-text">Price: ${{info[2]}}</p>
-                        <a href="#" class="btn btn-block">View Details</a>
-                        <a href="#" class="btn btn-block">Add to Cart</a>
-                        </div>
-                    </div>
-            </div>
+          <div class="col-3" >
+                  <div class="card ">
+                     <div class="card-header">{{info[0]}}</div>
+                      <img class="card-img-top" src="static/images/{{ info[3] }}" alt="cover picture of {{info[0]}}">
+                      <div class="card-body">
+                      <i class="card-text">By {{info[1]}}</i>
+                      <p class="card-text">Price: ${{info[2]}}</p>
+                      <a href="#" class="btn btn-block btn-xs">View Details</a>
+
+                      <a href="#" class="btn btn-block btn-xs">Add to Cart</a>
+                      </div>
+                  </div>
+          </div>
 
 
 {% endfor %}
