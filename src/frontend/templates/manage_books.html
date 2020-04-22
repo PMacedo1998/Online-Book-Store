@@ -85,23 +85,24 @@
     </div>
 
     <hr class="my-4">
-    <form class="form">
+    <form class="form" action="/viewbooks" method="POST">
       <div class="input-group mt-3 mb-3">
-            <div class="input-group-prepend">
-              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-                Apply Filter
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Subject</a>
-                <a class="dropdown-item" href="#">Title</a>
-                <a class="dropdown-item" href="#">Author</a>
-                <a class="dropdown-item" href="#">ISBN</a>
-                <a class="dropdown-item" href="#">None</a>
-              </div>
-            </div>
-            <input type="text" class="form-control" placeholder="Enter keyword...">
+
+
+              <select class="custom-select" id="searchfilter" name="searchfilter" style="max-width:12%;">
+
+                <option value="Title">Title</option>
+                <option value="Subject">Subject</option>
+                <option value="ISBN">ISBN</option>
+                <option value="Author">Author</option>
+                <option value="Clear">Clear Filters</option>
+              </select>
+
+            <input type="text" class="form-control" name="search" placeholder="Enter book information">
+
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+
+              <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
             </div>
           </div>
     </form>
@@ -113,10 +114,16 @@
 
 
 
+
+
     <!--display books-->
     <div class="container">
       <!--book1-->
+      {%if request.form.search%}
+      <p>Results for {{searchfilter}} : {{ request.form.search}}</p>
+{%endif%}
       <div class="row">
+
 
   <div class="col mx-auto">
 

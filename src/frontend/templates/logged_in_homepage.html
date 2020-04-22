@@ -74,25 +74,27 @@ color:white !important;
         <p class="lead">This is where we can advertise promos and stuff</p>
       </div>
           <hr class = "my-4">
-          <div class="input-group mt-3 mb-3">
-            <div class="input-group-prepend">
-              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-                Apply Filter
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Subject</a>
-                <a class="dropdown-item" href="#">Title</a>
-                <a class="dropdown-item" href="#">Author</a>
-                <a class="dropdown-item" href="#">ISBN</a>
-                <a class="dropdown-item" href="#">None</a>
-              </div>
-            </div>
-            <input type="text" class="form-control" placeholder="Enter keyword...">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-            </div>
-          </div>
+          <form class="form" action="/" method="POST">
+            <div class="input-group mt-3 mb-3">
 
+
+                    <select class="custom-select" id="searchfilter" name="searchfilter" style="max-width:12%;">
+
+                      <option value="Title">Title</option>
+                      <option value="Subject">Subject</option>
+                      <option value="ISBN">ISBN</option>
+                      <option value="Author">Author</option>
+                      <option value="Clear">Clear Filters</option>
+                    </select>
+
+                  <input type="text" class="form-control" name="search" placeholder="Enter book information">
+
+                  <div class="input-group-append">
+
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                  </div>
+                </div>
+          </form>
           <hr class = "my-4">
           <ul class="nav nav-pills nav-justified">
             <li class="nav-item">
@@ -109,10 +111,15 @@ color:white !important;
 <div class="container">
     <br>
     <h1>Recommended Books</h1>
-    <hr><br>
+    <hr>
+    {%if request.form.search%}
+    <p>Results for {{searchfilter}} : {{ request.form.search}}</p>
+    {%endif%}
+
+    <br>
 
         <div class="row">
-          {% for info in book %}
+          {% for info in book|sort(attribute='title') %}
 
 
             <div class="col-3" >
@@ -123,6 +130,7 @@ color:white !important;
                         <i class="card-text">By {{info[1]}}</i>
                         <p class="card-text">Price: ${{info[2]}}</p>
                         <a href="#" class="btn btn-block">View Details</a>
+                        <a href="#" class="btn btn-block">Add to Cart</a>
                         </div>
                     </div>
             </div>

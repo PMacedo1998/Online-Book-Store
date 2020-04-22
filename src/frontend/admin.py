@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, Markup, flash
+from flask import Flask, render_template, request, redirect, url_for, Markup, flash, Blueprint
 from flaskext.mysql import MySQL
 import sendgrid
 import os
@@ -10,6 +10,9 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
+
+
+
 
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -32,13 +35,34 @@ cursor=con.cursor()
 def admin():
     return render_template('admin.html')
 
-#route for main only for logged in users
-@app.route('/viewbooks')
-def viewbooks():
-    cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book;")
-    book = cursor.fetchall()
 
-    return render_template('manage_books.html',book=book)
+#route for main only for logged in users
+@app.route('/viewbooks', methods=['GET', 'POST'])
+def viewbooks():
+    if request.method == "POST":
+        searchfilter = request.form['searchfilter']
+        if searchfilter == 'Title':
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book WHERE title = %s ",request.form['search'])
+
+        elif searchfilter == 'Subject':
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book WHERE category = %s ",request.form['search'])
+
+        elif searchfilter == 'ISBN':
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book WHERE isbn = %s ",request.form['search'])
+
+        elif searchfilter == 'Author':
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book WHERE authorName = %s ",request.form['search'])
+
+        elif searchfilter == 'Clear':
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book;")
+
+        book = cursor.fetchall()
+        return render_template('manage_books.html',searchfilter=searchfilter,book=book)
+    else:
+        cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book;")
+        book = cursor.fetchall()
+        return render_template('manage_books.html',book=book)
+    render_template('manage_books.html',book=book)
 
 #route for main only for logged in users
 @app.route('/viewspecificbook')

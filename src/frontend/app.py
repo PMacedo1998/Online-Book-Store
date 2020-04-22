@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, sessions, session
+from flask import Flask, render_template, request, redirect, url_for, Markup, flash, sessions, session, Blueprint
 from flaskext.mysql import MySQL
 import sendgrid
 import os
@@ -7,7 +7,12 @@ import random
 from sendgrid.helpers.mail import *
 from passlib.hash import sha256_crypt
 
+
+
+
 app = Flask(__name__)
+
+
 
 app.secret_key = 'secret'
 app.config['MYSQL_DATABASE_USER'] = "admin"
@@ -22,12 +27,7 @@ cursor=con.cursor()
 #this app.route is specific to register page
 
 #route for homepage or INDEX
-@app.route('/', methods = ['GET','POST'])
-def index():
-    cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
-    book = cursor.fetchall()
 
-    return render_template('homepage.html',book=book)
 
 #route for main only for logged in users
 @app.route('/main', methods = ['GET','POST'])
@@ -194,10 +194,12 @@ def logout():
 def login():
     inputEmail=''
     inputPass=''
+    counter = 0
     if request.method == 'POST':
 
         inputEmail = request.form['email']
         inputPass = request.form['password']
+        counter += 1
 
     cursor.execute('SELECT * FROM profile')
     users = cursor.fetchall()
@@ -212,8 +214,11 @@ def login():
             session['loggedin'] = True
             session['id'] = x[0]
 
-    if isUser == False:
-
+    if isUser == False and counter != 0:
+        message = Markup("<post>Incorrect email and/or password. Please try again.</post><br>")
+        flash(message)
+        return render_template("login.html")
+    elif isUser == False:
         return render_template("login.html")
     print(session['id'])
     return redirect(url_for('main'))
@@ -223,6 +228,7 @@ def login():
 
  #   if request.form['email']!="email@gmail.com" or request.form['password']!= "password":
    #     return render_template('login.html',error = True)
+
 
     return render_template("login.html")
 
@@ -355,11 +361,40 @@ def updateinfo():
 
 
         con.commit()
+        message = Markup("<post>Success! Your profile information was updated.</post><br>")
+        flash(message)
 
         return redirect(url_for('displayinfo'))
+
     return render_template('edit_profile.html')
 
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == "POST":
+        searchfilter = request.form['searchfilter']
 
+        if searchfilter == 'Title':
+            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
+
+        elif searchfilter == 'Subject':
+            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE category = %s ",request.form['search'])
+
+        elif searchfilter == 'ISBN':
+            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE isbn = %s ",request.form['search'])
+
+        elif searchfilter == 'Author':
+            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE authorName = %s ",request.form['search'])
+
+        elif searchfilter == 'Clear':
+            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
+
+        book = cursor.fetchall()
+        return render_template('homepage.html',searchfilter=searchfilter,book=book)
+    else:
+        cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
+        book = cursor.fetchall()
+        return render_template('homepage.html',book=book)
+    render_template('homepage.html',book=book)
 
 
 
