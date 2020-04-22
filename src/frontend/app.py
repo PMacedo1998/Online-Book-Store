@@ -26,16 +26,41 @@ cursor=con.cursor()
 
 #this app.route is specific to register page
 
-#route for homepage or INDEX
+
+@app.route('/bookdetails')
+def bookdetails():
+    return render_template('book_details.html')
+
 
 
 #route for main only for logged in users
 @app.route('/main', methods = ['GET','POST'])
 def main():
-    cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
-    book = cursor.fetchall()
+    if request.method == "POST":
+        searchfilter = request.form['searchfilter']
 
-    return render_template('logged_in_homepage.html',book=book)
+        if searchfilter == 'Title':
+            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
+
+        elif searchfilter == 'Subject':
+            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE category = %s ",request.form['search'])
+
+        elif searchfilter == 'ISBN':
+            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE isbn = %s ",request.form['search'])
+
+        elif searchfilter == 'Author':
+            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE authorName = %s ",request.form['search'])
+
+        elif searchfilter == '':
+            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
+
+        book = cursor.fetchall()
+        return render_template('logged_in_homepage.html',searchfilter=searchfilter,book=book)
+    else:
+        cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
+        book = cursor.fetchall()
+        return render_template('logged_in_homepage.html',book=book)
+    render_template('logged_in_homepage.html',book=book)
 
 #route for forgotten password
 @app.route('/forgotPassword', methods = ['GET', 'POST'])
@@ -385,7 +410,7 @@ def index():
         elif searchfilter == 'Author':
             cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE authorName = %s ",request.form['search'])
 
-        elif searchfilter == 'Clear':
+        elif searchfilter == '':
             cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
 
         book = cursor.fetchall()

@@ -53,7 +53,7 @@ def viewbooks():
         elif searchfilter == 'Author':
             cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book WHERE authorName = %s ",request.form['search'])
 
-        elif searchfilter == 'Clear':
+        elif searchfilter == '':
             cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book;")
 
         book = cursor.fetchall()

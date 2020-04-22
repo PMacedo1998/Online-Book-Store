@@ -98,7 +98,7 @@ color:white !important;
                       <option value="Subject">Subject</option>
                       <option value="ISBN">ISBN</option>
                       <option value="Author">Author</option>
-                      <option value="Clear">Clear Filters</option>
+                      <option value="">Clear Filters</option>
                     </select>
 
                   <input type="text" class="form-control" name="search" placeholder="Enter book information">
@@ -162,8 +162,10 @@ color:white !important;
     <br>
     <h1>Recommended Books</h1>
     <hr>
-
+    {% if searchfilter|length%}
     <p>Results for {{searchfilter}} : {{ request.form.search}}</p>
+
+    {%endif%}
 
     <br>
 
@@ -178,7 +180,7 @@ color:white !important;
                         <div class="card-body">
                         <i class="card-text">By {{info[1]}}</i>
                         <p class="card-text">Price: ${{info[2]}}</p>
-                        <a href="#" class="btn btn-block btn-xs">View Details</a>
+                        <a href="/bookdetails" class="btn btn-block btn-xs">View Details</a>
 
                         <a href="#" class="btn btn-block btn-xs">Add to Cart</a>
                         </div>
