@@ -53,6 +53,26 @@ color:white !important;
 
 }
 
+button, select, option
+{
+
+background-color:#196F3D !important;
+border-color:#196F3D!important;
+color:white !important;
+
+}
+
+button:hover, select:hover, option:hover
+{
+
+background-color:gray !important;
+border-color:gray!important;
+color:white !important;
+
+}
+
+
+
 
 
 
@@ -105,59 +125,24 @@ color:white !important;
 
                   <div class="input-group-append">
 
-                    <button class="btn btn-secondary" type="submit" id="button-addon2">Search</button>
+                    <button class="btn btn-secondary" type="submit" name="submit_button" id="search" value="search">Search</button>
                   </div>
                 </div>
-          </form>
+
 
           <hr class = "my-4">
           <ul class="nav nav-pills nav-justified">
             <li class="nav-item">
-              <a class="nav-link" href="edit_profile.html">Account</a>
+              <a class="nav-link" href="/login">Account</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="order_history.html">Manage Orders</a>
+              <a class="nav-link" href="/login">View Shopping Cart</a>
             </li>
         </ul>
     </div>
 
 </div>
-<!--
-<div class="container">
-    <h1>    Welcome to Lone Bookstore!</h1>
-        <h4>Use the tabs to explore!</h4>
-    <div id="homeCarousel" class="carousel slide" data-ride="carousel">
 
-
-    <ul class="carousel-indicators">
-        <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#homeCarousel" data-slide-to="1"></li>
-        <li data-target="#homeCarousel" data-slide-to="2"></li>
-    </ul>
-
-
-    <div class="carousel-inner">
-      <div class="carousel-item active" data-interval="100">
-      <img style="width:1100px;height:500px;margin:auto;" src="static/images/usa.jpg" alt="cover picture" width="1100" height="500">
-      </div>
-      {% for info in book %}
-
-
-        <div class="carousel-item " data-interval="100">
-        <img style="width:1100px;height:500px;margin:auto;" src="static/images/{{ info[3] }}" alt="cover picture of {{info[0]}}" width="1100" height="500">
-        </div>
-        {% endfor %}
-    </div>
-
-    <a class="carousel-control-prev" href="#homeCarousel" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </a>
-    <a class="carousel-control-next" href="#homeCarousel" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </a>
-    </div>
-</div>
--->
 <div class="container">
     <br>
     <h1>Recommended Books</h1>
@@ -180,9 +165,14 @@ color:white !important;
                         <div class="card-body">
                         <i class="card-text">By {{info[1]}}</i>
                         <p class="card-text">Price: ${{info[2]}}</p>
-                        <a href="/bookdetails" class="btn btn-block btn-xs">View Details</a>
 
-                        <a href="#" class="btn btn-block btn-xs">Add to Cart</a>
+
+                        <button type="button" class="btn btn-block btn-xs" data-container="body" data-toggle="popover" data-placement="top" data-content="<pre>{{info[4]}}" data-html="true">
+                          View Details
+                        </button>
+
+                        <button class="btn btn-block btn-xs" type="submit" name="submit_button" id="addtocart" value="{{ info[4] }}">Add to Cart</button>
+
                         </div>
                     </div>
             </div>
@@ -193,7 +183,14 @@ color:white !important;
 
 
 </div>
+  </form>
 <br><br>
+<!--script for id popover-->
+<script type="text/javascript">
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+</script>
 
 </body>
 </html>

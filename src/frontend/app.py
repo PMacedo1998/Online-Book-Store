@@ -31,36 +31,60 @@ cursor=con.cursor()
 def bookdetails():
     return render_template('book_details.html')
 
+@app.route('/checkout')
+def checkout():
+    return render_template('checkout.html')
+
 
 
 #route for main only for logged in users
 @app.route('/main', methods = ['GET','POST'])
 def main():
     if request.method == "POST":
+
+        search=None
+        addbooktocart=None
+        isbn=None
+        #searchfilter
+        if request.form['submit_button'] == 'search':
+            search=True
+        else:
+            isbn=request.form['submit_button']
+            addbooktocart=True
+            print("isbn is " + str(isbn))
+        print("addbooktocart is " + str(addbooktocart))
+        print("search is " + str(search))
+
+
         searchfilter = request.form['searchfilter']
+        #viewdetails
 
-        if searchfilter == 'Title':
-            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
+        if search == True:
+            if searchfilter == 'Title':
+                cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book WHERE title = %s ",request.form['search'])
 
-        elif searchfilter == 'Subject':
-            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE category = %s ",request.form['search'])
+            elif searchfilter == 'Subject':
+                cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book WHERE category = %s ",request.form['search'])
 
-        elif searchfilter == 'ISBN':
-            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE isbn = %s ",request.form['search'])
+            elif searchfilter == 'ISBN':
+                cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book WHERE isbn = %s ",request.form['search'])
 
-        elif searchfilter == 'Author':
-            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE authorName = %s ",request.form['search'])
+            elif searchfilter == 'Author':
+                cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book WHERE authorName = %s ",request.form['search'])
 
-        elif searchfilter == '':
-            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
+            elif searchfilter == '':
+                cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book;")
+            book = cursor.fetchall()
+            return render_template('logged_in_homepage.html',searchfilter=searchfilter,book=book)
+        elif addbooktocart == True:
+            cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book WHERE isbn = %s ",isbn)
+            book = cursor.fetchall()
+            return redirect(url_for('checkout'),book=book)
 
-        book = cursor.fetchall()
-        return render_template('logged_in_homepage.html',searchfilter=searchfilter,book=book)
     else:
-        cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
+        cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book;")
         book = cursor.fetchall()
-        return render_template('logged_in_homepage.html',book=book)
-    render_template('logged_in_homepage.html',book=book)
+    return render_template('logged_in_homepage.html',book=book)
 
 #route for forgotten password
 @app.route('/forgotPassword', methods = ['GET', 'POST'])
@@ -396,27 +420,56 @@ def updateinfo():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == "POST":
+
+        search=None
+        addbooktocart=None
+        isbn=None
+        #searchfilter
+        if request.form['submit_button'] == 'search':
+            search=True
+        else:
+            isbn=request.form['submit_button']
+            addbooktocart=True
+            print("isbn is " + str(isbn))
+        #try:
+        #    search=request.form['search']
+        #except:
+        #    addtocart=request.form['addtocart']
+        #return render_template('book_details.html')
+
+
+
+        print("addbooktocart is " + str(addbooktocart))
+        print("search is " + str(search))
+
+
         searchfilter = request.form['searchfilter']
+        #viewdetails
 
-        if searchfilter == 'Title':
-            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
+        if search == True:
+            if searchfilter == 'Title':
+                cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book WHERE title = %s ",request.form['search'])
 
-        elif searchfilter == 'Subject':
-            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE category = %s ",request.form['search'])
+            elif searchfilter == 'Subject':
+                cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book WHERE category = %s ",request.form['search'])
 
-        elif searchfilter == 'ISBN':
-            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE isbn = %s ",request.form['search'])
+            elif searchfilter == 'ISBN':
+                cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book WHERE isbn = %s ",request.form['search'])
 
-        elif searchfilter == 'Author':
-            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book WHERE authorName = %s ",request.form['search'])
+            elif searchfilter == 'Author':
+                cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book WHERE authorName = %s ",request.form['search'])
 
-        elif searchfilter == '':
-            cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
+            elif searchfilter == '':
+                cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book;")
+            book = cursor.fetchall()
+            return render_template('homepage.html',searchfilter=searchfilter,book=book)
+        elif addbooktocart == True:
+            message = Markup("<post>You must be logged in to add book item to cart.</post><br>")
+            flash(message)
+            return render_template('login.html')
 
-        book = cursor.fetchall()
-        return render_template('homepage.html',searchfilter=searchfilter,book=book)
     else:
-        cursor.execute("SELECT title,authorName,sellingPrice,filename FROM book;")
+        cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book;")
         book = cursor.fetchall()
         return render_template('homepage.html',book=book)
     render_template('homepage.html',book=book)

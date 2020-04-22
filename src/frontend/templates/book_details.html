@@ -16,26 +16,69 @@
 
 
 
+
+    <div class="topBar">
+
+          <div class = "row">
+            <div class="col-2">
+            </div>
+            <div class="col-2">
+            </div>
+            <div class="col-2">
+            </div>
+           <div class="col-2">
+           </div>
+             <div class="col-2">
+             </div>
+         <div class="col-2">
+           <a href="{{url_for('register')}}"> Create Account</a>
+           <br>
+            <a href="{{url_for('login')}}">Login</a>
+           </div>
+           </div>
+         </div>
+
+
+
   <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-2"></h1>
-        <hr class = "my-4">
-      <p class="lead">hello</p>
-        <hr class = "my-4">
-    </div>
+        <div class="container">
+          <h1 class="display-2">Lone Bookstore</h1>
+          <p class="lead">Search and view books.</p>
+        </div>
+            <hr class = "my-4">
+            <form class="form" action="/" method="POST">
+              <div class="input-group mt-3 mb-3">
 
 
+                      <select class="custom-select" id="searchfilter" name="searchfilter" style="max-width:12%;">
 
+                        <option value="Title">Title</option>
+                        <option value="Subject">Subject</option>
+                        <option value="ISBN">ISBN</option>
+                        <option value="Author">Author</option>
+                        <option value="">Clear Filters</option>
+                      </select>
 
-        <ul class="nav nav-pills nav-justified">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Account</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Manage Orders</a>
-          </li>
+                    <input type="text" class="form-control" name="search" placeholder="Enter book information">
 
-      </ul>
+                    <div class="input-group-append">
+
+                      <button class="btn btn-secondary" type="submit" id="button-addon2">Search</button>
+                    </div>
+                  </div>
+            </form>
+
+            <hr class = "my-4">
+            <ul class="nav nav-pills nav-justified">
+              <li class="nav-item">
+                <a class="nav-link" href="edit_profile.html">Account</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="order_history.html">Manage Orders</a>
+              </li>
+          </ul>
+      </div>
+
   </div>
 
 <div class="container mx-auto" style="width: auto; height: auto; padding-top: 50px">

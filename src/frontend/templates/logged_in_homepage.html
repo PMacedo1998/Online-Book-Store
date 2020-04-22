@@ -52,36 +52,45 @@ color:white !important;
 
 }
 
+button, select, option
+{
+
+background-color:#196F3D !important;
+border-color:#196F3D!important;
+color:white !important;
+
+}
+
+button:hover, select:hover, option:hover
+{
+
+background-color:gray !important;
+border-color:gray!important;
+color:white !important;
+
+}
+
 </style>
 <body>
 
   <div class="topBar">
 
-        <div class = "row">
-        <div class="col">
+
         <ul style="list-style-type: none;">
         <li class="nav-item dropdown">
-            <a class="nav-lifnk dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
             <div class="dropdown-menu">
+              <a class="dropdown-item" href="/main">Browse Books</a>
               <a class="dropdown-item" href="/editprofile">Edit Profile</a>
-              <a class="dropdown-item" href="#">Shopping Cart</a>
+              <a class="dropdown-item" href="/checkout">View Shopping Cart</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{url_for('logout')}}">Logout</a>
             </div>
           </li>
        </ul>
+
        </div>
-         <div class="col">
-         </div>
-         <div class="col">
-         </div>
-           <div class="col">
-           </div>
-       <div class="col">
-         </div>
-       </div>
-       </div>
-    </div>
+
 
 <div class="jumbotron">
       <div class="container">
@@ -106,17 +115,17 @@ color:white !important;
 
                   <div class="input-group-append">
 
-                    <button class="btn btn-secondary" type="submit" id="button-addon2">Search</button>
+                    <button class="btn btn-secondary" type="submit" name="submit_button" id="search" value="search">Search</button>
                   </div>
                 </div>
-          </form>
+
           <hr class = "my-4">
           <ul class="nav nav-pills nav-justified">
             <li class="nav-item">
-              <a class="nav-link" href="edit_profile.html">Account</a>
+              <a class="nav-link" href="/editprofile">View Account</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="order_history.html">Manage Orders</a>
+              <a class="nav-link" href="/checkout">View Shopping Cart</a>
             </li>
         </ul>
     </div>
@@ -144,9 +153,12 @@ color:white !important;
                       <div class="card-body">
                       <i class="card-text">By {{info[1]}}</i>
                       <p class="card-text">Price: ${{info[2]}}</p>
-                      <a href="#" class="btn btn-block btn-xs">View Details</a>
+                      <button type="button" class="btn btn-block btn-xs" data-container="body" data-toggle="popover" data-placement="top" data-content="<pre>{{info[4]}}" data-html="true">
+                        View Details
+                      </button>
 
-                      <a href="#" class="btn btn-block btn-xs">Add to Cart</a>
+                      <button class="btn btn-block btn-xs" type="submit" name="submit_button" id="addtocart" value="{{ info[4] }}">Add to Cart</button>
+
                       </div>
                   </div>
           </div>
@@ -157,6 +169,13 @@ color:white !important;
 
 
 </div>
+</form>
 <br><br>
+<!--script for id popover-->
+<script type="text/javascript">
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+</script>
 </body>
 </html>

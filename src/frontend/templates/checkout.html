@@ -13,67 +13,47 @@
 </head>
 <body>
 
-    <div class="topBar">
-        
-        <ul style="list-style-type: none;">    
+  <div class="topBar">
+
+
+        <ul style="list-style-type: none;">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Edit Payment Info</a>
-              <a class="dropdown-item" href="#">Edit Information</a>
-              <a class="dropdown-item" href="#">Order History</a>
+              <a class="dropdown-item" href="/main">Browse Books</a>
+              <a class="dropdown-item" href="/editprofile">Edit Profile</a>
+              <a class="dropdown-item" href="/checkout">View Shopping Cart</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Logout</a>
+              <a class="dropdown-item" href="{{url_for('logout')}}">Logout</a>
             </div>
           </li>
-       </ul> 
-            
-    
+       </ul>
+
+       </div>
 
 
-</div>
-  <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-2">Promotion/News</h1>
-      <p class="lead">This is where we can advertise promos and stuff</p>
-    </div>
-        <hr class = "my-4">
-        <div class="input-group mt-3 mb-3">
-          <div class="input-group-prepend">
-            <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
-              Apply Filter
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Subject</a>
-              <a class="dropdown-item" href="#">Title</a>
-              <a class="dropdown-item" href="#">Author</a>
-              <a class="dropdown-item" href="#">ISBN</a>
-              <a class="dropdown-item" href="#">None</a>
-            </div>
-          </div>
-          <input type="text" class="form-control" placeholder="Enter keyword...">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-          </div>
-        </div>
-       
-        <hr class = "my-4"> 
-        <ul class="nav nav-pills nav-justified">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Account</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Manage Orders</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li>
-      </ul>
-  </div>
-</div>
+       <div class="jumbotron">
+             <div class="container">
+               <h1 class="display-2">Lone Bookstore</h1>
+                <hr class = "my-4">
+               <p class="lead">Search and view books.</p>
+                <hr class = "my-4">
+             </div>
+
+
+
+                 <ul class="nav nav-pills nav-justified">
+                   <li class="nav-item">
+                     <a class="nav-link" href="/editprofile">View Account</a>
+                   </li>
+                   <li class="nav-item">
+                     <a class="nav-link" href="/checkout">View Shopping Cart</a>
+                   </li>
+               </ul>
+           </div>
+
+       </div>
+
 <!--Container for order summary and iinfo input-->
 <div class="container">
 <div class="row">
@@ -81,8 +61,11 @@
     <!--first column-->
     <div class="col">
         <h4>Order Summary</h4>
+          {% for info in book %}
+          <p>ISBN: {{book[4]}}</p>
+          {%endfor%}
         <div class="container">
-            
+
                 <ul class="list-unstyled">
                     <li class = "media">
                         <img src="./Icons and temporary book pics/Book1.jpg"  class="align-self-start mr-3" alt="...">
@@ -94,7 +77,7 @@
 
                     </li>
                 </ul>
-            
+
                 <ul class="list-unstyled">
                     <li class = "media">
                         <img src="./Icons and temporary book pics/Book1.jpg"  class="align-self-start mr-3" alt="...">
@@ -134,7 +117,7 @@
                 <p>Total: input Total</p>
                 </div>
         </div>
-        
+
    </div>
 
     <!--second column-->
@@ -164,12 +147,12 @@
                         <input type="text" class="form-control" id="lastName" placeholder="Last name from database">
                       </div>
                     </div>
-                  
+
                       <div class="form-group">
                       <label for ="email">Email: </label>
                       <input type="text" class = "form-control" id="email" placeholder="youremail@email.com">
                         </div>
-                    
+
                   </form>
             </div>
           </div>
@@ -304,7 +287,7 @@
                     <i class="fa fa-cc-discover" style="color:orange;"></i>
                   </div>
                 <div class="form-group">
-                    
+
                     <label for="inputAddress">Credit Card No.</label>
                     <input type="text" class="form-control" id="inputCardNumber" placeholder="1234 1234 1234 1234">
                 </div>
@@ -330,4 +313,3 @@
 
 </body>
 </html>
-
