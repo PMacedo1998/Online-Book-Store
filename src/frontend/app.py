@@ -227,7 +227,7 @@ def register():
 
         con.commit()
 
-        return redirect(url_for('verify'))
+        return render_template('registration_confirmation.html')
     return render_template('registration.html')
 #logout
 @app.route('/login/logout', methods = ['GET', 'POST'])
