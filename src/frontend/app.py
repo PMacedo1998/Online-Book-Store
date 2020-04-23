@@ -162,6 +162,7 @@ def verify():
         cursor.execute('SELECT * FROM profile')
         users = cursor.fetchall()
         verified = False
+        accountId = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
 
         for x in users:
             email = x[4]
@@ -283,6 +284,28 @@ def login():
 
     return render_template("login.html")
 
+#change password
+@app.route('/changePassword', methods=['GET', 'POST'])
+def changePassword():
+    sessionID = session['id']
+    oldPass=''
+    newPass=''
+    dbPass=''
+
+    if request.method == 'POST':
+        cursor.execute("SELECT pswd FROM profile WHERE id=%s;",(sessionID))
+        dbPass=cursor.fetchone()
+        oldPass = request.form['oldPass']
+        newPass = sha256_crypt.encrypt(request.form['newPass'])
+        if  sha256_crypt.verify(oldPass, dbPass):
+            cursor.execute("UPDATE profile SET pswd='{}' WHERE id=%s;".format(newPass), (sessionID))
+            con.commit()
+            return render_template("passwordUpdated.html")
+        else:
+            message = Markup("<post>Current password is incorrect</post><br>")
+            flash(message)
+    return render_template("edit_password.html")
+
 #display profile information
 @app.route('/editprofile')
 def displayinfo():
@@ -360,7 +383,6 @@ def updateinfo():
         #edit personal info
         firstName = request.form['firstName']
         lastName = request.form['lastName']
-        password = request.form['password']
         phoneNumber = request.form['phoneNumber']
         address1 = request.form['address1']
         address2 = request.form['address2']
@@ -376,9 +398,7 @@ def updateinfo():
         if(firstName!=''):
             cursor.execute("UPDATE profile SET firstName='{}' WHERE id=%s;".format(firstName), (sessionID))
         if(lastName!=''):
-            cursor.execute("UPDATE profile SET lastName='{}' WHERE id=%s;".format(lastName), (sessionID))
-        if(password!=''):
-            cursor.execute("UPDATE profile SET phoneNum='{}' WHERE id=(SELECT MAX(id))".format(password))
+            cursor.execute("UPDATE profile SET lastName='{}' WHERE id=%s;".format(lastName), (sessionID)) 
         if(phoneNumber!=''):
             cursor.execute("UPDATE profile SET phoneNum='{}' WHERE id=%s;".format(phoneNumber), (sessionID))
 
@@ -490,4 +510,3 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
-
