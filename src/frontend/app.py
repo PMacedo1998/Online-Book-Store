@@ -194,7 +194,9 @@ def register():
         for x in users:
             existingEmail = x[4]
             if existingEmail == email: #account with email already exists
-                return render_template('exists.html')
+                message = Markup("<post>An account with this email address already exists</post><br>")
+                flash(message)
+                return render_template("registration.html")
 
         #generate random code
         code = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
@@ -488,3 +490,4 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
+
