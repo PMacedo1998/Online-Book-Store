@@ -153,24 +153,25 @@ def resetPassword():
 #goes to this after submitting registration info
 @app.route('/account_verification', methods = ['GET','POST'])
 def verify():
-    inputEmail=''
+    sessionID = session['id']
     inputCode=''
     if request.method == 'POST':
-
-        inputEmail = request.form['email']
+        cursor.execute("SELECT verificationCode FROM profile WHERE id=%s;", (sessionID))
+        dbCode = cursor.fetchone()
+        dbCode = dbCode[0]
         inputCode = request.form['code']
-        cursor.execute('SELECT * FROM profile')
-        users = cursor.fetchall()
         verified = False
         accountId = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
+        if inputCode == dbCode:
+            verified = True
 
-        for x in users:
-            email = x[4]
-            code = x[7]
-            if inputEmail == email and inputCode == code:
-                    verified = True
         if verified:
-            return render_template("registration_confirmation.html")
+            message = Markup("<post>Account verification successful!</post><br>")
+            flash(message)
+            
+        else:
+            message = Markup("<post>Incorrect verification code</post><br>")
+            flash(message)
 
     return render_template("account_verification.html")
 
@@ -295,6 +296,7 @@ def changePassword():
     if request.method == 'POST':
         cursor.execute("SELECT pswd FROM profile WHERE id=%s;",(sessionID))
         dbPass=cursor.fetchone()
+        dbPass=dbPass[0]
         oldPass = request.form['oldPass']
         newPass = sha256_crypt.encrypt(request.form['newPass'])
         if  sha256_crypt.verify(oldPass, dbPass):
@@ -510,3 +512,4 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
+
