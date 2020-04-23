@@ -161,10 +161,8 @@
                     <td>
                     <div class="form-group">
                         <h6>Password:</h6><p>*******</p>
-                        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#passwordCollapse">Edit</button>
-                        <div id="passwordCollapse" class="collapse">
-                            <input type="password" class="form-control" id="pwd" placeholder="Enter new password" name="password">
-                        </div>
+                        <a href="{{url_for('changePassword')}}">Change Password</a>
+                      
                     </div>
                     </td>
                     </tr>
