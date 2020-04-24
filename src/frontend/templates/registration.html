@@ -12,6 +12,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
   <style >
+     post{
+    color:red!important;
+
+  }
   form > button:hover
   {
     background-color:#196F3D !important;
@@ -69,13 +73,20 @@
 
     <div class="container">
       <h2>User Registration</h2>
+      <div class="flashes">
+        {% for message in get_flashed_messages() %}
+          {{ message }}
+        {% endfor %}
+      </div>
       <p>Already have an account? <a href="{{url_for('login')}}">Log in</a></p>
     <form  class="was-validated" method = "POST">
         <div class="form-group">
           <label for="email">Email address:</label>
+          
           <input type="text" class="form-control" placeholder="Enter email address" name="email" required>
           <div class="valid-feedback">Valid</div>
           <div class="invalid-feedback">Required</div>
+         
         </div>
         <div class="form-group">
           <label for="pwd">Password:</label>
@@ -159,7 +170,7 @@
                         <option>CA</option>
                         <option>CO</option>
                         <option>CT</option>
-                        <option>DE</option> <!--I'm already regretting this-->
+                        <option>DE</option> 
                         <option>DC</option>
                         <option>FL</option>
                         <option>GA</option>

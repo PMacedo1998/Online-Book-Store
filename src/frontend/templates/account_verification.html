@@ -11,6 +11,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
+  <style >
+    post{
+      color:red!important;
+  
+    }
+    form > button:hover
+    {
+      background-color:#196F3D !important;
+      border-color:#196F3D !important;
+      margin-right:10px;
+    }
+  
+    form > button
+    {
+      background-color:black !important;
+      border-color:white !important;
+      color:white !important;
+      margin-right:10px;
+    }
+  
+    form > a
+    {
+      color: white !important;
+      background-color: #839192    !important;
+      border-color:#839192   !important;
+    }
+  
+    form > a:hover
+    {
+      color: white !important;
+      background-color: #717D7E  !important;
+      border-color:#717D7E !important;
+    }
+  
+    </style>
 <body>
 
 
@@ -38,16 +73,16 @@
     <!--Veridication-->
     <div class="container">
         <h2>Email Verification</h2>
-        <h6>Almost there! Please enter your email along with the verification code that was sent to your email.</h6>
+        <h6>Please enter the verification code that was sent to your email.</h6>
+        <div class="flashes">
+          {% for message in get_flashed_messages() %}
+            {{ message }}
+          {% endfor %}
+        </div>
         <br>
         <!--<p>Didn't receive a code? <a>Click here to resend code</a></p>-->
       <form class="was-validated" method = "POST">
-        <div class="form-group">
-          <label for="email">Email address:</label>
-          <input type="text" class="form-control" placeholder="Enter email address" name="email" id="email" required>
-          <div class="valid-feedback">Valid</div>
-          <div class="invalid-feedback">Required</div>
-        </div>
+        
           <div class="form-group" >
             <label for="code">Verification Code:</label>
             <input class="form-control" placeholder="Enter verification code" name="code" id="code" required>
@@ -61,3 +96,4 @@
 <br>
 </body>
 </html>
+

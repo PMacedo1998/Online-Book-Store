@@ -16,6 +16,8 @@ To activate flask:
 $ . venv/bin/activate
 
 Installation of other programs necesary:
+$ pip install sendgrid
+$ pip install passlib
 $ pip install ...
 [needs to be added on to]
 

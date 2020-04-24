@@ -157,23 +157,25 @@ def resetPassword():
 #goes to this after submitting registration info
 @app.route('/account_verification', methods = ['GET','POST'])
 def verify():
-    inputEmail=''
+    sessionID = session['id']
     inputCode=''
     if request.method == 'POST':
-
-        inputEmail = request.form['email']
+        cursor.execute("SELECT verificationCode FROM profile WHERE id=%s;", (sessionID))
+        dbCode = cursor.fetchone()
+        dbCode = dbCode[0]
         inputCode = request.form['code']
-        cursor.execute('SELECT * FROM profile')
-        users = cursor.fetchall()
         verified = False
+        accountId = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
+        if inputCode == dbCode:
+            verified = True
 
-        for x in users:
-            email = x[4]
-            code = x[7]
-            if inputEmail == email and inputCode == code:
-                    verified = True
         if verified:
-            return render_template("registration_confirmation.html")
+            message = Markup("<post>Account verification successful!</post><br>")
+            flash(message)
+            
+        else:
+            message = Markup("<post>Incorrect verification code</post><br>")
+            flash(message)
 
     return render_template("account_verification.html")
 
@@ -198,7 +200,9 @@ def register():
         for x in users:
             existingEmail = x[4]
             if existingEmail == email: #account with email already exists
-                return render_template('exists.html')
+                message = Markup("<post>An account with this email address already exists</post><br>")
+                flash(message)
+                return render_template("registration.html")
 
         #generate random code
         code = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
@@ -231,7 +235,7 @@ def register():
 
         con.commit()
 
-        return redirect(url_for('verify'))
+        return render_template('registration_confirmation.html')
     return render_template('registration.html')
 #logout
 @app.route('/login/logout', methods = ['GET', 'POST'])
@@ -283,6 +287,29 @@ def login():
 
 
     return render_template("login.html")
+
+#change password
+@app.route('/changePassword', methods=['GET', 'POST'])
+def changePassword():
+    sessionID = session['id']
+    oldPass=''
+    newPass=''
+    dbPass=''
+
+    if request.method == 'POST':
+        cursor.execute("SELECT pswd FROM profile WHERE id=%s;",(sessionID))
+        dbPass=cursor.fetchone()
+        dbPass=dbPass[0]
+        oldPass = request.form['oldPass']
+        newPass = sha256_crypt.encrypt(request.form['newPass'])
+        if  sha256_crypt.verify(oldPass, dbPass):
+            cursor.execute("UPDATE profile SET pswd='{}' WHERE id=%s;".format(newPass), (sessionID))
+            con.commit()
+            return render_template("passwordUpdated.html")
+        else:
+            message = Markup("<post>Current password is incorrect</post><br>")
+            flash(message)
+    return render_template("edit_password.html")
 
 #display profile information
 @app.route('/editprofile')
@@ -361,7 +388,6 @@ def updateinfo():
         #edit personal info
         firstName = request.form['firstName']
         lastName = request.form['lastName']
-        password = request.form['password']
         phoneNumber = request.form['phoneNumber']
         address1 = request.form['address1']
         address2 = request.form['address2']
@@ -377,9 +403,7 @@ def updateinfo():
         if(firstName!=''):
             cursor.execute("UPDATE profile SET firstName='{}' WHERE id=%s;".format(firstName), (sessionID))
         if(lastName!=''):
-            cursor.execute("UPDATE profile SET lastName='{}' WHERE id=%s;".format(lastName), (sessionID))
-        if(password!=''):
-            cursor.execute("UPDATE profile SET phoneNum='{}' WHERE id=(SELECT MAX(id))".format(password))
+            cursor.execute("UPDATE profile SET lastName='{}' WHERE id=%s;".format(lastName), (sessionID)) 
         if(phoneNumber!=''):
             cursor.execute("UPDATE profile SET phoneNum='{}' WHERE id=%s;".format(phoneNumber), (sessionID))
 
@@ -491,3 +515,4 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
+
