@@ -31,9 +31,14 @@ cursor=con.cursor()
 def bookdetails():
     return render_template('book_details.html')
 
-@app.route('/checkout')
-def checkout():
+@app.route('/checkout/<isbn>')
+def checkout(isbn):
+    return render_template('checkout.html',isbn=isbn)
+
+@app.route('/checkoutmenu')
+def checkout1():
     return render_template('checkout.html')
+
 
 
 
@@ -77,9 +82,8 @@ def main():
             book = cursor.fetchall()
             return render_template('logged_in_homepage.html',searchfilter=searchfilter,book=book)
         elif addbooktocart == True:
-            cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book WHERE isbn = %s ",isbn)
-            book = cursor.fetchall()
-            return redirect(url_for('checkout'),book=book)
+
+            return redirect(url_for('checkout',isbn=isbn))
 
     else:
         cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book;")
@@ -262,7 +266,6 @@ def login():
             isUser = True
             session['loggedin'] = True
             session['id'] = x[0]
-
     if isUser == False and counter != 0:
         message = Markup("<post>Incorrect email and/or password. Please try again.</post><br>")
         flash(message)
@@ -466,7 +469,7 @@ def index():
         elif addbooktocart == True:
             message = Markup("<post>You must be logged in to add book item to cart.</post><br>")
             flash(message)
-            return render_template('login.html')
+            return redirect(url_for('login'))
 
     else:
         cursor.execute("SELECT title,authorName,sellingPrice,filename,isbn FROM book;")

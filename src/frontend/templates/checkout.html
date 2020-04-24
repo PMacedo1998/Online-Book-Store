@@ -22,7 +22,7 @@
             <div class="dropdown-menu">
               <a class="dropdown-item" href="/main">Browse Books</a>
               <a class="dropdown-item" href="/editprofile">Edit Profile</a>
-              <a class="dropdown-item" href="/checkout">View Shopping Cart</a>
+              <a class="dropdown-item" href="/checkoutmenu">View Shopping Cart</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{url_for('logout')}}">Logout</a>
             </div>
@@ -34,9 +34,9 @@
 
        <div class="jumbotron">
              <div class="container">
-               <h1 class="display-2">Lone Bookstore</h1>
+               <h1 class="display-2">Checkout</h1>
                 <hr class = "my-4">
-               <p class="lead">Search and view books.</p>
+               <p class="lead">Please review cart and enter requested information to place order.</p>
                 <hr class = "my-4">
              </div>
 
@@ -47,7 +47,7 @@
                      <a class="nav-link" href="/editprofile">View Account</a>
                    </li>
                    <li class="nav-item">
-                     <a class="nav-link" href="/checkout">View Shopping Cart</a>
+                     <a class="nav-link" href="/checkoutmenu">View Shopping Cart</a>
                    </li>
                </ul>
            </div>
@@ -61,9 +61,9 @@
     <!--first column-->
     <div class="col">
         <h4>Order Summary</h4>
-          {% for info in book %}
-          <p>ISBN: {{book[4]}}</p>
-          {%endfor%}
+
+          <p>ISBN: {{isbn}}</p>
+
         <div class="container">
 
                 <ul class="list-unstyled">
