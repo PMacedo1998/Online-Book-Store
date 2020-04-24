@@ -81,6 +81,8 @@ ADD COLUMN expirationDate VARCHAR(45) NOT NULL;
 ALTER TABLE shoppingCart
 ADD COLUMN confirmationNum INT,
 ADD COLUMN isbn INT,
+ADD COLUMN firstName VARCHAR(45),
+ADD COLUMN lastName VARCHAR(45),
 ADD CONSTRAINT fk_shoppingCart_orders
     FOREIGN KEY (confirmationNum)
     REFERENCES orders (confirmationNum),
