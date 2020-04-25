@@ -101,11 +101,11 @@
           </tr>
         </thead>
         <tbody>
-{% for key,value in quantity.items()|sort(attribute='key') %}
+{% for key,value in quantity|dictsort %}
 
 
           <tr>
-<td>{{key}}</td>
+
     <td>{{value}}</td>
 
 
