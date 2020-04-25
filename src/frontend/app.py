@@ -409,12 +409,18 @@ def login():
 
 
     for x in users:
+        userID = str(x[0])
         email = x[4]
         passWord = x[5]
         if inputEmail == email and sha256_crypt.verify(inputPass, passWord):
             isUser = True
             session['loggedin'] = True
             session['id'] = x[0]
+        elif inputEmail == userID and sha256_crypt.verify(inputPass, passWord):
+            isUser = True
+            session['loggedin'] = True
+            session['id'] = x[0]
+
     if isUser == False and counter != 0:
         message = Markup("<post>Incorrect email and/or password. Please try again.</post><br>")
         flash(message)
