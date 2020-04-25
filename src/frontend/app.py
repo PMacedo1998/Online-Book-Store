@@ -45,6 +45,20 @@ def checkout(isbn):
     session['cart'] = shoppingCart  #
     print(shoppingCart)
 
+    count50=0
+    i=0
+    print("length of shopping cart is " +str(len(shoppingCart)))
+
+    #for item in shoppingCart:
+    #    print(item)
+        #while i < len(shoppingCart):
+#    if item in shoppingCart[i]:
+        #    count50 += 1
+        #    print(str(item)+" has " + str(count50))
+            #i+=1
+
+    quantity = {shoppingCart.count(i) for i in shoppingCart}
+    print(quantity)
     #session['cart'].clear()
 
     isbncount = ''
@@ -63,7 +77,7 @@ def checkout(isbn):
             y+=1
 
     x=0
-    values='SELECT isbn, title FROM book WHERE '
+    values='SELECT isbn, title, sellingPrice FROM book WHERE '
     while x < len(isbnvar.values()):
         for value in isbnvar.values():
             isbnvar["isbnNum{0}".format(x)]=book
@@ -86,21 +100,87 @@ def checkout(isbn):
         #    isbncount += '%s'
     #    print()
     cursor.execute(values)
-    isbn = cursor.fetchall()
-    if isbn:
-        isbn=isbn[0][0]
-        print(isbn)
+    book = cursor.fetchall()
+    count1=0
+    count2=0
 
 
     #cursor.execute("SELECT isbn,title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
     #book = cursor.fetchall()
     #print(book)
-    return render_template('checkout.html')
+    return render_template('checkout.html',book=book,quantity=quantity)
 
 @app.route('/checkoutmenu')
 def checkoutmenu():
     sessionID = session['id']
-    return render_template('checkout.html')
+    #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
+    #con.commit()
+
+
+    if 'cart' not in session:
+        session['cart'] = []  #
+    shoppingCart = session['cart']
+
+    #
+    print(shoppingCart)
+
+    count50=0
+    i=0
+    print("length of shopping cart is " +str(len(shoppingCart)))
+
+    #for item in shoppingCart:
+    #    print(item)
+        #while i < len(shoppingCart):
+#    if item in shoppingCart[i]:
+        #    count50 += 1
+        #    print(str(item)+" has " + str(count50))
+            #i+=1
+
+    quantity = {shoppingCart.count(i) for i in shoppingCart}
+    print(quantity)
+    #session['cart'].clear()
+
+    isbncount = ''
+    y=0
+    isbnvar={}
+    while y < len(shoppingCart):
+        for book in shoppingCart:
+            isbnvar["isbnNum{0}".format(y)]=book
+
+            if y != len(shoppingCart) - 1:
+                isbncount += '%s,'
+            else:
+                isbncount += '%s'
+            #print(isbnvar)
+            #print(isbncount)
+            y+=1
+
+    x=0
+    values='SELECT isbn, title, sellingPrice FROM book WHERE '
+    while x < len(isbnvar.values()):
+        for value in isbnvar.values():
+            isbnvar["isbnNum{0}".format(x)]=book
+
+            if x != len(isbnvar.values()) - 1:
+                values += 'isbn=' + str(value) + ' OR '
+            else:
+                values += 'isbn=' + str(value) + ';'
+
+
+            x+=1
+        print(values)
+    #value='1'
+    #value2='2'
+    #for value in isbnvar.values():
+    #    print("value: " + str(value))
+        #if value != len(isbnvar.values()) - 1:
+        #    values+=value
+        #else:
+        #    isbncount += '%s'
+    #    print()
+    cursor.execute(values)
+    book = cursor.fetchall()
+    return render_template('checkout.html',book=book,quantity=quantity)
 
 
 

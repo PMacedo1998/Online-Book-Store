@@ -52,76 +52,70 @@
                </ul>
            </div>
 
-       </div>
+
 
 <!--Container for order summary and iinfo input-->
+
+
+
+
+
+
 <div class="container">
 <div class="row">
+  <div class="col-6">
+{{book}}
+{{quantity}}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ISBN</th>
+            <th>Book Title</th>
+
+                <th>Price (per unit)</th>
+                <th>Quantity</th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for info in book %}
+
+          <tr>
+
+
+
+    <td>{{info[0]}}</td>
+    <td>{{info[1]}}</td>
+    <td>{{info[2]}}</td>
+    {% endfor %}
+
+    {% for q in quantity %}
+    <td>{{ q }}</td>
+    {% endfor %}
+
+
+
+
+          </tr>
+
+
+
+
+
+
+        </tbody>
+      </table>
+
+  </div>
+
+
 
     <!--first column-->
-    <div class="col">
-        <h4>Order Summary</h4>
 
-          <p>ISBN: {{isbn}}</p>
-
-        <div class="container">
-
-                <ul class="list-unstyled">
-                    <li class = "media">
-                        <img src="./Icons and temporary book pics/Book1.jpg"  class="align-self-start mr-3" alt="...">
-                        <div class="media-body">
-                        <h5 class="mt-0 mb-1">Book Name</h5>
-                        <p>Quantity: 1</p>
-                        <p>Price: get from database</p>
-                        </div>
-
-                    </li>
-                </ul>
-
-                <ul class="list-unstyled">
-                    <li class = "media">
-                        <img src="./Icons and temporary book pics/Book1.jpg"  class="align-self-start mr-3" alt="...">
-                        <div class="media-body">
-                        <h5 class="mt-0 mb-1">Book Name</h5>
-                        <p>Quantity: 1</p>
-                        <p>Price: get from database</p>
-                        </div>
-
-                    </li>
-                </ul>
-                <ul class="list-unstyled">
-                    <li class = "media">
-                        <img src="./Icons and temporary book pics/Book1.jpg"  class="align-self-start mr-3" alt="...">
-                        <div class="media-body">
-                        <h5 class="mt-0 mb-1">Book Name</h5>
-                        <p>Quantity: 1</p>
-                        <p>Price: get from database</p>
-                        </div>
-
-                    </li>
-                </ul>
-
-                <div class="input-group">
-                    <label for="promoCode">Promo Code:  </label>
-                    <input type="text" id="promocode" class="form-control" placeholder="Enter Code" aria-label="searchCode" aria-describedby="button-addon2">
-
-                    <div class="form-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Apply</button>
-                      </div>
-                </div>
-                <hr class = "my-4">
-                <div class="row-6">
-                <p>Sub-total:</p>
-                <p>Taxes: Input taxes</p>
-                <p>Fees: Input fees</p>
-                <p>Total: input Total</p>
-                </div>
-        </div>
-
-   </div>
 
     <!--second column-->
-    <div class="col">
+    <div class="col-6">
         <!--start of accordion-->
       <div class="accordion" id="checkout">
           <!--customer info card-->
