@@ -33,10 +33,73 @@ def bookdetails():
 
 @app.route('/checkout/<isbn>')
 def checkout(isbn):
-    return render_template('checkout.html',isbn=isbn)
+    sessionID = session['id']
+    #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
+    #con.commit()
+
+
+    if 'cart' not in session:
+        session['cart'] = []  #
+    shoppingCart = session['cart']
+    shoppingCart.append(isbn)
+    session['cart'] = shoppingCart  #
+    print(shoppingCart)
+
+    #session['cart'].clear()
+
+    isbncount = ''
+    y=0
+    isbnvar={}
+    while y < len(shoppingCart):
+        for book in shoppingCart:
+            isbnvar["isbnNum{0}".format(y)]=book
+
+            if y != len(shoppingCart) - 1:
+                isbncount += '%s,'
+            else:
+                isbncount += '%s'
+            #print(isbnvar)
+            #print(isbncount)
+            y+=1
+
+    x=0
+    values='SELECT isbn, title FROM book WHERE '
+    while x < len(isbnvar.values()):
+        for value in isbnvar.values():
+            isbnvar["isbnNum{0}".format(x)]=book
+
+            if x != len(isbnvar.values()) - 1:
+                values += 'isbn=' + str(value) + ' OR '
+            else:
+                values += 'isbn=' + str(value) + ';'
+
+
+            x+=1
+        print(values)
+    #value='1'
+    #value2='2'
+    #for value in isbnvar.values():
+    #    print("value: " + str(value))
+        #if value != len(isbnvar.values()) - 1:
+        #    values+=value
+        #else:
+        #    isbncount += '%s'
+    #    print()
+    cursor.execute(values)
+    isbn = cursor.fetchall()
+    if isbn:
+        isbn=isbn[0][0]
+        print(isbn)
+
+
+    #cursor.execute("SELECT isbn,title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
+    #book = cursor.fetchall()
+    #print(book)
+    return render_template('checkout.html')
 
 @app.route('/checkoutmenu')
-def checkout1():
+def checkoutmenu():
+    sessionID = session['id']
     return render_template('checkout.html')
 
 
@@ -172,7 +235,7 @@ def verify():
         if verified:
             message = Markup("<post>Account verification successful!</post><br>")
             flash(message)
-            
+
         else:
             message = Markup("<post>Incorrect verification code</post><br>")
             flash(message)
@@ -232,7 +295,7 @@ def register():
         #store into dB
         cursor.execute("INSERT INTO profile(firstName, lastName, phoneNum, email, pswd, address1, address2, zipcode, city, state, verificationCode) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (firstName, lastName, phoneNumber, email, password, address1, address2, zip, city, state, code))
         cursor.execute("INSERT INTO paymentMethod(type, cardNumber, expirationDate, name) VALUES (%s,%s,%s,%s)", (cardType, cardNumber, expirationDate, name))
-
+        cursor.execute("INSERT INTO shoppingCart(firstName,lastName) VALUES (%s,%s)", (firstName,lastName))
         con.commit()
 
         return render_template('registration_confirmation.html')
@@ -376,7 +439,7 @@ def displayinfo():
         expirationDate=expirationDate[0]
 
 
-    return render_template('edit_profile.html', fName=firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+    return render_template('edit_profile.html', fName=firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,id=sessionID)
 
 
 #update profile information
@@ -403,7 +466,7 @@ def updateinfo():
         if(firstName!=''):
             cursor.execute("UPDATE profile SET firstName='{}' WHERE id=%s;".format(firstName), (sessionID))
         if(lastName!=''):
-            cursor.execute("UPDATE profile SET lastName='{}' WHERE id=%s;".format(lastName), (sessionID)) 
+            cursor.execute("UPDATE profile SET lastName='{}' WHERE id=%s;".format(lastName), (sessionID))
         if(phoneNumber!=''):
             cursor.execute("UPDATE profile SET phoneNum='{}' WHERE id=%s;".format(phoneNumber), (sessionID))
 
@@ -515,4 +578,3 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
-

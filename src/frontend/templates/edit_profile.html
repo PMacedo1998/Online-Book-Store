@@ -111,7 +111,7 @@
           <a class="nav-link" data-toggle="tab" href="#promo">Promotion Preferences</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#status">User Status</a>
+          <a class="nav-link" data-toggle="tab" href="#status">User ID / Status</a>
         </li>
         </ul>
 
@@ -162,7 +162,7 @@
                     <div class="form-group">
                         <h6>Password:</h6><p>*******</p>
                         <a href="{{url_for('changePassword')}}">Change Password</a>
-                      
+
                     </div>
                     </td>
                     </tr>
@@ -357,9 +357,11 @@
 
           <!--Status-->
           <div id="status" class="container tab-pane fade"><br>
+            <h6>Id: {{id}}</h6>
             <h6>Account Status: </h6><p>{{status}}</p> <p> <a href="/account_verification">verify</a></p>
+
           </div>
-          
+
           <!--Promo-->
           <div id="promo" class="container tab-pane fade"><br>
             <form>
