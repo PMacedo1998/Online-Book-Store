@@ -63,9 +63,8 @@
 
 <div class="container">
 <div class="row">
-  <div class="col-6">
-{{book}}
-{{quantity}}
+  <div class="col-5">
+
       <table class="table">
         <thead>
           <tr>
@@ -73,7 +72,7 @@
             <th>Book Title</th>
 
                 <th>Price (per unit)</th>
-                <th>Quantity</th>
+
 
           </tr>
         </thead>
@@ -83,27 +82,36 @@
 
           <tr>
 
-
-
     <td>{{info[0]}}</td>
     <td>{{info[1]}}</td>
     <td>{{info[2]}}</td>
     {% endfor %}
 
-    {% for q in quantity %}
-    <td>{{ q }}</td>
-    {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+</div>
+<div class="col-1">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Quantity</th>
 
+
+          </tr>
+        </thead>
+        <tbody>
+{% for key,value in quantity.items()|sort(attribute='key') %}
+
+
+          <tr>
+<td>{{key}}</td>
+    <td>{{value}}</td>
 
 
 
           </tr>
-
-
-
-
-
-
+          {% endfor %}
         </tbody>
       </table>
 

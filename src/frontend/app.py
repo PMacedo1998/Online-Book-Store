@@ -6,6 +6,7 @@ import string
 import random
 from sendgrid.helpers.mail import *
 from passlib.hash import sha256_crypt
+from collections import Counter
 
 
 
@@ -57,7 +58,8 @@ def checkout(isbn):
         #    print(str(item)+" has " + str(count50))
             #i+=1
 
-    quantity = {shoppingCart.count(i) for i in shoppingCart}
+    #quantity = {i:shoppingCart.count(i) for i in shoppingCart}
+    quantity = Counter(shoppingCart)
     print(quantity)
     #session['cart'].clear()
 
@@ -103,7 +105,7 @@ def checkout(isbn):
     book = cursor.fetchall()
     count1=0
     count2=0
-
+    print("book is " + str(book))
 
     #cursor.execute("SELECT isbn,title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
     #book = cursor.fetchall()
@@ -136,7 +138,7 @@ def checkoutmenu():
         #    print(str(item)+" has " + str(count50))
             #i+=1
 
-    quantity = {shoppingCart.count(i) for i in shoppingCart}
+    quantity = {i: shoppingCart.count(i) for i in shoppingCart}
     print(quantity)
     #session['cart'].clear()
 
