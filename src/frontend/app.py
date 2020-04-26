@@ -576,8 +576,9 @@ def register():
 
         #get promotion
         subscribed = 0
-        promotion = request.form.get('promotionApplied')
-        if promotion == 1:
+        promotion = request.form.get('promoApplied')
+        
+        if promotion == "1":
             subscribed = 1
 
         #store into dB
