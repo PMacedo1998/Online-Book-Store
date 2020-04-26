@@ -148,12 +148,30 @@ color:white !important;
 
           <div class="col-3" >
                   <div class="card ">
-                     <div class="card-header">{{info[0]}}</div>
-                      <img class="card-img-top" src="static/images/{{ info[3] }}" alt="cover picture of {{info[0]}}">
+                     <div class="card-header">{{info[3]}}</div>
+                      <img class="card-img-top" src="static/images/{{ info[13] }}" alt="cover picture of {{info[0]}}">
                       <div class="card-body">
-                      <i class="card-text">By {{info[1]}}</i>
-                      <p class="card-text">Price: ${{info[2]}}</p>
-                      <button type="button" class="btn btn-block btn-xs" data-container="body" data-toggle="popover" data-placement="top" data-content="<pre>{{info[4]}}" data-html="true">
+                      <i class="card-text">By {{info[2]}}</i>
+                      <p class="card-text">Price: ${{info[10]}}</p>
+
+                      <button type="button" class="btn btn-block btn-xs" data-container="body" data-toggle="popover" data-placement="top"
+                      data-content=
+                      "
+                      <pre>ISBN: {{info[0]}}
+                        <br>Title: {{info[3]}}
+                    <br>Author: {{info[2]}}
+                    <br>Rating: {{info[11]}}
+                      <br>Category: {{info[1]}}
+                        <br>Edition: {{info[5]}}
+                      <br>Publisher: {{info[6]}}
+                        <br>Publication Year: {{info[7]}}
+                              <br>Quantity In Stock: {{info[8]}}
+                          <br>Buying Price: {{info[9]}}
+                              <br>Selling Price: {{info[10]}}
+                        "
+
+
+                        data-html="true">
                         View Details
                       </button>
 
