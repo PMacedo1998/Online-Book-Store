@@ -7,7 +7,8 @@ import random
 from sendgrid.helpers.mail import *
 from passlib.hash import sha256_crypt
 from collections import Counter
-
+import collections
+import itertools
 
 
 
@@ -58,9 +59,10 @@ def checkout(isbn):
         #    print(str(item)+" has " + str(count50))
             #i+=1
 
-    #quantity = {i:shoppingCart.count(i) for i in shoppingCart}
-    quantity = Counter(shoppingCart)
-    print(quantity)
+    quantity = {i:shoppingCart.count(i) for i in shoppingCart}
+    #quantity = Counter(shoppingCart)
+    quantity1 = collections.OrderedDict(sorted(quantity.items()))
+    print(quantity1)
 
 
 
@@ -105,14 +107,38 @@ def checkout(isbn):
     #    print()
     cursor.execute(values)
     book = cursor.fetchall()
-    if book:
-        book1 = book[2]
-    print("book1 is " + str(book1))
+    total=0.00
+    sellingPriceList=list()
+    quantityList=list()
+    while i < len(book):
+
+        book1 = book[i][2]
+        book1 = float(book1)
+        sellingPriceList.append(book1)
+        print("sellingprice is " + str(book1) + " for isbn " +str(book[i][0]))
+
+        i +=1
+    print(sellingPriceList)
+    for k, v in quantity1.items():
+        v = float(v)
+        quantityList.append(v)
+        print ("quantity is " +str(v) + " for isbn " +str(k))
+    print(quantityList)
+
+    for f, b in zip(sellingPriceList, quantityList):
+        total+= f*b
+        print(f,b)
+    print(total)
+
+
+
+
+    print("book is " + str(book))
 
     #cursor.execute("SELECT isbn,title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
     #book = cursor.fetchall()
     #print(book)
-    return render_template('checkout.html',book=book,quantity=quantity)
+    return render_template('checkout.html',book=book,quantity=quantity,total=total)
 
 @app.route('/checkoutmenu')
 def checkoutmenu():
