@@ -18,6 +18,7 @@ $ . venv/bin/activate
 Installation of other programs necesary:
 $ pip install sendgrid
 $ pip install passlib
+$pip install cryptography
 $ pip install ...
 [needs to be added on to]
 
