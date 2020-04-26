@@ -190,18 +190,6 @@ def checkout(isbn):
     print(total)
 
 
-    #hello - kimberly
-    if request.method == "POST":
-        newQuantity = request.form['submit_button']
-        quantityListCopy = quantityList.copy()
-
-        newQuantity=float(newQuantity)
-        print("newQuantity is " +str(newQuantity))
-        print("QuantityListCopy is " +str(quantityListCopy))
-
-
-
-
 
 
     print("book is " + str(book))
