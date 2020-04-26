@@ -630,15 +630,15 @@ def login():
             session['loggedin'] = True
             session['id'] = x[0]
 
-    if inputEmail == adminEmail and sha256_crypt.verify(inputPass, passWord):
-        return render_template("admin.html")
-    elif isUser == False and counter != 0:
-        message = Markup("<post>Incorrect email and/or password. Please try again.</post><br>")
-        flash(message)
-        return render_template("login.html")
-    elif isUser == False:
-        return render_template("login.html")
-    print(session['id'])
+        if inputEmail == adminEmail and sha256_crypt.verify(inputPass, passWord):
+            return render_template("admin.html")
+        elif isUser == False and counter != 0:
+            message = Markup("<post>Incorrect email and/or password. Please try again.</post><br>")
+            flash(message)
+            return render_template("login.html")
+        elif isUser == False:
+            return render_template("login.html")
+        print(session['id'])
     return redirect(url_for('main'))
  #   if request.method == 'GET':
         #get personal info
