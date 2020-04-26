@@ -145,6 +145,67 @@ def checkoutmenu():
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
     #con.commit()
 
+    #get user info
+    cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
+    firstName = cursor.fetchone()
+    if firstName:
+        firstName=firstName[0]
+
+    cursor.execute("SELECT lastName FROM profile WHERE id=%s;",(sessionID))
+    lastName=cursor.fetchone()
+    if lastName:
+        lastName=lastName[0]
+
+    cursor.execute("SELECT email FROM profile WHERE id=%s;", (sessionID))
+    email=cursor.fetchone()
+    if email:
+        email=email[0]
+
+    cursor.execute("SELECT phoneNum FROM profile WHERE id=%s;", (sessionID))
+    phoneNumber=cursor.fetchone()
+    if phoneNumber:
+        phoneNumber=phoneNumber[0]
+
+    cursor.execute("SELECT address1 FROM profile WHERE id=%s;", (sessionID))
+    address1=cursor.fetchone()
+    if address1:
+        address1=address1[0]
+
+    cursor.execute("SELECT address2 FROM profile WHERE id=%s;", (sessionID))
+    address2=cursor.fetchone()
+    if address2:
+        address2=address2[0]
+
+    cursor.execute("SELECT zipcode FROM profile WHERE id=%s;", (sessionID))
+    zipcode=cursor.fetchone()
+    if zipcode:
+        zipcode=zipcode[0]
+
+    cursor.execute("SELECT city FROM profile WHERE id=%s;", (sessionID))
+    city=cursor.fetchone()
+    if city:
+        city=city[0]
+
+    cursor.execute("SELECT state FROM profile WHERE id=%s;", (sessionID))
+    state=cursor.fetchone()
+    if state:
+        state=state[0]
+
+    cursor.execute("SELECT name FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+    cardName=cursor.fetchone()
+    if cardName:
+        cardName=cardName[0]
+
+    cursor.execute("SELECT type FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+    cardType=cursor.fetchone()
+    if cardType:
+        cardType=cardType[0]
+
+    cursor.execute("SELECT expirationDate FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+    expirationDate=cursor.fetchone()
+    if expirationDate:
+        expirationDate=expirationDate[0]
+
 
     if 'cart' not in session:
         session['cart'] = []  #
@@ -245,7 +306,7 @@ def checkoutmenu():
     #book = cursor.fetchall()
     #print(book)
         valuePresent=True
-        return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent)
+        return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
     valuePresent=False
     return render_template('checkout.html',valuePresent=valuePresent)
 
@@ -382,9 +443,13 @@ def verify():
         if inputCode == dbCode:
             verified = True
 
+      
         if verified:
+            cursor.execute("UPDATE profile SET status='{}' WHERE id=%s;".format(1), (sessionID))
+            con.commit()
             message = Markup("<post>Account verification successful!</post><br>")
             flash(message)
+
 
         else:
             message = Markup("<post>Incorrect verification code</post><br>")
@@ -442,8 +507,14 @@ def register():
         city = request.form['city']
         state = request.form['state']
 
+        #get promotion
+        subscribed = 0
+        promotion = request.form.get('promotionApplied')
+        if promotion == 1:
+            subscribed = 1
+
         #store into dB
-        cursor.execute("INSERT INTO profile(firstName, lastName, phoneNum, email, pswd, address1, address2, zipcode, city, state, verificationCode) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (firstName, lastName, phoneNumber, email, password, address1, address2, zip, city, state, code))
+        cursor.execute("INSERT INTO profile(firstName, lastName, phoneNum, email, pswd, address1, address2, zipcode, city, state, verificationCode, status, promoApplied) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s, %s)", (firstName, lastName, phoneNumber, email, password, address1, address2, zip, city, state, code, 0, subscribed))
         cursor.execute("INSERT INTO paymentMethod(type, cardNumber, expirationDate, name) VALUES (%s,%s,%s,%s)", (cardType, cardNumber, expirationDate, name))
         cursor.execute("INSERT INTO shoppingCart(firstName,lastName) VALUES (%s,%s)", (firstName,lastName))
         con.commit()
@@ -595,14 +666,56 @@ def displayinfo():
     if expirationDate:
         expirationDate=expirationDate[0]
 
+    cursor.execute("SELECT status FROM profile WHERE id=%s;", (sessionID))
+    status=cursor.fetchone()
+    if status:
+        status=status[0]
+        if status == 1:
+            status = "Verified"
+        else:
+            status = "Unverified"
+    else:
+        status = "not found"
 
-    return render_template('edit_profile.html', fName=firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,id=sessionID)
+    cursor.execute("SELECT promoApplied FROM profile WHERE id=%s;", (sessionID))
+    promo=cursor.fetchone()
+    if promo:
+        promo=promo[0]
+        if promo == 1:
+            promo = "Subscribed"
+        else:
+            promo = "Unsubscribed"
+    else:
+        promo = "not found"
 
+
+    return render_template('edit_profile.html', fName=firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,id=sessionID, status = status,promo=promo)
+
+
+#update preferences
+@app.route('/promoUpdate', methods = ['POST'])
+def promoUpdate():
+    sessionID = session['id']
+
+    cursor.execute("SELECT promoApplied FROM profile WHERE id=%s;", (sessionID))
+    promo=cursor.fetchone()
+    if promo:
+        promo=promo[0]
+        if promo == 1:
+            promo = 0
+        else:
+            promo = 1
+        cursor.execute("UPDATE profile SET promoApplied='{}' WHERE id=%s;".format(promo), (sessionID))
+        con.commit()
+        message = Markup("<post>Your promotion preferences have been updated.</post><br>")
+        flash(message)
+        return redirect(url_for('displayinfo'))
 
 #update profile information
 @app.route('/editprofile', methods = ['GET','POST'])
 def updateinfo():
     sessionID = session['id']
+
     if request.method == 'POST':
 
         #edit personal info
@@ -654,11 +767,11 @@ def updateinfo():
         if(expirationDate!=''):
             cursor.execute("UPDATE paymentMethod SET expirationDate='{}' WHERE paymentMethodID=%s;".format(expirationDate), (sessionID))
 
-
-
         con.commit()
         message = Markup("<post>Success! Your profile information was updated.</post><br>")
         flash(message)
+
+
 
         return redirect(url_for('displayinfo'))
 
