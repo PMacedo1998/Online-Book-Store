@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Send Promo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </head>
+  <style >
+    post{
+      color:red!important;
+  
+    }
+    form > button:hover
+    {
+      background-color:#196F3D !important;
+      border-color:#196F3D !important;
+      margin-right:10px;
+    }
+  
+    form > button
+    {
+      background-color:black !important;
+      border-color:white !important;
+      color:white !important;
+      margin-right:10px;
+    }
+  
+    form > a
+    {
+      color: white !important;
+      background-color: #839192    !important;
+      border-color:#839192   !important;
+    }
+  
+    form > a:hover
+    {
+      color: white !important;
+      background-color: #717D7E  !important;
+      border-color:#717D7E !important;
+    }
+  
+    </style>
+<body>
+
+
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-2">Send Promo</h1>
+        <hr class = "my-4">
+        <p class="lead">Please follow instructions to send a promotion.</p>
+        <hr class = "my-4">
+      </div>
+
+
+
+          <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('displayinfo')}}">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/checkoutmenu">View Shopping Cart</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="container">
+        <h2>Please select from the following promo codes</h2>
+        <div class="flashes">
+          {% for message in get_flashed_messages() %}
+            {{ message }}
+          {% endfor %}
+        </div>
+        
+
+        <br>
+        <form class="was-validated" action="{{url_for('sendPromo')}}"method = "POST">
+            <input type="radio" id= "promo0" name="promo" value="promo0">
+            <label for="promo0">Discount: {{discount0}}%  Expires: {{exp0}}</label> <br>
+            <input type="radio" id= "promo1" name="promo" value="promo1">
+            <label for="promo0">Discount: {{discount1}}%  Expires: {{exp1}}</label> <br>
+            <button type="submit" class="btn btn-primary">Send Promotion</button>
+        </form>
+<br>
+<br>
+</body>
+</html>

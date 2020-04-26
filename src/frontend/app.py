@@ -39,6 +39,66 @@ def checkout(isbn):
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
     #con.commit()
 
+    cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
+    firstName = cursor.fetchone()
+    if firstName:
+        firstName=firstName[0]
+
+    cursor.execute("SELECT lastName FROM profile WHERE id=%s;",(sessionID))
+    lastName=cursor.fetchone()
+    if lastName:
+        lastName=lastName[0]
+
+    cursor.execute("SELECT email FROM profile WHERE id=%s;", (sessionID))
+    email=cursor.fetchone()
+    if email:
+        email=email[0]
+
+    cursor.execute("SELECT phoneNum FROM profile WHERE id=%s;", (sessionID))
+    phoneNumber=cursor.fetchone()
+    if phoneNumber:
+        phoneNumber=phoneNumber[0]
+
+    cursor.execute("SELECT address1 FROM profile WHERE id=%s;", (sessionID))
+    address1=cursor.fetchone()
+    if address1:
+        address1=address1[0]
+
+    cursor.execute("SELECT address2 FROM profile WHERE id=%s;", (sessionID))
+    address2=cursor.fetchone()
+    if address2:
+        address2=address2[0]
+
+    cursor.execute("SELECT zipcode FROM profile WHERE id=%s;", (sessionID))
+    zipcode=cursor.fetchone()
+    if zipcode:
+        zipcode=zipcode[0]
+
+    cursor.execute("SELECT city FROM profile WHERE id=%s;", (sessionID))
+    city=cursor.fetchone()
+    if city:
+        city=city[0]
+
+    cursor.execute("SELECT state FROM profile WHERE id=%s;", (sessionID))
+    state=cursor.fetchone()
+    if state:
+        state=state[0]
+
+    cursor.execute("SELECT name FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+    cardName=cursor.fetchone()
+    if cardName:
+        cardName=cardName[0]
+
+    cursor.execute("SELECT type FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+    cardType=cursor.fetchone()
+    if cardType:
+        cardType=cardType[0]
+
+    cursor.execute("SELECT expirationDate FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+    expirationDate=cursor.fetchone()
+    if expirationDate:
+        expirationDate=expirationDate[0]
+
 
     if 'cart' not in session:
         session['cart'] = []  #
@@ -138,7 +198,7 @@ def checkout(isbn):
     #book = cursor.fetchall()
     #print(book)
     valuePresent=True
-    return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent)
+    return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
 @app.route('/checkoutmenu')
 def checkoutmenu():
@@ -572,7 +632,6 @@ def login():
             session['loggedin'] = True
             session['id'] = x[0]
 
-
         if inputEmail == adminEmail and sha256_crypt.verify(inputPass, passWord):
             return render_template("admin.html")
         elif isUser == False and counter != 0:
@@ -582,8 +641,6 @@ def login():
         elif isUser == False:
             return render_template("login.html")
         print(session['id'])
-
-
     return redirect(url_for('main'))
  #   if request.method == 'GET':
         #get personal info
@@ -954,6 +1011,70 @@ def addbook():
 
         return redirect(url_for('viewbooks'))
     return render_template('edit_book.html')
+
+#route for sending promo email
+@app.route('/sendPromo', methods = ['GET','POST'])
+def sendPromo():
+
+    select_stmt = "SELECT * FROM promotion"
+    cursor.execute(select_stmt)
+    promos = cursor.fetchall()
+    counter = 0
+    promoid = [0,0]
+    discount = [0, 0]
+    exp = ['' ,'']
+    for x in promos:
+        promoid[counter] = x[0]
+        discount[counter] = x[1]
+        exp[counter] = x[2]
+        counter += 1
+        
+    if request.method == 'POST':
+        emailpromoid = 0
+        emaildiscount = 0
+        emailexp = ""
+        #determine selected promo info
+        promotion = request.form.get('promo')
+        if promotion == "promo0":
+            emailpromoid = promoid[0]
+            emaildiscount = discount[0]
+            emailexp = exp[0]
+        elif promotion == "promo1":
+            emailpromoid = promoid[1]
+            emaildiscount = discount[1]
+            emailexp = exp[1]
+        else:
+            message = Markup("<post>No promo selected.</post><br>")
+            flash(message)
+            return render_template('sendPromo.html', discount0 = discount[0], exp0 = exp[0], discount1 = discount[1], exp1 = exp[1])
+        
+        emaildiscount = str(emaildiscount)
+        emailpromoid = str(emailpromoid) 
+        #email message
+        content = "Use this promo code for a " + emaildiscount + " percent off discount! Code: " + emailpromoid + " Expires: " + emailexp
+        #find subscribed users
+        select_stmt = "SELECT * FROM profile WHERE promoEmails = %(subscribed)s"
+        cursor.execute(select_stmt, { 'subscribed': 1 })
+        users = cursor.fetchall()
+        counter = 0
+        for x in users:
+            counter += 1
+            email = x[4]
+            #generate promo email
+            mail = Mail(from_email = 'tylerrosen97@gmail.com',
+                        to_emails = email,
+                        subject = 'Promo code',
+                        plain_text_content = content
+                        )
+
+            #send promo email
+            sg = sendgrid.SendGridAPIClient(api_key='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')
+            response = sg.client.mail.send.post(request_body=mail.get())
+        counter = str(counter)
+        message = Markup("<post>Promotion sent to " + counter + " subscribed users.</post><br>")
+        flash(message)
+        
+    return render_template('sendPromo.html', discount0 = discount[0], exp0 = exp[0], discount1 = discount[1], exp1 = exp[1])
 
 if __name__ == '__main__':
     app.run(debug=True)
