@@ -431,21 +431,27 @@ def resetPassword():
 #goes to this after submitting registration info
 @app.route('/account_verification', methods = ['GET','POST'])
 def verify():
-    sessionID = session['id']
+    inputEmail=''
     inputCode=''
+    userID=''
     if request.method == 'POST':
-        cursor.execute("SELECT verificationCode FROM profile WHERE id=%s;", (sessionID))
-        dbCode = cursor.fetchone()
-        dbCode = dbCode[0]
+
+        inputEmail = request.form['email']
         inputCode = request.form['code']
+        cursor.execute('SELECT * FROM profile')
+        users = cursor.fetchall()
         verified = False
-        accountId = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
-        if inputCode == dbCode:
-            verified = True
+
+        for x in users:
+            email = x[4]
+            code = x[7]
+            if inputEmail == email and inputCode == code:
+                    verified = True
+                    userID = str(x[0])
 
 
         if verified:
-            cursor.execute("UPDATE profile SET status='{}' WHERE id=%s;".format(1), (sessionID))
+            cursor.execute("UPDATE profile SET status='{}' WHERE id=%s;".format(1), (userID))
             con.commit()
             message = Markup("<post>Account verification successful!</post><br>")
             flash(message)
@@ -519,7 +525,7 @@ def register():
         cursor.execute("INSERT INTO shoppingCart(firstName,lastName) VALUES (%s,%s)", (firstName,lastName))
         con.commit()
 
-        return render_template('registration_confirmation.html')
+        return redirect(url_for('verify'))
     return render_template('registration.html')
 #logout
 @app.route('/login/logout', methods = ['GET', 'POST'])
@@ -954,3 +960,4 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
+
