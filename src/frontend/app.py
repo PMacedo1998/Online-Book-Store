@@ -33,7 +33,7 @@ cursor=con.cursor()
 def bookdetails():
     return render_template('book_details.html')
 
-@app.route('/checkout/<isbn>')
+@app.route('/checkout/<isbn>', methods=['GET','POST'])
 def checkout(isbn):
     sessionID = session['id']
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
@@ -105,6 +105,7 @@ def checkout(isbn):
     shoppingCart = session['cart']
     shoppingCart.append(isbn)
     session['cart'] = shoppingCart  #
+
     #session['cart'].clear()
     print(shoppingCart)
 
@@ -121,9 +122,9 @@ def checkout(isbn):
             #i+=1
 
     quantity = {i:shoppingCart.count(i) for i in shoppingCart}
-    #quantity = Counter(shoppingCart)
-    quantity1 = collections.OrderedDict(sorted(quantity.items()))
-    print(quantity1)
+    quantity = Counter(shoppingCart)
+    #quantity = collections.OrderedDict(sorted(quantity.items()))
+    print("quantity1 "+str(quantity))
 
 
 
@@ -177,7 +178,7 @@ def checkout(isbn):
 
         i +=1
     print(sellingPriceList)
-    for k, v in quantity1.items():
+    for k, v in quantity.items():
         v = float(v)
         quantityList.append(v)
         print ("quantity is " +str(v) + " for isbn " +str(k))
@@ -189,6 +190,15 @@ def checkout(isbn):
     total = "{:.2f}".format(total)
     print(total)
 
+    #hello - kimberly
+    if request.method == "POST":
+        newQuantity = request.form['submit_button']
+        
+
+        newQuantity=float(newQuantity)
+        print("newQuantity is " +str(newQuantity))
+
+
 
 
 
@@ -198,7 +208,7 @@ def checkout(isbn):
     #book = cursor.fetchall()
     #print(book)
     valuePresent=True
-    return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+    return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent,isbn=isbn,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
 @app.route('/checkoutmenu')
 def checkoutmenu():
@@ -577,7 +587,7 @@ def register():
         #get promotion
         subscribed = 0
         promotion = request.form.get('promoApplied')
-        
+
         if promotion == "1":
             subscribed = 1
 
@@ -1027,7 +1037,7 @@ def sendPromo():
         discount[counter] = x[1]
         exp[counter] = x[2]
         counter += 1
-        
+
     if request.method == 'POST':
         emailpromoid = 0
         emaildiscount = 0
@@ -1046,9 +1056,9 @@ def sendPromo():
             message = Markup("<post>No promo selected.</post><br>")
             flash(message)
             return render_template('sendPromo.html', discount0 = discount[0], exp0 = exp[0], discount1 = discount[1], exp1 = exp[1])
-        
+
         emaildiscount = str(emaildiscount)
-        emailpromoid = str(emailpromoid) 
+        emailpromoid = str(emailpromoid)
         #email message
         content = "Use this promo code for a " + emaildiscount + " percent off discount! Code: " + emailpromoid + " Expires: " + emailexp
         #find subscribed users
@@ -1072,7 +1082,7 @@ def sendPromo():
         counter = str(counter)
         message = Markup("<post>Promotion sent to " + counter + " subscribed users.</post><br>")
         flash(message)
-        
+
     return render_template('sendPromo.html', discount0 = discount[0], exp0 = exp[0], discount1 = discount[1], exp1 = exp[1])
 
 @app.route('/orderconfirmation', methods=['GET','POST'])
@@ -1099,4 +1109,3 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
-

@@ -63,7 +63,7 @@
 
 <div class="container">
 <div class="row">
-  <div class="col-5">
+  <div class="col-8">
 
       <table class="table">
         <thead>
@@ -93,28 +93,60 @@
       <hr></hr>
       <h4>Total: ${{total}}</h4>
 </div>
-<div class="col-1">
+<div class="col-3">
       <table class="table ">
         <thead>
           <tr>
             <th>Quantity</th>
+            <th>Delete</th>
 
 
           </tr>
         </thead>
         <tbody>
+
           {%if valuePresent%}
 {% for key,value in quantity|dictsort %}
 
 
           <tr>
 
-    <td>{{value}}</td>
 
-    {% endfor %}
-    {%endif%}
+
+  <form class="form" action="/checkoutmenu " method="POST">
+
+    <td>
+
+  <select class="custom-select" id="quantity" >
+    <option value="{{ value }}">{{ value }}</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="0">Delete All</option>
+  </select>
+
+</td>
+<td>
+  <div class="">
+
+    <button class="btn btn-secondary" type="submit" name="submit_button" id="update" value="{{ value }}">Update</button>
+  </div>
+
+</td>
+  </form>
+
+  {% endfor %}
+  {%endif%}
 
           </tr>
+
 
         </tbody>
       </table>
@@ -124,13 +156,17 @@
 
 
 
+</div>
+
+
+
 
 
     <!--first column-->
 
 
     <!--second column-->
-    <div class="col-6">
+    <div class="row">
         <!--start of accordion-->
       <div class="accordion" id="checkout">
         <form>
