@@ -42,24 +42,24 @@ def viewbooks():
     if request.method == "POST":
         searchfilter = request.form['searchfilter']
         if searchfilter == 'Title':
-            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book WHERE title = %s ",request.form['search'])
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo WHERE title = %s ",request.form['search'])
 
         elif searchfilter == 'Subject':
-            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book WHERE category = %s ",request.form['search'])
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo WHERE category = %s ",request.form['search'])
 
         elif searchfilter == 'ISBN':
-            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book WHERE isbn = %s ",request.form['search'])
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo WHERE isbn = %s ",request.form['search'])
 
         elif searchfilter == 'Author':
-            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book WHERE authorName = %s ",request.form['search'])
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo WHERE authorName = %s ",request.form['search'])
 
         elif searchfilter == '':
-            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book;")
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo;")
 
         book = cursor.fetchall()
         return render_template('manage_books.html',searchfilter=searchfilter,book=book)
     else:
-        cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM book;")
+        cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo;")
         book = cursor.fetchall()
         return render_template('manage_books.html',book=book)
     render_template('manage_books.html',book=book)
@@ -69,7 +69,7 @@ def viewbooks():
 def viewspecificbook():
     isbn = request.args.get('isbn')
     print(isbn)
-    cursor.execute("SELECT isbn, title, authorName FROM book where isbn=%s;", (isbn))
+    cursor.execute("SELECT isbn, title, authorName FROM bookinfo where isbn=%s;", (isbn))
     book = cursor.fetchall()
 
     return render_template('edit_book.html',book=book)
@@ -109,7 +109,7 @@ def addbook():
 
 
         #check for duplicate isbn
-        cursor.execute("SELECT isbn FROM book;")
+        cursor.execute("SELECT isbn FROM bookinfo;")
         fetchedisbn = cursor.fetchall()
 
         duplicateisbn = False
@@ -121,7 +121,7 @@ def addbook():
                     duplicateisbn = True
 
         if duplicateisbn == False:
-            cursor.execute("INSERT INTO book(isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (isbn,category,author,title,edition,publisher,publicationYear,quantity,buyingPrice,sellingPrice,rating,filename))
+            cursor.execute("INSERT INTO bookinfo(isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (isbn,category,author,title,edition,publisher,publicationYear,quantity,buyingPrice,sellingPrice,rating,filename))
         else:
             message = Markup("<post>Duplicate ISBN. Please enter a unique ISBN.</post><br>")
             flash(message)

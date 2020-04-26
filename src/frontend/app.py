@@ -82,7 +82,7 @@ def checkout(isbn):
             y+=1
 
     x=0
-    values='SELECT isbn, title, sellingPrice FROM book WHERE '
+    values='SELECT isbn, title, sellingPrice FROM bookinfo WHERE '
     while x < len(isbnvar.values()):
         for value in isbnvar.values():
             isbnvar["isbnNum{0}".format(x)]=book
@@ -169,7 +169,7 @@ def checkoutmenu():
 
     quantity = {i: shoppingCart.count(i) for i in shoppingCart}
     print(quantity)
-    #session['cart'].clear()
+
 
     isbncount = ''
     y=0
@@ -187,7 +187,7 @@ def checkoutmenu():
             y+=1
 
     x=0
-    values='SELECT isbn, title, sellingPrice FROM book WHERE '
+    values='SELECT isbn, title, sellingPrice FROM bookinfo WHERE '
     while x < len(isbnvar.values()):
         for value in isbnvar.values():
             isbnvar["isbnNum{0}".format(x)]=book
@@ -219,6 +219,8 @@ def checkoutmenu():
 #route for main only for logged in users
 @app.route('/main', methods = ['GET','POST'])
 def main():
+    session['cart'].clear()
+    print(session)
     if request.method == "POST":
 
         search=None
@@ -240,19 +242,19 @@ def main():
 
         if search == True:
             if searchfilter == 'Title':
-                cursor.execute("SELECT * FROM book WHERE title = %s ",request.form['search'])
+                cursor.execute("SELECT * FROM bookinfo WHERE title = %s ",request.form['search'])
 
             elif searchfilter == 'Subject':
-                cursor.execute("SELECT * FROM book WHERE category = %s ",request.form['search'])
+                cursor.execute("SELECT * FROM bookinfo WHERE category = %s ",request.form['search'])
 
             elif searchfilter == 'ISBN':
-                cursor.execute("SELECT * FROM book WHERE isbn = %s ",request.form['search'])
+                cursor.execute("SELECT * FROM bookinfo WHERE isbn = %s ",request.form['search'])
 
             elif searchfilter == 'Author':
-                cursor.execute("SELECT * FROM book WHERE authorName = %s ",request.form['search'])
+                cursor.execute("SELECT * FROM bookinfo WHERE authorName = %s ",request.form['search'])
 
             elif searchfilter == '':
-                cursor.execute("SELECT * FROM book;")
+                cursor.execute("SELECT * FROM bookinfo;")
             book = cursor.fetchall()
             return render_template('logged_in_homepage.html',searchfilter=searchfilter,book=book)
         elif addbooktocart == True:
@@ -260,7 +262,7 @@ def main():
             return redirect(url_for('checkout',isbn=isbn))
 
     else:
-        cursor.execute("SELECT * FROM book;")
+        cursor.execute("SELECT * FROM bookinfo;")
         book = cursor.fetchall()
     return render_template('logged_in_homepage.html',book=book)
 
@@ -655,19 +657,19 @@ def index():
 
         if search == True:
             if searchfilter == 'Title':
-                cursor.execute("SELECT * FROM book WHERE title = %s ",request.form['search'])
+                cursor.execute("SELECT * FROM bookinfo WHERE title = %s ",request.form['search'])
 
             elif searchfilter == 'Subject':
-                cursor.execute("SELECT * FROM book WHERE category = %s ",request.form['search'])
+                cursor.execute("SELECT * FROM bookinfo WHERE category = %s ",request.form['search'])
 
             elif searchfilter == 'ISBN':
-                cursor.execute("SELECT * FROM book WHERE isbn = %s ",request.form['search'])
+                cursor.execute("SELECT * FROM bookinfo WHERE isbn = %s ",request.form['search'])
 
             elif searchfilter == 'Author':
-                cursor.execute("SELECT * FROM book WHERE authorName = %s ",request.form['search'])
+                cursor.execute("SELECT * FROM bookinfo WHERE authorName = %s ",request.form['search'])
 
             elif searchfilter == '':
-                cursor.execute("SELECT * FROM book;")
+                cursor.execute("SELECT * FROM bookinfo;")
             book = cursor.fetchall()
             return render_template('homepage.html',searchfilter=searchfilter,book=book)
         elif addbooktocart == True:
@@ -676,7 +678,7 @@ def index():
             return redirect(url_for('login'))
 
     else:
-        cursor.execute("SELECT * FROM book;")
+        cursor.execute("SELECT * FROM bookinfo;")
         book = cursor.fetchall()
         return render_template('homepage.html',book=book)
     render_template('homepage.html',book=book)
