@@ -1010,6 +1010,70 @@ def addbook():
         return redirect(url_for('viewbooks'))
     return render_template('edit_book.html')
 
+#route for sending promo email
+@app.route('/sendPromo', methods = ['GET','POST'])
+def sendPromo():
+
+    select_stmt = "SELECT * FROM promotion"
+    cursor.execute(select_stmt)
+    promos = cursor.fetchall()
+    counter = 0
+    promoid = [0,0]
+    discount = [0, 0]
+    exp = ['' ,'']
+    for x in promos:
+        promoid[counter] = x[0]
+        discount[counter] = x[1]
+        exp[counter] = x[2]
+        counter += 1
+        
+    if request.method == 'POST':
+        emailpromoid = 0
+        emaildiscount = 0
+        emailexp = ""
+        #determine selected promo info
+        promotion = request.form.get('promo')
+        if promotion == "promo0":
+            emailpromoid = promoid[0]
+            emaildiscount = discount[0]
+            emailexp = exp[0]
+        elif promotion == "promo1":
+            emailpromoid = promoid[1]
+            emaildiscount = discount[1]
+            emailexp = exp[1]
+        else:
+            message = Markup("<post>No promo selected.</post><br>")
+            flash(message)
+            return render_template('sendPromo.html', discount0 = discount[0], exp0 = exp[0], discount1 = discount[1], exp1 = exp[1])
+        
+        emaildiscount = str(emaildiscount)
+        emailpromoid = str(emailpromoid) 
+        #email message
+        content = "Use this promo code for a " + emaildiscount + " percent off discount! Code: " + emailpromoid + " Expires: " + emailexp
+        #find subscribed users
+        select_stmt = "SELECT * FROM profile WHERE promoEmails = %(subscribed)s"
+        cursor.execute(select_stmt, { 'subscribed': 1 })
+        users = cursor.fetchall()
+        counter = 0
+        for x in users:
+            counter += 1
+            email = x[4]
+            #generate promo email
+            mail = Mail(from_email = 'tylerrosen97@gmail.com',
+                        to_emails = email,
+                        subject = 'Promo code',
+                        plain_text_content = content
+                        )
+
+            #send promo email
+            sg = sendgrid.SendGridAPIClient(api_key='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')
+            response = sg.client.mail.send.post(request_body=mail.get())
+        counter = str(counter)
+        message = Markup("<post>Promotion sent to " + counter + " subscribed users.</post><br>")
+        flash(message)
+        
+    return render_template('sendPromo.html', discount0 = discount[0], exp0 = exp[0], discount1 = discount[1], exp1 = exp[1])
+
 if __name__ == '__main__':
     app.run(debug=True)
 
