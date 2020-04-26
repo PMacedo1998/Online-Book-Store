@@ -507,8 +507,8 @@ def verify():
             email = x[4]
             code = x[7]
             if inputEmail == email and inputCode == code:
-                verified = True
-                userID = str(x[0])
+                    verified = True
+                    userID = str(x[0])
 
 
         if verified:
@@ -606,8 +606,6 @@ def login():
     counter = 0
     adminEmail='kimberly.nguyen@uga.edu'
 
-
-
     if request.method == 'POST':
 
         inputEmail = request.form['email']
@@ -632,14 +630,14 @@ def login():
             session['loggedin'] = True
             session['id'] = x[0]
 
-        if inputEmail == adminEmail and sha256_crypt.verify(inputPass, passWord):
+        elif inputEmail == adminEmail and sha256_crypt.verify(inputPass, passWord):
             return render_template("admin.html")
-        elif isUser == False and counter != 0:
-            message = Markup("<post>Incorrect email and/or password. Please try again.</post><br>")
-            flash(message)
-            return render_template("login.html")
-        elif isUser == False:
-            return render_template("login.html")
+    if isUser == False and counter != 0:
+        message = Markup("<post>Incorrect email and/or password. Please try again.</post><br>")
+        flash(message)
+        return render_template("login.html")
+    elif isUser == False:
+        return render_template("login.html")
         print(session['id'])
     return redirect(url_for('main'))
  #   if request.method == 'GET':
@@ -1076,6 +1074,19 @@ def sendPromo():
         
     return render_template('sendPromo.html', discount0 = discount[0], exp0 = exp[0], discount1 = discount[1], exp1 = exp[1])
 
+@app.route('/orderconfirmation', methods=['GET','POST'])
+def orderconfirmation():
+
+
+
+
+
+
+
+
+
+    render_template('order_confirmation.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
 
@@ -1087,3 +1098,4 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
+
