@@ -33,7 +33,7 @@ cursor=con.cursor()
 def bookdetails():
     return render_template('book_details.html')
 
-@app.route('/checkout/<isbn>', methods=['GET','POST'])
+@app.route('/checkout/<isbn>', methods = ['GET','POST'])
 def checkout(isbn):
     sessionID = session['id']
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
@@ -105,7 +105,6 @@ def checkout(isbn):
     shoppingCart = session['cart']
     shoppingCart.append(isbn)
     session['cart'] = shoppingCart  #
-
     #session['cart'].clear()
     print(shoppingCart)
 
@@ -122,9 +121,9 @@ def checkout(isbn):
             #i+=1
 
     quantity = {i:shoppingCart.count(i) for i in shoppingCart}
-    quantity = Counter(shoppingCart)
-    #quantity = collections.OrderedDict(sorted(quantity.items()))
-    print("quantity1 "+str(quantity))
+    #quantity = Counter(shoppingCart)
+    quantity1 = collections.OrderedDict(sorted(quantity.items()))
+    print(quantity1)
 
 
 
@@ -178,7 +177,7 @@ def checkout(isbn):
 
         i +=1
     print(sellingPriceList)
-    for k, v in quantity.items():
+    for k, v in quantity1.items():
         v = float(v)
         quantityList.append(v)
         print ("quantity is " +str(v) + " for isbn " +str(k))
@@ -190,15 +189,6 @@ def checkout(isbn):
     total = "{:.2f}".format(total)
     print(total)
 
-    #hello - kimberly
-    if request.method == "POST":
-        newQuantity = request.form['submit_button']
-        
-
-        newQuantity=float(newQuantity)
-        print("newQuantity is " +str(newQuantity))
-
-
 
 
 
@@ -207,10 +197,33 @@ def checkout(isbn):
     #cursor.execute("SELECT isbn,title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
     #book = cursor.fetchall()
     #print(book)
-    valuePresent=True
-    return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent,isbn=isbn,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+    if request.method == "POST":
+        firstName = request.form['firstName']
+        lastName = request.form['lastName']
+        email = request.form['email']
+        address1 = request.form['address1']
+        address2 = request.form['address2']
+        state = request.form['state']
+        city = request.form['city']
+        zipcode = request.form['zipcode']
 
-@app.route('/checkoutmenu')
+        baddress1 = request.form['baddress1']
+        baddress2 = request.form['baddress2']
+        bstate = request.form['bstate']
+        bcity = request.form['bcity']
+        bzipcode = request.form['bzipcode']
+
+        cardType = request.form['cardType']
+        cardNum = request.form['cardNum']
+        cardName = request.form['cardName']
+        expirationDate = request.form['expirationDate']
+        
+        return render_template('order_confirmation.html', book = book, quantity = quantity, total = total,  fName = firstName,lName=lastName,email=email, phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate)
+
+    valuePresent=True
+    return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+
+@app.route('/checkoutmenu', methods=['GET', 'POST'])
 def checkoutmenu():
     sessionID = session['id']
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
@@ -367,17 +380,33 @@ def checkoutmenu():
             total+= f*b
             print(f,b)
         print(total)
-
-
-
-
         print("book is " + str(book))
-
-    #cursor.execute("SELECT isbn,title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
-    #book = cursor.fetchall()
-    #print(book)
         valuePresent=True
         return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+
+        if request.method == "POST":
+            firstName = request.form['firstName']
+            lastName = request.form['lastName']
+            email = request.form['email']
+            address1 = request.form['address1']
+            address2 = request.form['address2']
+            state = request.form['state']
+            city = request.form['city']
+            zipcode = request.form['zipcode']
+
+            baddress1 = request.form['baddress1']
+            baddress2 = request.form['baddress2']
+            bstate = request.form['bstate']
+            bcity = request.form['bcity']
+            bzipcode = request.form['bzipcode']
+
+            cardType = request.form['cardType']
+            cardNum = request.form['cardNum']
+            cardName = request.form['cardName']
+            expirationDate = request.form['expirationDate']
+                
+            return render_template('order_confirmation.html', fName = firstName,lName=lastName,email=email,total = total, phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate)
+
     valuePresent=False
     return render_template('checkout.html',valuePresent=valuePresent)
 
@@ -587,7 +616,7 @@ def register():
         #get promotion
         subscribed = 0
         promotion = request.form.get('promoApplied')
-
+        
         if promotion == "1":
             subscribed = 1
 
@@ -1037,7 +1066,7 @@ def sendPromo():
         discount[counter] = x[1]
         exp[counter] = x[2]
         counter += 1
-
+        
     if request.method == 'POST':
         emailpromoid = 0
         emaildiscount = 0
@@ -1056,9 +1085,9 @@ def sendPromo():
             message = Markup("<post>No promo selected.</post><br>")
             flash(message)
             return render_template('sendPromo.html', discount0 = discount[0], exp0 = exp[0], discount1 = discount[1], exp1 = exp[1])
-
+        
         emaildiscount = str(emaildiscount)
-        emailpromoid = str(emailpromoid)
+        emailpromoid = str(emailpromoid) 
         #email message
         content = "Use this promo code for a " + emaildiscount + " percent off discount! Code: " + emailpromoid + " Expires: " + emailexp
         #find subscribed users
@@ -1082,11 +1111,11 @@ def sendPromo():
         counter = str(counter)
         message = Markup("<post>Promotion sent to " + counter + " subscribed users.</post><br>")
         flash(message)
-
+        
     return render_template('sendPromo.html', discount0 = discount[0], exp0 = exp[0], discount1 = discount[1], exp1 = exp[1])
 
-@app.route('/orderconfirmation', methods=['GET','POST'])
-def orderconfirmation():
+@app.route('/order_confirmation', methods=['GET','POST'])
+def orderConfirmation():
 
 
 
@@ -1096,7 +1125,7 @@ def orderconfirmation():
 
 
 
-    render_template('order_confirmation.html')
+    return render_template('order_confirmation.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -1109,3 +1138,4 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
+
