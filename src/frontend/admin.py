@@ -31,7 +31,7 @@ con = mysql.connect()
 cursor=con.cursor()
 
 #route for main only for logged in users
-@app.route('/')
+@app.route('/admin')
 def admin():
     return render_template('admin.html')
 

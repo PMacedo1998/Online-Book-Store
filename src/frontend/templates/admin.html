@@ -11,34 +11,6 @@
   </head>
   <style>
 
-      div > div > a
-    {
-      margin-left:17px;
-      margin-right:5px;
-      background-color:white !important;
-      border-color:white!important;
-      color:#196F3D;
-      width:225px;
-      font-size:15px;
-    }
-
-      div > div > a:hover
-    {
-      background-color:#196F3D !important;
-      border-color:#196F3D !important;
-      color:white !important;
-      width:225px;
-      font-size:15px;
-    }
-
-  div > div > .active > a
-  {
-    background-color:#FBFFB6 !important;
-    border-color:#FBFFB6 !important;
-    color:black !important;
-    width:225px;
-    font-size:15px;
-  }
 
   a
   {
@@ -48,41 +20,49 @@
 
   a:hover
   {
-    border-color:yellow !important;
-    background-color:yellow !important;
-    color:white;
+    border-color:#60F431 !important;
+    background-color:#60F431 !important;
+    color:black !important;
   }
 
   body
   {
     background-color:#FOF3F4 !important;
   }
+
+  ul > li  > a 
+  {
+    color: white !important;
+    background-color: #839192    !important;
+    border-color:#839192   !important;
+  }
+
+  ul > li  > a:hover
+  {
+    color: white !important;
+    background-color: #717D7E  !important;
+    border-color:#717D7E !important;
+  }
   </style>
   <body>
 
 <!--navbar-->
-    <div class="topBar">
+<div class="topBar">
 
-          <div class = "row">
-            <div class="col-2">
-            </div>
-            <div class="col-2">
-            </div>
-            <div class="col-2">
-            </div>
-           <div class="col-2">
-           </div>
-             <div class="col-2">
-             </div>
-         <div class="col-2">
+    <ul style="list-style-type: none;">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/admin">Admin Homepage</a>
+          <a class="dropdown-item" href="/viewbooks">View Books</a>
+          <a class="dropdown-item" href="/addbook">Add a Book</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{url_for('logout')}}">Logout</a>
+        </div>
+      </li>
+   </ul>
+</div>
 
-            <a href="/viewbooks">View Books</a>
-            <br>
-            <a href="/addbook">Add Book</a>
-
-           </div>
-           </div>
-         </div>
 
 
 <!--welcome-->
@@ -115,6 +95,7 @@
       <br><br>
         <a class="btn btn-primary btn-lg btn-block" href="/addbook" role="button">Add a Book</a>
   </div>
+
 
   <!--script for id popover-->
   <script type="text/javascript">

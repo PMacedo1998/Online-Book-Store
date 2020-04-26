@@ -58,30 +58,47 @@
     border-color:white !important;
     color:white !important;
   }
+  ul > li  > a
+  {
+    color: white !important;
+    background-color: #839192    !important;
+    border-color:#839192   !important;
+  }
+
+  ul > li  > a:hover
+  {
+    color: white !important;
+    background-color: #717D7E  !important;
+    border-color:#717D7E !important;
+  }
+
+
+
+  a:hover
+  {
+    background-color:#196F3D !important;
+    border-color:#196F3D !important;
+    color:white!important;
+  }
   </style>
   <body>
 
     <!--navbar-->
-        <div class="topBar">
+    <div class="topBar">
 
-              <div class = "row">
-                <div class="col-2">
-                </div>
-                <div class="col-2">
-                </div>
-                <div class="col-2">
-                </div>
-               <div class="col-2">
-               </div>
-                 <div class="col-2">
-                 </div>
-             <div class="col-2">
-               <a href="/"> Admin Homepage</a>
-               <br>
-                <a href="/viewbooks">View Books</a>
-               </div>
-               </div>
-             </div>
+        <ul style="list-style-type: none;">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profile</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/admin">Admin Homepage</a>
+              <a class="dropdown-item" href="/viewbooks">View Books</a>
+              <a class="dropdown-item" href="/addbook">Add a Book</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{url_for('logout')}}">Logout</a>
+            </div>
+          </li>
+       </ul>
+    </div>
 
 
 <!--welcome-->
@@ -139,7 +156,7 @@
       <label for="category">Category</label>
       <select class="form-control" id="category" name="category">
         <!--book genres: https://reference.yourdictionary.com/books-literature/different-types-of-books.html-->
-        
+
         <option value="Action and Adventure">Action and Adventure</option>
         <option value="Children's">Children's</option>
         <option value="Fantasy">Fantasy</option>

@@ -443,7 +443,7 @@ def verify():
         if inputCode == dbCode:
             verified = True
 
-      
+
         if verified:
             cursor.execute("UPDATE profile SET status='{}' WHERE id=%s;".format(1), (sessionID))
             con.commit()
@@ -537,6 +537,8 @@ def login():
     inputEmail=''
     inputPass=''
     counter = 0
+    adminEmail='kimberly.nguyen@uga.edu'
+
     if request.method == 'POST':
 
         inputEmail = request.form['email']
@@ -561,7 +563,9 @@ def login():
             session['loggedin'] = True
             session['id'] = x[0]
 
-    if isUser == False and counter != 0:
+    if inputEmail == adminEmail and sha256_crypt.verify(inputPass, passWord):
+        return render_template("admin.html")
+    elif isUser == False and counter != 0:
         message = Markup("<post>Incorrect email and/or password. Please try again.</post><br>")
         flash(message)
         return render_template("login.html")
@@ -836,6 +840,108 @@ def index():
 
 
 
+#admin
+
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
+
+
+#route for main only for logged in users
+@app.route('/viewbooks', methods=['GET', 'POST'])
+def viewbooks():
+    if request.method == "POST":
+        searchfilter = request.form['searchfilter']
+        if searchfilter == 'Title':
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo WHERE title = %s ",request.form['search'])
+
+        elif searchfilter == 'Subject':
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo WHERE category = %s ",request.form['search'])
+
+        elif searchfilter == 'ISBN':
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo WHERE isbn = %s ",request.form['search'])
+
+        elif searchfilter == 'Author':
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo WHERE authorName = %s ",request.form['search'])
+
+        elif searchfilter == '':
+            cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo;")
+
+        book = cursor.fetchall()
+        return render_template('manage_books.html',searchfilter=searchfilter,book=book)
+    else:
+        cursor.execute("SELECT isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename FROM bookinfo;")
+        book = cursor.fetchall()
+        return render_template('manage_books.html',book=book)
+    render_template('manage_books.html',book=book)
+
+#route for main only for logged in users
+@app.route('/viewspecificbook')
+def viewspecificbook():
+    isbn = request.args.get('isbn')
+    print(isbn)
+    cursor.execute("SELECT isbn, title, authorName FROM bookinfo where isbn=%s;", (isbn))
+    book = cursor.fetchall()
+
+    return render_template('edit_book.html',book=book)
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],filename)
+
+#route for main only for logged in users
+@app.route('/addbook', methods = ['GET','POST'])
+def addbook():
+    if request.method == 'POST':
+
+        #add book info
+        isbn = request.form['isbn']
+        category = request.form['category']
+        author = request.form['author']
+        title = request.form['title']
+        edition = request.form['edition']
+        publisher = request.form['publisher']
+        publicationYear = request.form['publicationYear']
+        quantity = request.form['quantity']
+        buyingPrice = request.form['buyingPrice']
+        sellingPrice = request.form['sellingPrice']
+        rating = request.form['rating']
+
+        file = request.files['coverPicture']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+
+
+        #check for duplicate isbn
+        cursor.execute("SELECT isbn FROM bookinfo;")
+        fetchedisbn = cursor.fetchall()
+
+        duplicateisbn = False
+
+        for fetchedisbnS in fetchedisbn:
+            if fetchedisbnS:
+                fetchedisbnS=fetchedisbnS[0]
+                if isbn == fetchedisbnS:
+                    duplicateisbn = True
+
+        if duplicateisbn == False:
+            cursor.execute("INSERT INTO bookinfo(isbn,category,authorName,title,edition,publisher,publicationYear,quantityInStock,buyingPrice,sellingPrice,bookRating,filename) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (isbn,category,author,title,edition,publisher,publicationYear,quantity,buyingPrice,sellingPrice,rating,filename))
+        else:
+            message = Markup("<post>Duplicate ISBN. Please enter a unique ISBN.</post><br>")
+            flash(message)
+            return render_template('edit_book.html')
+
+        con.commit()
+
+        return redirect(url_for('viewbooks'))
+    return render_template('edit_book.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
