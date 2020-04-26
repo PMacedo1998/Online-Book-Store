@@ -84,12 +84,14 @@
 
     <td>{{info[0]}}</td>
     <td>{{info[1]}}</td>
-    <td>${{info[2]}}</td>
+    <td>{{info[2]}}</td>
     {% endfor %}
 
           </tr>
         </tbody>
       </table>
+      <hr></hr>
+      <h4>Total: {{total}}</h4>
 </div>
 <div class="col-1">
       <table class="table ">
@@ -120,6 +122,9 @@
   </div>
 
 
+  
+ 
+
 
     <!--first column-->
 
@@ -128,6 +133,7 @@
     <div class="col-6">
         <!--start of accordion-->
       <div class="accordion" id="checkout">
+        <form>
           <!--customer info card-->
         <div class="card">
           <div class="card-header" id="customerHeader">
@@ -140,7 +146,7 @@
       <!---collapse form for Customer Info-->
           <div id="collapseOne" class="collapse show" aria-labelledby="customerHeader" data-parent="#checkout">
             <div class="card-body">
-                <form>
+                
                     <div class="form-row">
                       <div class="form-group col">
                         <label for ="firstName">First Name</label>
@@ -157,7 +163,7 @@
                       <input type="text" class = "form-control" id="email" value="{{email}}">
                         </div>
 
-                  </form>
+                  
             </div>
           </div>
         </div>
@@ -173,7 +179,7 @@
         <!---collapse form for Shipping Information-->
           <div id="collapseTwo" class="collapse" aria-labelledby="shippingHeader" data-parent="#checkout">
             <div class="card-body">
-                <form>
+                
                     <div class="form-group">
                       <label for="address1">Address</label>
                       <input type="text" class="form-control" id="address1" value="{{address1}}">
@@ -188,21 +194,80 @@
                         <input type="text" class="form-control" id="city" value = "{{city}}">
                       </div>
                       <div class="form-group col-md-4">
-                        <label for="inputState">State</label>
-                        <select id="inputState" class="form-control">
+                        <label for="state">State</label>
+                        <select id="state" class="form-control" value = "{{state}}">
                           <option selected>Choose...</option>
                           <!--add all state options broh-->
-                          <option>...</option>
+                          <option>AL</option>
+                          <option>AK</option>
+                          <option>AS</option>
+                          <option>AZ</option>
+                          <option>AR</option>
+                          <option>CA</option>
+                          <option>CO</option>
+                          <option>CT</option>
+                          <option>DE</option> <!--I'm already regretting this-->
+                          <option>DC</option>
+                          <option>FL</option>
+                          <option>GA</option>
+                          <option>GU</option>
+                          <option>HI</option>
+                          <option>ID</option>
+                          <option>IL</option>
+                          <option>IN</option>
+                          <option>IA</option>
+                          <option>KS</option>
+                          <option>KY</option>
+                          <option>LA</option>
+                          <option>ME</option>
+                          <option>MD</option>
+                          <option>MH</option>
+                          <option>MA</option>
+                          <option>MI</option>
+                          <option>FM</option>
+                          <option>MN</option>
+                          <option>MS</option>
+                          <option>MO</option>
+                          <option>MT</option>
+                          <option>NE</option>
+                          <option>NV</option>
+                          <option>NH</option>
+                          <option>NJ</option>
+                          <option>NM</option>
+                          <option>NY</option>
+                          <option>NC</option>
+                          <option>ND</option>
+                          <option>MP</option>
+                          <option>OH</option>
+                          <option>OK</option>
+                          <option>OR</option>
+                          <option>PW</option>
+                          <option>PA</option>
+                          <option>PR</option>
+                          <option>RI</option>
+                          <option>SC</option>
+                          <option>SD</option>
+                          <option>TN</option>
+                          <option>TX</option>
+                          <option>UT</option>
+                          <option>VT</option>
+                          <option>VA</option>
+                          <option>VI</option>
+                          <option>WA</option>
+                          <option>WV</option>
+                          <option>WI</option>
+                          <option>WY</option>
                         </select>
                       </div>
-                      <div class="form-group col-md-2">
+                    </div>
+                    <div class = "form-row">
+                      <div class="form-group col-md-3">
                         <label for="zipcode">Zip</label>
                         <input type="text" class="form-control" id="zipcode" value = "{{zipcode}}">
                       </div>
                     </div>
-                    <!--system should fill form below if address, if no address, user fills out then by confirming, system invokes add address and leaves form filled-->
-                    <button type="submit" class="btn btn-primary">Confirm Address</button>
-                  </form>
+    
+                  
             </div>
           </div>
         </div>
@@ -218,7 +283,7 @@
         <!---collapse form for Billing Info-->
             <div id="collapseThree" class="collapse" aria-labelledby="billingHeader" data-parent="#checkout">
               <div class="card-body">
-                <form>
+                
                     <div class="form-group">
                       <label for="baddress1">Address</label>
                       <input type="text" class="form-control" id="baddress1" value="{{address1}}">
@@ -237,17 +302,74 @@
                         <select id="inputState" class="form-control">
                           <option selected>Choose...</option>
                           <!--add all state options broh-->
-                          <option>...</option>
+                          <option>AL</option>
+                          <option>AK</option>
+                          <option>AS</option>
+                          <option>AZ</option>
+                          <option>AR</option>
+                          <option>CA</option>
+                          <option>CO</option>
+                          <option>CT</option>
+                          <option>DE</option> <!--I'm already regretting this-->
+                          <option>DC</option>
+                          <option>FL</option>
+                          <option>GA</option>
+                          <option>GU</option>
+                          <option>HI</option>
+                          <option>ID</option>
+                          <option>IL</option>
+                          <option>IN</option>
+                          <option>IA</option>
+                          <option>KS</option>
+                          <option>KY</option>
+                          <option>LA</option>
+                          <option>ME</option>
+                          <option>MD</option>
+                          <option>MH</option>
+                          <option>MA</option>
+                          <option>MI</option>
+                          <option>FM</option>
+                          <option>MN</option>
+                          <option>MS</option>
+                          <option>MO</option>
+                          <option>MT</option>
+                          <option>NE</option>
+                          <option>NV</option>
+                          <option>NH</option>
+                          <option>NJ</option>
+                          <option>NM</option>
+                          <option>NY</option>
+                          <option>NC</option>
+                          <option>ND</option>
+                          <option>MP</option>
+                          <option>OH</option>
+                          <option>OK</option>
+                          <option>OR</option>
+                          <option>PW</option>
+                          <option>PA</option>
+                          <option>PR</option>
+                          <option>RI</option>
+                          <option>SC</option>
+                          <option>SD</option>
+                          <option>TN</option>
+                          <option>TX</option>
+                          <option>UT</option>
+                          <option>VT</option>
+                          <option>VA</option>
+                          <option>VI</option>
+                          <option>WA</option>
+                          <option>WV</option>
+                          <option>WI</option>
+                          <option>WY</option>
                         </select>
                       </div>
+                    </div>
+                    <div class="form-row">
                       <div class="form-group col-md-2">
                         <label for="zipcode">Zip</label>
                         <input type="text" class="form-control" id="zipcode" value="{{zipcode}}">
                       </div>
                     </div>
-                    <!--system should fill form below if address, if no address, user fills out then by confirming, system invokes add address and leaves form filled-->
-                    <button type="submit" class="btn btn-primary">Confirm Address</button>
-                  </form>
               </div>
             </div>
           </div>
@@ -266,7 +388,7 @@
             <div class="card-body">
               <div class="form-group">
 
-                <label for="cardName">Credit Card No.</label>
+                <label for="cardName">Name on Card</label>
                 <input type="text" class="form-control" id="cardName" value="{{cardName}}">
             </div>
                 <div class="icon-container">
@@ -285,39 +407,38 @@
                     <label for="expirationDate">Expiration Date</label>
                     <input type="text" class="form-control" id="expirationDate" value="{{expirationDate}}">
                 </div>
+                <div class="form-group col-md-4">
+                  <label for="cardType">Type</label>
+                  <select id="cardType" class="form-control" value = "{{cardType}}">
+                    <option selected>Choose...</option>
+                    <option>Credit</option>
+                    <option>Debit</option>
+                    </select>
                 </div>
+                </div>
+                <div class="form-row">
                 <button type="submit" class="btn btn-primary">Checkout</button>
-            </div>
+                </div>
           </div>
         </div>
+        </form>
       </div>
-      <br>
-      <div class="form-group">
+      <br>		
+      <div class="form-group">		
 
 
-      <label class="sr-only" >Promo Code</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text">promo code:</div>
-            </div>
-            <input type="text" class="form-control" placeholder="Apply promo code">
-            <div class="input-group-append">
-              <button type="submit" class="btn btn-primary">Apply</button>
-            </div>
-          </div>
-        </div>
-</div>
-</div>
-
-<div class="row">
-
-    </div>
-
-<div class="row">
-  <div class="col-4">
-
-
-  <p>Total: ${{total}}</p>
+       <label class="sr-only" >Promo Code</label>		
+          <div class="input-group mb-2">		
+            <div class="input-group-prepend">		
+              <div class="input-group-text">promo code:</div>		
+            </div>		
+            <input type="text" class="form-control" placeholder="Apply promo code">		
+            <div class="input-group-append">		
+              <button type="submit" class="btn btn-primary">Apply</button>		
+            </div>		
+          </div>		
+        </div>		
+      
 </div>
 </div>
 
