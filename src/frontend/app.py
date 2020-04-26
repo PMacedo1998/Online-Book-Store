@@ -45,6 +45,7 @@ def checkout(isbn):
     shoppingCart = session['cart']
     shoppingCart.append(isbn)
     session['cart'] = shoppingCart  #
+    #session['cart'].clear()
     print(shoppingCart)
 
     count50=0
@@ -73,10 +74,7 @@ def checkout(isbn):
         for book in shoppingCart:
             isbnvar["isbnNum{0}".format(y)]=book
 
-            if y != len(shoppingCart) - 1:
-                isbncount += '%s,'
-            else:
-                isbncount += '%s'
+
             #print(isbnvar)
             #print(isbncount)
             y+=1
@@ -138,11 +136,11 @@ def checkout(isbn):
     #cursor.execute("SELECT isbn,title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
     #book = cursor.fetchall()
     #print(book)
-    return render_template('checkout.html',book=book,quantity=quantity,total=total)
+    valuePresent=True
+    return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent)
 
 @app.route('/checkoutmenu')
 def checkoutmenu():
-
     sessionID = session['id']
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
     #con.commit()
@@ -150,9 +148,11 @@ def checkoutmenu():
 
     if 'cart' not in session:
         session['cart'] = []  #
+        #return render_template('checkout.html')
     shoppingCart = session['cart']
 
-    #
+    session['cart'] = shoppingCart  #
+    #session['cart'].clear()
     print(shoppingCart)
 
     count50=0
@@ -167,8 +167,11 @@ def checkoutmenu():
         #    print(str(item)+" has " + str(count50))
             #i+=1
 
-    quantity = {i: shoppingCart.count(i) for i in shoppingCart}
-    print(quantity)
+    quantity = {i:shoppingCart.count(i) for i in shoppingCart}
+    #quantity = Counter(shoppingCart)
+    quantity1 = collections.OrderedDict(sorted(quantity.items()))
+    print(quantity1)
+
 
 
     isbncount = ''
@@ -178,10 +181,7 @@ def checkoutmenu():
         for book in shoppingCart:
             isbnvar["isbnNum{0}".format(y)]=book
 
-            if y != len(shoppingCart) - 1:
-                isbncount += '%s,'
-            else:
-                isbncount += '%s'
+
             #print(isbnvar)
             #print(isbncount)
             y+=1
@@ -200,6 +200,7 @@ def checkoutmenu():
 
             x+=1
         print(values)
+
     #value='1'
     #value2='2'
     #for value in isbnvar.values():
@@ -209,9 +210,45 @@ def checkoutmenu():
         #else:
         #    isbncount += '%s'
     #    print()
-    cursor.execute(values)
-    book = cursor.fetchall()
-    return render_template('checkout.html',book=book,quantity=quantity)
+    if len(isbnvar.values()) != 0:
+        cursor.execute(values)
+        book = cursor.fetchall()
+        total=0.00
+        sellingPriceList=list()
+        quantityList=list()
+        while i < len(book):
+
+            book1 = book[i][2]
+            book1 = float(book1)
+            sellingPriceList.append(book1)
+            print("sellingprice is " + str(book1) + " for isbn " +str(book[i][0]))
+
+            i +=1
+        print(sellingPriceList)
+        for k, v in quantity1.items():
+            v = float(v)
+            quantityList.append(v)
+            print ("quantity is " +str(v) + " for isbn " +str(k))
+        print(quantityList)
+
+        for f, b in zip(sellingPriceList, quantityList):
+            total+= f*b
+            print(f,b)
+        print(total)
+
+
+
+
+        print("book is " + str(book))
+
+    #cursor.execute("SELECT isbn,title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
+    #book = cursor.fetchall()
+    #print(book)
+        valuePresent=True
+        return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent)
+    valuePresent=False
+    return render_template('checkout.html',valuePresent=valuePresent)
+
 
 
 
@@ -219,7 +256,7 @@ def checkoutmenu():
 #route for main only for logged in users
 @app.route('/main', methods = ['GET','POST'])
 def main():
-    session['cart'].clear()
+    #session['cart'].clear()
     print(session)
     if request.method == "POST":
 
@@ -419,6 +456,7 @@ def logout():
     session.pop('loggedin', None)
     session.pop('id', None)
     session.pop('username', None)
+    session.pop('cart', None)
     #return url_for('login')
     return render_template("login.html")
 

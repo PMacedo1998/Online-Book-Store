@@ -101,6 +101,7 @@
           </tr>
         </thead>
         <tbody>
+          {%if valuePresent%}
 {% for key,value in quantity|dictsort %}
 
 
@@ -112,6 +113,7 @@
 
           </tr>
           {% endfor %}
+          {%endif%}
         </tbody>
       </table>
 
