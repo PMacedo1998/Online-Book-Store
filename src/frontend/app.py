@@ -38,65 +38,6 @@ def checkout(isbn):
     sessionID = session['id']
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
     #con.commit()
-    cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
-    firstName = cursor.fetchone()
-    if firstName:
-        firstName=firstName[0]
-
-    cursor.execute("SELECT lastName FROM profile WHERE id=%s;",(sessionID))
-    lastName=cursor.fetchone()
-    if lastName:
-        lastName=lastName[0]
-
-    cursor.execute("SELECT email FROM profile WHERE id=%s;", (sessionID))
-    email=cursor.fetchone()
-    if email:
-        email=email[0]
-
-    cursor.execute("SELECT phoneNum FROM profile WHERE id=%s;", (sessionID))
-    phoneNumber=cursor.fetchone()
-    if phoneNumber:
-        phoneNumber=phoneNumber[0]
-
-    cursor.execute("SELECT address1 FROM profile WHERE id=%s;", (sessionID))
-    address1=cursor.fetchone()
-    if address1:
-        address1=address1[0]
-
-    cursor.execute("SELECT address2 FROM profile WHERE id=%s;", (sessionID))
-    address2=cursor.fetchone()
-    if address2:
-        address2=address2[0]
-
-    cursor.execute("SELECT zipcode FROM profile WHERE id=%s;", (sessionID))
-    zipcode=cursor.fetchone()
-    if zipcode:
-        zipcode=zipcode[0]
-
-    cursor.execute("SELECT city FROM profile WHERE id=%s;", (sessionID))
-    city=cursor.fetchone()
-    if city:
-        city=city[0]
-
-    cursor.execute("SELECT state FROM profile WHERE id=%s;", (sessionID))
-    state=cursor.fetchone()
-    if state:
-        state=state[0]
-
-    cursor.execute("SELECT name FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
-    cardName=cursor.fetchone()
-    if cardName:
-        cardName=cardName[0]
-
-    cursor.execute("SELECT type FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
-    cardType=cursor.fetchone()
-    if cardType:
-        cardType=cardType[0]
-
-    cursor.execute("SELECT expirationDate FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
-    expirationDate=cursor.fetchone()
-    if expirationDate:
-        expirationDate=expirationDate[0]
 
 
     if 'cart' not in session:
@@ -196,7 +137,7 @@ def checkout(isbn):
     #book = cursor.fetchall()
     #print(book)
     valuePresent=True
-    return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+    return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent)
 
 @app.route('/checkoutmenu')
 def checkoutmenu():

@@ -84,7 +84,7 @@
 
     <td>{{info[0]}}</td>
     <td>{{info[1]}}</td>
-    <td>{{info[2]}}</td>
+    <td>${{info[2]}}</td>
     {% endfor %}
 
           </tr>
@@ -291,16 +291,36 @@
           </div>
         </div>
       </div>
+      <br>
+      <div class="form-group">
+
+
+      <label class="sr-only" >Promo Code</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">promo code:</div>
+            </div>
+            <input type="text" class="form-control" placeholder="Apply promo code">
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-primary">Apply</button>
+            </div>
+          </div>
+        </div>
 </div>
 </div>
+
+<div class="row">
+
+    </div>
 
 <div class="row">
   <div class="col-4">
 
 
-  <p>Total: {{total}}</p>
+  <p>Total: ${{total}}</p>
 </div>
 </div>
+
 </div>
 
 
