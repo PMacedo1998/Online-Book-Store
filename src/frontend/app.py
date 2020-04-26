@@ -432,21 +432,27 @@ def resetPassword():
 #goes to this after submitting registration info
 @app.route('/account_verification', methods = ['GET','POST'])
 def verify():
-    sessionID = session['id']
+    inputEmail=''
     inputCode=''
+    userID=''
     if request.method == 'POST':
-        cursor.execute("SELECT verificationCode FROM profile WHERE id=%s;", (sessionID))
-        dbCode = cursor.fetchone()
-        dbCode = dbCode[0]
+
+        inputEmail = request.form['email']
         inputCode = request.form['code']
+        cursor.execute('SELECT * FROM profile')
+        users = cursor.fetchall()
         verified = False
-        accountId = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
-        if inputCode == dbCode:
-            verified = True
+
+        for x in users:
+            email = x[4]
+            code = x[7]
+            if inputEmail == email and inputCode == code:
+                    verified = True
+                    userID = str(x[0])
 
 
         if verified:
-            cursor.execute("UPDATE profile SET status='{}' WHERE id=%s;".format(1), (sessionID))
+            cursor.execute("UPDATE profile SET status='{}' WHERE id=%s;".format(1), (userID))
             con.commit()
             message = Markup("<post>Account verification successful!</post><br>")
             flash(message)
@@ -515,12 +521,12 @@ def register():
             subscribed = 1
 
         #store into dB
-        cursor.execute("INSERT INTO profile(firstName, lastName, phoneNum, email, pswd, address1, address2, zipcode, city, state, verificationCode, status, promoApplied) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s, %s)", (firstName, lastName, phoneNumber, email, password, address1, address2, zip, city, state, code, 0, subscribed))
+        cursor.execute("INSERT INTO profile(firstName, lastName, phoneNum, email, pswd, address1, address2, zipcode, city, state, verificationCode, status, promoEmails) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, %s, %s)", (firstName, lastName, phoneNumber, email, password, address1, address2, zip, city, state, code, 0, subscribed))
         cursor.execute("INSERT INTO paymentMethod(type, cardNumber, expirationDate, name) VALUES (%s,%s,%s,%s)", (cardType, cardNumber, expirationDate, name))
         cursor.execute("INSERT INTO shoppingCart(firstName,lastName) VALUES (%s,%s)", (firstName,lastName))
         con.commit()
 
-        return render_template('registration_confirmation.html')
+        return redirect(url_for('verify'))
     return render_template('registration.html')
 #logout
 @app.route('/login/logout', methods = ['GET', 'POST'])
@@ -682,7 +688,7 @@ def displayinfo():
     else:
         status = "not found"
 
-    cursor.execute("SELECT promoApplied FROM profile WHERE id=%s;", (sessionID))
+    cursor.execute("SELECT promoEmails FROM profile WHERE id=%s;", (sessionID))
     promo=cursor.fetchone()
     if promo:
         promo=promo[0]
@@ -702,7 +708,7 @@ def displayinfo():
 def promoUpdate():
     sessionID = session['id']
 
-    cursor.execute("SELECT promoApplied FROM profile WHERE id=%s;", (sessionID))
+    cursor.execute("SELECT promoEmails FROM profile WHERE id=%s;", (sessionID))
     promo=cursor.fetchone()
     if promo:
         promo=promo[0]
@@ -710,7 +716,7 @@ def promoUpdate():
             promo = 0
         else:
             promo = 1
-        cursor.execute("UPDATE profile SET promoApplied='{}' WHERE id=%s;".format(promo), (sessionID))
+        cursor.execute("UPDATE profile SET promoEmails='{}' WHERE id=%s;".format(promo), (sessionID))
         con.commit()
         message = Markup("<post>Your promotion preferences have been updated.</post><br>")
         flash(message)
@@ -955,3 +961,4 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
+

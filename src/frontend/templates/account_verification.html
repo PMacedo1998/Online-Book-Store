@@ -81,19 +81,27 @@
         </div>
         <br>
         <!--<p>Didn't receive a code? <a>Click here to resend code</a></p>-->
-      <form class="was-validated" method = "POST">
-        
-          <div class="form-group" >
-            <label for="code">Verification Code:</label>
-            <input class="form-control" placeholder="Enter verification code" name="code" id="code" required>
+        <form class="was-validated" method = "POST">
+          <div class="form-group">
+            <label for="email">Email address:</label>
+            <input type="text" class="form-control" placeholder="Enter email address" name="email" id="email" required>
             <div class="valid-feedback">Valid</div>
             <div class="invalid-feedback">Required</div>
           </div>
-
-          <button type="submit" class="btn btn-primary">Verify Account</button>
-      </form>
+            <div class="form-group" >
+              <label for="code">Verification Code:</label>
+              <input class="form-control" placeholder="Enter verification code" name="code" id="code" required>
+              <div class="valid-feedback">Valid</div>
+              <div class="invalid-feedback">Required</div>
+            </div>
+  
+            <button type="submit" class="btn btn-primary">Verify Account</button>
+        </form>
 <br>
 <br>
 </body>
+</html>
+
+
 </html>
 
