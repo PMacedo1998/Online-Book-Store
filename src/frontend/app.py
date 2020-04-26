@@ -123,9 +123,10 @@ def checkout(isbn):
         print ("quantity is " +str(v) + " for isbn " +str(k))
     print(quantityList)
 
-    for f, b in zip(sellingPriceList, quantityList):
-        total+= f*b
-        print(f,b)
+    for a, b in zip(sellingPriceList, quantityList):
+        total+= a*b
+        print(a,b)
+    total = "{:.2f}".format(total)
     print(total)
 
 
