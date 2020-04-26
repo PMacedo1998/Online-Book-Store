@@ -360,6 +360,9 @@
           <div id="status" class="container tab-pane fade"><br>
             <h6>Id: {{id}}</h6>
             <h6>Account Status: </h6><p>{{status}}</p>
+              {% if status == 'Unverified' %}
+              <p> <a href="/account_verification">verify</a></p>
+            {% endif %}
 
           </div>
 
