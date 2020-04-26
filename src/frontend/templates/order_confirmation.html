@@ -76,69 +76,41 @@
           <p>Order Confirmation: 123412341234</p>
         </div>
       </div>
-      <div class = "col-6">
 
         <h4>Order Summary</h4>
         
-<div class = "row">
-          <div class="col-5">
-
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>ISBN</th>
-                  <th>Book Title</th>
-      
-                      <th>Price (per unit)</th>
-      
-      
-                </tr>
-              </thead>
-              <tbody>
-      
-                {% for info in book %}
-      
-                <tr>
-      
-          <td>{{info[0]}}</td>
-          <td>{{info[1]}}</td>
-          <td>{{info[2]}}</td>
-          {% endfor %}
-      
-                </tr>
-              </tbody>
-            </table>
-            <hr></hr>
-            <h4>Total: ${{total}}</h4>
-      </div>
-      <div class="col-1">
-            <table class="table ">
-              <thead>
-                <tr>
-                  <th>Quantity</th>
-      
-      
-                </tr>
-              </thead>
-              <tbody>
-                {%if valuePresent%}
-      {% for key,value in quantity|dictsort %}
-      
-      
-                <tr>
-      
-          <td>{{value}}</td>
-      
-          {% endfor %}
-          {%endif%}
-      
-                </tr>
-      
-              </tbody>
-            </table>
+        
+          <div class="row">
+            <div class="col-8">
+          
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>ISBN</th>
+                      <th>Book Title</th>
+          
+                          <th>Price (per unit)</th>
+          
+          
+                    </tr>
+                  </thead>
+                  <tbody>
+          
+                    {% for info in book %}
+          
+                    <tr>
+          
+              <td>{{info[0]}}</td>
+              <td>{{info[1]}}</td>
+              <td>{{info[2]}}</td>
+              {% endfor %}
+          
+                    </tr>
+                  </tbody>
+                </table>
+                <hr></hr>
+                <h4>Total: ${{total}}</h4>
           </div>
-        </div>
-      
       </div>
       </div>
      

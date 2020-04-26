@@ -105,42 +105,38 @@
         <tbody>
           {%if valuePresent%}
 {% for key,value in quantity|dictsort %}
+<tr>
+<form class = "form" action = "/checkoutmenu" method = "POST">
 
-          <tr>
+<td>		
 
+  <select class="custom-select" id="quantity" >		
+   <option value="{{ value }}">{{ value }}</option>		
+   <option value="1">1</option>		
+   <option value="2">2</option>		
+   <option value="3">3</option>		
+   <option value="4">4</option>		
+   <option value="5">5</option>		
+   <option value="6">6</option>		
+   <option value="7">7</option>		
+   <option value="8">8</option>		
+   <option value="9">9</option>		
+   <option value="10">10</option>		
+   <option value="0">Delete All</option>		
+ </select>		
 
+</td>		
+<td>		
+ <div class="">		
 
-  <form class="form" action="/checkout/{{ isbn }} " method="POST">
+    <button class="btn btn-secondary" type="submit" name="submit_button" id="update" value="{{ value }}">Update</button>		
+ </div>		
 
-    <td>
+</td>		
+ </form>		
 
-  <select class="custom-select" id="quantity" >
-    <option value="{{ value }}">{{ value }}</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-    <option value="0">Delete All</option>
-  </select>
-
-</td>
-<td>
-  <div class="">
-
-    <button class="btn btn-secondary" type="submit" name="submit_button" id="update" value="{{ value }}">Update</button>
-  </div>
-
-</td>
-  </form>
-
-  {% endfor %}
-  {%endif%}
+  {% endfor %}		
+ {%endif%}
 
           </tr>
 
