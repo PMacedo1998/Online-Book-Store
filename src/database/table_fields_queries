@@ -306,14 +306,17 @@ ADD CONSTRAINT fk_admin_book
     FOREIGN KEY (isbn)
     REFERENCES book (isbn);
     
-ALTER TABLE promotion
+UNLOCK TABLES;
+    
+/* Add bool to profile table*/
+
+ALTER TABLE profile
 ADD COLUMN status BOOLEAN NOT NULL,
 ADD COLUMN promoApplied BOOLEAN NULL;
-
 
 /*Set status of newly registered user to 0 until account verified*/
 
 UPDATE profile
 SET status = 0;
 
-UNLOCK TABLES;
+
