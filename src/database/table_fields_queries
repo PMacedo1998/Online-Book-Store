@@ -44,6 +44,9 @@ ADD COLUMN address2 VARCHAR(45) NULL,
 ADD COLUMN zipcode VARCHAR(45) NULL,
 ADD COLUMN city VARCHAR(45) NULL,
 ADD COLUMN state VARCHAR(45) NULL,
+ADD COLUMN status BOOLEAN NOT NULL,
+ADD COLUMN promoEmails BOOLEAN NULL,
+ADD COLUMN promoAppliedCheckout BOOLEAN NULL,
 ADD CONSTRAINT fk_profile_paymentMethod
     FOREIGN KEY (paymentMethodID)
     REFERENCES paymentMethod (paymentMethodID);
@@ -307,16 +310,14 @@ ADD CONSTRAINT fk_admin_book
     REFERENCES book (isbn);
     
 UNLOCK TABLES;
-    
-/* Add bool to profile table*/
-
-ALTER TABLE profile
-ADD COLUMN status BOOLEAN NOT NULL,
-ADD COLUMN promoApplied BOOLEAN NULL;
 
 /*Set status of newly registered user to 0 until account verified*/
 
 UPDATE profile
 SET status = 0;
 
+/* Insert entry into admin table*/
+
+INSERT INTO systemAdministrator (adminID, profileID)
+VALUES ('1','1');
 
