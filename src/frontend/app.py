@@ -33,6 +33,8 @@ cursor=con.cursor()
 def bookdetails():
     return render_template('book_details.html')
 
+
+
 @app.route('/checkout/<isbn>', methods=['GET','POST'])
 def checkout(isbn):
     sessionID = session['id']
@@ -193,10 +195,11 @@ def checkout(isbn):
     #hello - kimberly
     if request.method == "POST":
         newQuantity = request.form['submit_button']
-        
+        quantityListCopy = quantityList.copy()
 
         newQuantity=float(newQuantity)
         print("newQuantity is " +str(newQuantity))
+        print("QuantityListCopy is " +str(quantityListCopy))
 
 
 
