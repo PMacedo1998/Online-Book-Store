@@ -61,7 +61,8 @@ def checkout(isbn):
     #quantity = {i:shoppingCart.count(i) for i in shoppingCart}
     quantity = Counter(shoppingCart)
     print(quantity)
-    #session['cart'].clear()
+
+
 
     isbncount = ''
     y=0
@@ -92,6 +93,7 @@ def checkout(isbn):
 
             x+=1
         print(values)
+
     #value='1'
     #value2='2'
     #for value in isbnvar.values():
@@ -103,9 +105,9 @@ def checkout(isbn):
     #    print()
     cursor.execute(values)
     book = cursor.fetchall()
-    count1=0
-    count2=0
-    print("book is " + str(book))
+    if book:
+        book1 = book[2]
+    print("book1 is " + str(book1))
 
     #cursor.execute("SELECT isbn,title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
     #book = cursor.fetchall()
@@ -114,6 +116,7 @@ def checkout(isbn):
 
 @app.route('/checkoutmenu')
 def checkoutmenu():
+
     sessionID = session['id']
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
     #con.commit()
