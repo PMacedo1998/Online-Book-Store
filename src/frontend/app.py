@@ -46,7 +46,7 @@ def checkout(isbn):
     #con.commit()
 
     #decrypt card number
-    file = open('static/key.key', 'rb')
+    file = open('src/frontend/static/key.key', 'rb')
     key = file.read()
     file.close()
     f = Fernet(key)
@@ -55,9 +55,12 @@ def checkout(isbn):
     cardNumber=cursor.fetchone()
     if cardNumber:
         cardNumber=cardNumber[0]
-        cardNumber = f.decrypt(cardNumber)
-        cardNumber = cardNumber.decode()
-        
+        try:
+            cardNumber = f.decrypt(cardNumber)
+            cardNumber = cardNumber.decode()
+        except:
+            cardNumber = ''
+
     cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
     firstName = cursor.fetchone()
     if firstName:
@@ -366,9 +369,12 @@ def checkoutmenu():
         cursor.execute("SELECT cardNumber FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
         cardNumber=cursor.fetchone()
         if cardNumber:
-            cardNumber=cardNumber[0]
-            cardNumber = f.decrypt(cardNumber)
-            cardNumber = cardNumber.decode()
+            cardNumber=cardNumber[0]        
+            try:
+                cardNumber = f.decrypt(cardNumber)
+                cardNumber = cardNumber.decode()
+            except:
+                cardNumber = ''
         #get user info
         cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
         firstName = cursor.fetchone()
