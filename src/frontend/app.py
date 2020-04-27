@@ -357,7 +357,7 @@ def checkout(isbn):
         print(a,b)
 
 
-    total=float(total)
+    total=f"{float(total):.2f}"
     salesTax=total*0.07
 
 
@@ -404,7 +404,8 @@ def checkout(isbn):
                 promoPrice = promoPrice[0]
             print(promoPrice)
             promoPrice = float(promoPrice)
-            total=float(total)
+            total = f"{float(total):.2f}"
+
             print("total before " + str(total))
             totalPromoApplied=total-promoPrice
             print(totalPromoApplied)
@@ -602,7 +603,7 @@ def checkoutmenu():
             for f, b in zip(sellingPriceList, quantityList):
                 total+= f*b
                 print(f,b)
-            print(total)
+            total = f"{total:.2f}"
             print("book is " + str(book))
             valuePresent=True
             return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
@@ -697,7 +698,7 @@ def checkoutmenu():
             for f, b in zip(sellingPriceList, quantityList):
                 total+= f*b
                 print(f,b)
-            print(total)
+            total = f"{total:.2f}"
             print("book is " + str(book))
             valuePresent=True
 
@@ -884,7 +885,7 @@ def checkoutmenu():
             for f, b in zip(sellingPriceList, quantityList):
                 total+= f*b
                 print(f,b)
-            print(total)
+            total = f"{total:.2f}"
             print("book is " + str(book))
             valuePresent=True
             return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
