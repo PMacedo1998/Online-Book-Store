@@ -37,6 +37,9 @@ def bookdetails():
 
 @app.route('/checkout/<isbn>', methods = ['GET','POST'])
 def checkout(isbn):
+    if request.method == "GET" and "promoTotal" in session:
+        session.pop('promoTotal', None)
+
     sessionID = session['id']
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
     #con.commit()
@@ -205,15 +208,15 @@ def checkout(isbn):
     print("salesTax " +str(salesTax))
     fee="{:.2f}".format(fee)
 
-
-
     print("book is " + str(book))
 
     #cursor.execute("SELECT isbn,title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
     #book = cursor.fetchall()
     #print(book)
     if request.method == "POST" and request.form['submit_button'] == 'applypromo':
+
         shoppingCart.remove(isbn)
+
         promoCode = request.form['promoCode']
         print(promoCode)
         cursor.execute("SELECT promoCode FROM promotion")
@@ -252,6 +255,7 @@ def checkout(isbn):
             message = Markup("<post>Promo discount successfully applied!</post><br>")
             flash(message)
             valuePresent = True
+            session['promoTotal'] = total
 
             return render_template('checkout.html', book = book, quantity=quantity,total=total, totalBeforePromo = totalBeforePromo, promoFound = promoFound,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
@@ -259,6 +263,9 @@ def checkout(isbn):
 
 
     if request.method == "POST" and request.form['submit_button'] == 'checkout':#hello
+        if "promoTotal" in session:
+            total = session['promoTotal']
+
         firstName = request.form['firstName']
         lastName = request.form['lastName']
         email = request.form['email']
@@ -327,6 +334,9 @@ def checkoutmenu():
     #con.commit()
 
     if request.method == "GET":
+        if "promoTotal" in session:
+            session.pop('promoTotal', None)
+
         #get user info
         cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
         firstName = cursor.fetchone()
@@ -633,7 +643,7 @@ def checkoutmenu():
             counter += 1
         orderID = str(counter)
         #store order in db
-        cursor.execute("INSERT INTO orders(paymentMethodID, shoppingCartID) VALUES (%s,%s)", (sessionID, sessionID))
+        cursor.execute("INSERT INTO orders(paymentMethodID) VALUES (%s)", (sessionID))
         con.commit()
 
         #confirmation email
@@ -641,6 +651,9 @@ def checkoutmenu():
         orderedBooks =""
         for x in book:
             orderedBooks += x[1] + "\n\t"
+
+        if "promoTotal" in session:
+            total = session["promoTotal"]
 
         date_time = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
         str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nOrder ID: " + orderID +"\n\nTime of Order: " + date_time
@@ -865,11 +878,14 @@ def checkoutmenu():
             message = Markup("<post>Promo discount successfully applied!</post><br>")
             flash(message)
             valuePresent=True
+            session['promoTotal'] = total
             return render_template('checkout.html', book = book, quantity=quantity,total=total, totalBeforePromo = totalBeforePromo, promoFound = promoFound,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
 
 
     elif request.method == "POST" and request.form['submit_button']:
+        if "promoTotal" in session:
+            session.pop('promoTotal', None)
 
         cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
         firstName = cursor.fetchone()
