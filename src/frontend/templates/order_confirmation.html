@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>Order Confirmation</title>
-    <meta charset="utf-8">		
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -14,7 +14,25 @@
     <meta charset = "utf-8"></meta>
 </head>
 
+<style media="">
+div > div > a
+{
 
+background-color:#196F3D !important;
+border-color:#196F3D!important;
+color:white !important;
+
+}
+
+div > div > a:hover
+{
+
+background-color:#8A7CA0 !important;
+border-color:#8A7CA0!important;
+color:white !important;
+
+}
+</style>
 <body>
 
   <div class="topBar">
@@ -69,53 +87,56 @@
             <h6>Billing Address: {{baddress1}} {{baddress2}}
               {{bcity}}, {{bstate}} {{bzipcode}}</h6>
           <h6>Payment Info: {{cardName}}, {{cardNum}}, {{cardType}}, {{expirationDate}}</h6>
-          <h6>Total: {{total}}</h6>
-          <p>Taxes: Input taxes</p>
-          <p>Fees: Input fees</p>
-          <p>Total: input Total</p>
+
+          <p>Taxes: ${{salesTax}}</p>
+          <p>Fees: ${{fee}}</p>
+          <h6>Total: ${{total}}</h6>
+
           <p>Order Confirmation: 123412341234</p>
         </div>
       </div>
 
         <h4>Order Summary</h4>
-        
-        
+
+
           <div class="row">
             <div class="col-8">
-          
+
                 <table class="table">
                   <thead>
                     <tr>
                       <th>ISBN</th>
                       <th>Book Title</th>
-          
+
                           <th>Price (per unit)</th>
-          
-          
+
+
                     </tr>
                   </thead>
                   <tbody>
-          
+
                     {% for info in book %}
-          
+
                     <tr>
-          
+
               <td>{{info[0]}}</td>
               <td>{{info[1]}}</td>
               <td>{{info[2]}}</td>
               {% endfor %}
-          
+
                     </tr>
                   </tbody>
                 </table>
                 <hr></hr>
                 <h4>Total: ${{total}}</h4>
+                <br>
+                <a href="/main" class="btn btn-secondary">Go Back to Homepage</a>
           </div>
       </div>
       </div>
-     
-    
-      
+
+
+
 <br>
 <br>
 </body>

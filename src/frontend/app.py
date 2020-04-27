@@ -186,9 +186,20 @@ def checkout(isbn):
     for a, b in zip(sellingPriceList, quantityList):
         total+= a*b
         print(a,b)
-    total = "{:.2f}".format(total)
-    print(total)
 
+
+    total=float(total)
+    salesTax=total*0.07
+
+
+    fee=0.05
+
+    total=total+salesTax+fee
+    total = "{:.2f}".format(total)
+    print("total is " +str(total))
+    salesTax="{:.2f}".format(salesTax)
+    print("salesTax " +str(salesTax))
+    fee="{:.2f}".format(fee)
 
 
 
@@ -218,10 +229,10 @@ def checkout(isbn):
         cardName = request.form['cardName']
         expirationDate = request.form['expirationDate']
 
-        return render_template('order_confirmation.html', book = book, quantity = quantity, total = total,  fName = firstName,lName=lastName,email=email, phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate)
+        return render_template('order_confirmation.html', book = book, quantity = quantity, total = total,salesTax=salesTax,fee=fee,  fName = firstName,lName=lastName,email=email, phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate)
 
     valuePresent=True
-    return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+    return render_template('checkout.html',book=book,quantity=quantity,total=total,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
 @app.route('/checkoutmenu', methods=['GET', 'POST'])
 def checkoutmenu():
