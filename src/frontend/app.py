@@ -307,6 +307,8 @@ def checkout(isbn):
         cardName = request.form['cardName']
         expirationDate = request.form['expirationDate']
 
+        session['cart'].clear()
+
         #get order number
         counter = 1
         cursor.execute('SELECT * FROM orders')
@@ -732,7 +734,7 @@ def checkoutmenu():
                 cardNumber = cardNumber.decode()
             except:
                 cardNumber = ''
-                
+
         cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
         firstName = cursor.fetchone()
         if firstName:
