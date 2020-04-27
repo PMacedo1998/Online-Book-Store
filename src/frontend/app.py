@@ -1312,7 +1312,7 @@ def register():
         #get payment info
         name = request.form['name']
         cardType = request.form['cardType']
-        cardNumber = sha256_crypt.encrypt(request.form['cardNumber'])
+        cardNumber = request.form['cardNumber']
         expirationDate = request.form['expirationDate']
         address1 = request.form['address1']
         address2 = request.form['address2']
@@ -1320,6 +1320,14 @@ def register():
         city = request.form['city']
         state = request.form['state']
 
+        #encrypt credit card
+        file = open('static/key.key', 'rb')
+        key = file.read()
+        file.close()
+        f = Fernet(key)
+        cardNumber = cardNumber.encode()
+        cardNumber = f.encrypt(cardNumber) 
+        
         #get promotion
         subscribed = 0
         promotion = request.form.get('promoApplied')
@@ -1579,8 +1587,15 @@ def updateinfo():
         if(cardType!=''):
             cursor.execute("UPDATE paymentMethod SET type='{}' WHERE paymentMethodID=%s;".format(cardType), (sessionID))
 
-        if(cardNumber!=''):
-            cursor.execute("UPDATE paymentMethod SET cardNumber='{}' WHERE paymentMethodID=%s;".format(cardNumber), (sessionID))
+       if(cardNumber!=''):
+            #encrypt credit card
+            file = open('static/key.key', 'rb')
+            key = file.read()
+            file.close()
+            f = Fernet(key)
+            cardNumber = cardNumber.encode()
+            cardNumber = f.encrypt(cardNumber)
+            cursor.execute("UPDATE paymentMethod SET cardNumber = %s WHERE paymentMethodID=%s",(cardNumber,sessionID))
 
         if(expirationDate!=''):
             cursor.execute("UPDATE paymentMethod SET expirationDate='{}' WHERE paymentMethodID=%s;".format(expirationDate), (sessionID))
