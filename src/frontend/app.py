@@ -503,67 +503,6 @@ def checkoutmenu():
                     
         return render_template('order_confirmation.html', fName = firstName,lName=lastName,email=email,total = total,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate, book=book)
 
-    #value='1'
-    #value2='2'
-    #for value in isbnvar.values():
-    #    print("value: " + str(value))
-        #if value != len(isbnvar.values()) - 1:
-        #    values+=value
-        #else:
-        #    isbncount += '%s'
-    #    print()
-    if len(isbnvar.values()) != 0:
-        cursor.execute(values)
-        book = cursor.fetchall()
-        total=0.00
-        sellingPriceList=list()
-        quantityList=list()
-        while i < len(book):
-
-            book1 = book[i][2]
-            book1 = float(book1)
-            sellingPriceList.append(book1)
-            print("sellingprice is " + str(book1) + " for isbn " +str(book[i][0]))
-
-            i +=1
-        print(sellingPriceList)
-        for k, v in quantity1.items():
-            v = float(v)
-            quantityList.append(v)
-            print ("quantity is " +str(v) + " for isbn " +str(k))
-        print(quantityList)
-
-        for f, b in zip(sellingPriceList, quantityList):
-            total+= f*b
-            print(f,b)
-        print(total)
-        print("book is " + str(book))
-        valuePresent=True
-        return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
-
-        if request.method == "POST":
-            firstName = request.form['firstName']
-            lastName = request.form['lastName']
-            email = request.form['email']
-            address1 = request.form['address1']
-            address2 = request.form['address2']
-            state = request.form['state']
-            city = request.form['city']
-            zipcode = request.form['zipcode']
-
-            baddress1 = request.form['baddress1']
-            baddress2 = request.form['baddress2']
-            bstate = request.form['bstate']
-            bcity = request.form['bcity']
-            bzipcode = request.form['bzipcode']
-
-            cardType = request.form['cardType']
-            cardNum = request.form['cardNum']
-            cardName = request.form['cardName']
-            expirationDate = request.form['expirationDate']
-
-            return render_template('order_confirmation.html', fName = firstName,lName=lastName,email=email,total = total, phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate)
->>>>>>> fde2ffdd7519c87408a322161b0d6ee0e4921e65
 
     valuePresent=False
     return render_template('checkout.html',valuePresent=valuePresent)
