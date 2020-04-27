@@ -10,6 +10,7 @@ from collections import Counter
 import collections
 import itertools
 import datetime
+from cryptography.fernet import Fernet
 
 
 
@@ -44,6 +45,19 @@ def checkout(isbn):
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
     #con.commit()
 
+    #decrypt card number
+    file = open('static/key.key', 'rb')
+    key = file.read()
+    file.close()
+    f = Fernet(key)
+    
+    cursor.execute("SELECT cardNumber FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+    cardNumber=cursor.fetchone()
+    if cardNumber:
+        cardNumber=cardNumber[0]
+        cardNumber = f.decrypt(cardNumber)
+        cardNumber = cardNumber.decode()
+        
     cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
     firstName = cursor.fetchone()
     if firstName:
@@ -326,10 +340,10 @@ def checkout(isbn):
         sg = sendgrid.SendGridAPIClient(api_key='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')
         response = sg.client.mail.send.post(request_body=mail.get())
 
-        return render_template('order_confirmation.html', book = book, quantity = quantity, total = total,salesTax=salesTax,fee=fee,  fName = firstName,lName=lastName,email=email, phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate)
+        return render_template('order_confirmation.html',cardNumber=cardNumber, book = book, quantity = quantity, total = total,salesTax=salesTax,fee=fee,  fName = firstName,lName=lastName,email=email, phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate)
 
     valuePresent=True
-    return render_template('checkout.html',book=book,quantity=quantity,total=total,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+    return render_template('checkout.html',cardNumber=cardNumber,book=book,quantity=quantity,total=total,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
 @app.route('/checkoutmenu', methods=['GET', 'POST'])
 def checkoutmenu():
@@ -341,6 +355,20 @@ def checkoutmenu():
         if "promoTotal" in session:
             session.pop('promoTotal', None)
 
+           
+        
+        #decrypt card number
+        file = open('static/key.key', 'rb')
+        key = file.read()
+        file.close()
+        f = Fernet(key)
+    
+        cursor.execute("SELECT cardNumber FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+        cardNumber=cursor.fetchone()
+        if cardNumber:
+            cardNumber=cardNumber[0]
+            cardNumber = f.decrypt(cardNumber)
+            cardNumber = cardNumber.decode()
         #get user info
         cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
         firstName = cursor.fetchone()
@@ -505,11 +533,11 @@ def checkoutmenu():
 
             print("book is " + str(book))
             valuePresent=True
-            return render_template('checkout.html',book=book,quantity=quantity,total=total,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+            return render_template('checkout.html',cardNumber=cardNumber,book=book,quantity=quantity,total=total,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
         valuePresent=True
         quantity = {}
-        return render_template('checkout.html', valuePresent=valuePresent, quantity=quantity, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+        return render_template('checkout.html', cardNumber=cardNumber,valuePresent=valuePresent, quantity=quantity, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
 
     if request.method == "POST" and request.form['submit_button'] == 'checkout':
@@ -683,6 +711,18 @@ def checkoutmenu():
         return render_template('order_confirmation.html', fName = firstName,lName=lastName,email=email,total = total, salesTax=salesTax, fee=fee,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate, book=book)
 
     elif request.method == "POST" and request.form['submit_button'] == "applypromo":
+        #decrypt card number
+        file = open('static/key.key', 'rb')
+        key = file.read()
+        file.close()
+        f = Fernet(key)
+    
+        cursor.execute("SELECT cardNumber FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+        cardNumber=cursor.fetchone()
+        if cardNumber:
+            cardNumber=cardNumber[0]
+            cardNumber = f.decrypt(cardNumber)
+            cardNumber = cardNumber.decode()
         cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
         firstName = cursor.fetchone()
         if firstName:
@@ -891,6 +931,19 @@ def checkoutmenu():
     elif request.method == "POST" and request.form['submit_button']:
         if "promoTotal" in session:
             session.pop('promoTotal', None)
+            
+        #decrypt card number
+        file = open('static/key.key', 'rb')
+        key = file.read()
+        file.close()
+        f = Fernet(key)
+    
+        cursor.execute("SELECT cardNumber FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+        cardNumber=cursor.fetchone()
+        if cardNumber:
+            cardNumber=cardNumber[0]
+            cardNumber = f.decrypt(cardNumber)
+            cardNumber = cardNumber.decode()
 
         cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
         firstName = cursor.fetchone()
@@ -1062,7 +1115,7 @@ def checkoutmenu():
 
             print("book is " + str(book))
             valuePresent=True
-            return render_template('checkout.html',book=book,quantity=quantity,total=total,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+            return render_template('checkout.html',cardNumber=cardNumber, book=book,quantity=quantity,total=total,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
 
     valuePresent=False
@@ -1265,7 +1318,7 @@ def register():
         #get payment info
         name = request.form['name']
         cardType = request.form['cardType']
-        cardNumber = sha256_crypt.encrypt(request.form['cardNumber'])
+        cardNumber = request.form['cardNumber']
         expirationDate = request.form['expirationDate']
         address1 = request.form['address1']
         address2 = request.form['address2']
@@ -1273,6 +1326,14 @@ def register():
         city = request.form['city']
         state = request.form['state']
 
+        #encrypt credit card
+        file = open('static/key.key', 'rb')
+        key = file.read()
+        file.close()
+        f = Fernet(key)
+        cardNumber = cardNumber.encode()
+        cardNumber = f.encrypt(cardNumber) 
+        
         #get promotion
         subscribed = 0
         promotion = request.form.get('promoApplied')
@@ -1533,7 +1594,14 @@ def updateinfo():
             cursor.execute("UPDATE paymentMethod SET type='{}' WHERE paymentMethodID=%s;".format(cardType), (sessionID))
 
         if(cardNumber!=''):
-            cursor.execute("UPDATE paymentMethod SET cardNumber='{}' WHERE paymentMethodID=%s;".format(cardNumber), (sessionID))
+            #encrypt credit card
+            file = open('static/key.key', 'rb')
+            key = file.read()
+            file.close()
+            f = Fernet(key)
+            cardNumber = cardNumber.encode()
+            cardNumber = f.encrypt(cardNumber)
+            cursor.execute("UPDATE paymentMethod SET cardNumber = %s WHERE paymentMethodID=%s",(cardNumber,sessionID))
 
         if(expirationDate!=''):
             cursor.execute("UPDATE paymentMethod SET expirationDate='{}' WHERE paymentMethodID=%s;".format(expirationDate), (sessionID))
