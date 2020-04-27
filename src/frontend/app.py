@@ -215,7 +215,7 @@ def checkout(isbn):
     #print(book)
     if request.method == "POST" and request.form['submit_button'] == 'applypromo':
 
-        shoppingCart.remove(isbn)
+
 
         promoCode = request.form['promoCode']
         print(promoCode)
@@ -263,6 +263,10 @@ def checkout(isbn):
 
 
     if request.method == "POST" and request.form['submit_button'] == 'checkout':#hello
+        shoppingCart.remove(isbn)
+        print(isbn)
+        print(shoppingCart)
+
         if "promoTotal" in session:
             total = session['promoTotal']
 
@@ -509,6 +513,7 @@ def checkoutmenu():
 
 
     if request.method == "POST" and request.form['submit_button'] == 'checkout':
+
         if 'cart' not in session:
             session['cart'] = []  #
             #return render_template('checkout.html')
