@@ -276,20 +276,31 @@ def checkout(isbn):
         cardNum = request.form['cardNum']
         cardName = request.form['cardName']
         expirationDate = request.form['expirationDate']
-         #confirmation email
+        
+        #get order number
+        counter = 1
+        cursor.execute('SELECT * FROM orders')
+        pastOrders = cursor.fetchall()
+        for x in pastOrders:
+            counter += 1
+        orderID = str(counter)
+        #store order in db
+        cursor.execute("INSERT INTO orders(paymentMethodID, shoppingCartID) VALUES (%s,%s)", (sessionID, sessionID))
+        con.commit()
+
+        #confirmation email
         conno = ''.join(random.choices( string.digits, k=8))
         orderedBooks =""
         for x in book:
             orderedBooks += x[1] + "\n\t"
 
         date_time = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nTime of Order: " + date_time 
+        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nOrder ID: " + orderID +"\n\nTime of Order: " + date_time 
         str2 =  "\n\nAddress: " + address1 + " " + address2 + " " + zipcode + " " + city + ", " + state
         str3 = "\n\nItems: \n\t" + orderedBooks
         str4 = "\n\nTotal: $" + total
         
         contents = str1 + str2 + str3 + str4
-
         #generate confirmation email
         mail = Mail(from_email = 'tylerrosen97@gmail.com',
                     to_emails = email,
@@ -610,14 +621,26 @@ def checkoutmenu():
         expirationDate = request.form['expirationDate']
 
         session['cart'].clear()
-         #confirmation email
+        
+        #get order number
+        counter = 1
+        cursor.execute('SELECT * FROM orders')
+        pastOrders = cursor.fetchall()
+        for x in pastOrders:
+            counter += 1
+        orderID = str(counter)
+        #store order in db
+        cursor.execute("INSERT INTO orders(paymentMethodID, shoppingCartID) VALUES (%s,%s)", (sessionID, sessionID))
+        con.commit()
+
+        #confirmation email
         conno = ''.join(random.choices( string.digits, k=8))
         orderedBooks =""
         for x in book:
             orderedBooks += x[1] + "\n\t"
 
         date_time = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nTime of Order: " + date_time 
+        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nOrder ID: " + orderID +"\n\nTime of Order: " + date_time 
         str2 =  "\n\nAddress: " + address1 + " " + address2 + " " + zipcode + " " + city + ", " + state
         str3 = "\n\nItems: \n\t" + orderedBooks
         str4 = "\n\nTotal: $" + total
