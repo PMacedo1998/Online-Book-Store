@@ -11,11 +11,16 @@ import collections
 import itertools
 import datetime
 from cryptography.fernet import Fernet
+from flask import send_from_directory
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired
+from werkzeug.utils import secure_filename
 
-
+UPLOAD_FOLDER = 'src/frontend/static/images'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
-
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 
 app.secret_key = 'secret'
@@ -50,7 +55,7 @@ def checkout(isbn):
     key = file.read()
     file.close()
     f = Fernet(key)
-    
+
     cursor.execute("SELECT cardNumber FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
     cardNumber=cursor.fetchone()
     if cardNumber:
@@ -360,18 +365,18 @@ def checkoutmenu():
         if "promoTotal" in session:
             session.pop('promoTotal', None)
 
-           
-        
+
+
         #decrypt card number
         file = open('src/frontend/static/key.key', 'rb')
         key = file.read()
         file.close()
         f = Fernet(key)
-    
+
         cursor.execute("SELECT cardNumber FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
         cardNumber=cursor.fetchone()
         if cardNumber:
-            cardNumber=cardNumber[0]        
+            cardNumber=cardNumber[0]
             try:
                 cardNumber = f.decrypt(cardNumber)
                 cardNumber = cardNumber.decode()
@@ -724,7 +729,7 @@ def checkoutmenu():
         key = file.read()
         file.close()
         f = Fernet(key)
-    
+
         cursor.execute("SELECT cardNumber FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
         cardNumber=cursor.fetchone()
         if cardNumber:
@@ -943,13 +948,13 @@ def checkoutmenu():
     elif request.method == "POST" and request.form['submit_button']:
         if "promoTotal" in session:
             session.pop('promoTotal', None)
-            
+
         #decrypt card number
         file = open('src/frontend/static/key.key', 'rb')
         key = file.read()
         file.close()
         f = Fernet(key)
-    
+
         cursor.execute("SELECT cardNumber FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
         cardNumber=cursor.fetchone()
         if cardNumber:
@@ -1347,8 +1352,8 @@ def register():
         file.close()
         f = Fernet(key)
         cardNumber = cardNumber.encode()
-        cardNumber = f.encrypt(cardNumber) 
-        
+        cardNumber = f.encrypt(cardNumber)
+
         #get promotion
         subscribed = 0
         promotion = request.form.get('promoApplied')

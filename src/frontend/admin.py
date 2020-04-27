@@ -14,7 +14,7 @@ from flask import send_from_directory
 
 
 
-UPLOAD_FOLDER = 'static/images'
+UPLOAD_FOLDER = '/src/frontend/static/images'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
