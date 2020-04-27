@@ -21,7 +21,7 @@ $ pip install passlib
 $ pip install cryptography
 
 
-To run program:
+To run program (from within /cs4050-online-bookstore):
 $ export FLASK_APP=app.py
 $ flask run
 
