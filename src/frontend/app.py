@@ -398,7 +398,7 @@ def checkoutmenu():
             return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
     if request.method == "POST":
-        #print(request.form['submit_button'])
+        print(request.form)
         if 'cart' not in session:
             session['cart'] = []  #
             #return render_template('checkout.html')
