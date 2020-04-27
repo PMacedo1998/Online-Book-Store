@@ -25,6 +25,9 @@ To run program (from within /cs4050-online-bookstore):
 $ export FLASK_APP=app.py
 $ flask run
 
+To use website:
+visit "127.0.0.1:5000" in a browser
+
 To deactivate flask:
 $ deactivate
 
