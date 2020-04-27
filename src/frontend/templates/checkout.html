@@ -11,6 +11,12 @@
 
     <meta charset = "utf-8"></meta>
 </head>
+<style >
+post{
+  color:green!important;
+
+}
+</style>
 <body>
 
   <div class="topBar">
@@ -62,6 +68,15 @@
 
 
 <div class="container">
+  {% if promoFound %}
+
+                    <div class="flashes">
+                    {% for message in get_flashed_messages() %}
+                      {{ message }}
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                  <br>
 <div class="row">
   <div class="col-8">
 
@@ -93,7 +108,13 @@
       <hr></hr>
       <p>Fee: ${{fee}}</p>
       <p>Sales Tax: ${{salesTax}}</p>
+      {% if not promoFound %}
       <h4>Total: ${{total}}</h4>
+      {% endif %}
+      {% if promoFound %}
+      <h4>Old Total: ${{total}}</h4>
+      <h4>New Total: ${{totalPromoApplied}}</h4>
+      {% endif %}
 </div>
 <div class="col-3">
       <table class="table ">
@@ -443,26 +464,28 @@
                 </div>
                 </div>
                 <div class="form-row">
-                <button type="submit" class="btn btn-primary">Checkout</button>
+                <button type="submit" name="submit_button" class="btn btn-primary" value="checkout">Checkout</button>
                 </div>
           </div>
         </div>
+        <label class="sr-only" >Promo Code</label>
+           <div class="input-group mb-2">
+             <div class="input-group-prepend">
+               <div class="input-group-text">Promo Code:</div>
+             </div>
+             <input type="text" class="form-control" placeholder="Apply promo code" name="promoCode">
+             <div class="input-group-append">
+               <button type="submit" name="submit_button" id="addtocart" value="applypromo">Apply</button>
+             </div>
+           </div>
+
         </form>
       </div>
       <br>
       <!--<div class="form-group">-->
 
 
-       <label class="sr-only" >Promo Code</label>
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <div class="input-group-text">promo code:</div>
-            </div>
-            <input type="text" class="form-control" placeholder="Apply promo code">
-            <div class="input-group-append">
-              <button type="submit" class="btn btn-primary">Apply</button>
-            </div>
-          </div>
+
         </div>
 
 </div>
