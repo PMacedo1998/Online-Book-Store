@@ -84,25 +84,26 @@ color:white !important;
           <tbody>
             <tr>
               <th scope="row">Name</th>
-              <td>{{fName}}{{lName}}</td>
+              <td>{{fName}} {{lName}}</td>
             </tr>
             <tr>
               <th scope="row">Shipping Address</th>
-              <td>{{address1}}{{address2}}
-                <br>{{city}}{{state}}, {{zipcode}}</td>
+              <td>{{address1}}, {{address2}}
+                <br>{{city}}, {{state}} {{zipcode}}</td>
 
             </tr>
             <tr>
               <th scope="row">Billing Address</th>
-              <td>{{baddress1}}{{baddress2}}
-                <br>{{bcity}}{{bstate}}, {{bzipcode}}</td>
+              <td>{{baddress1}}, {{baddress2}}
+                <br>{{bcity}}, {{bstate}} {{bzipcode}}</td>
 
             </tr>
             <tr>
               <th scope="row">Payment Info</th>
               <td>Name on Card: {{cardName}}
-                <br>Card No:{{cardNum}}
-                <br>Type: {{cardType}} Exp: {{expirationDate}}</td>
+                <br>Card No: **** **** **** 1234
+                <br>Type: {{cardType}}
+                <br>Exp: {{expirationDate}}</td>
             </tr>
           </tbody>
         </table>
@@ -110,7 +111,7 @@ color:white !important;
 
 
         <hr class = "my-4">
- 
+
       </div>
 
         <h4>Order Summary</h4>

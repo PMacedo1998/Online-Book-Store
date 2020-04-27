@@ -121,7 +121,7 @@ post{
         <thead>
           <tr>
             <th>Quantity</th>
-            <th>Delete</th>
+            <th>Update</th>
 
           </tr>
         </thead>
@@ -177,7 +177,8 @@ post{
 
 
     <!--second column-->
-    <div class="col-6">
+    <br>
+    <div class="col">
         <!--start of accordion-->
       <div class="accordion" id="checkout">
         <form action="" method = "POST">
@@ -229,20 +230,20 @@ post{
 
                     <div class="form-group">
                       <label for="address1">Address</label>
-                      <input type="text" class="form-control" name="address1" value="{{address1}}">
+                      <input type="text" class="form-control" name="address1" value="{{address1}}" placeholder="Enter address 1">
                     </div>
                     <div class="form-group">
                       <label for="address2">Address 2</label>
-                      <input type="text" class="form-control" name="address2" value="{{address2}}">
+                      <input type="text" class="form-control" name="address2" value="{{address2}}" placeholder="Enter address 2">
                     </div>
                     <div class="form-row">
-                      <div class="form-group col-md-6">
+                      <div class="form-group col-3">
                         <label for="city">City</label>
-                        <input type="text" class="form-control" name="city" value = "{{city}}">
+                        <input type="text" class="form-control" name="city" value = "{{city}}" placeholder="Enter city">
                       </div>
-                      <div class="form-group col-md-4">
+                      <div class="form-group col-2">
                         <label for="state">State</label>
-                        <select name="state" class="form-control" value = "{{state}}">
+                        <select name="state" class="form-control" value = "{{state}}" >
                           <option selected></option>
                           <!--add all state options broh-->
                           <option>AL</option>
@@ -306,11 +307,10 @@ post{
                           <option>WY</option>
                         </select>
                       </div>
-                    </div>
-                    <div class = "form-row">
-                      <div class="form-group col-md-3">
+
+                      <div class="form-group col-3">
                         <label for="zipcode">Zip</label>
-                        <input type="text" class="form-control" name="zipcode" value = "{{zipcode}}">
+                        <input type="text" class="form-control" name="zipcode" value = "{{zipcode}}" placeholder="Enter zipcode">
                       </div>
                     </div>
 
@@ -333,16 +333,16 @@ post{
 
                     <div class="form-group">
                       <label for="baddress1">Address</label>
-                      <input type="text" class="form-control" name="baddress1" value="{{address1}}">
+                      <input type="text" class="form-control" name="baddress1" value="{{address1}}" placeholder="Enter address 1">
                     </div>
                     <div class="form-group">
                       <label for="baddress2">Address 2</label>
-                      <input type="text" class="form-control" name="baddress2" value="{{address2}}">
+                      <input type="text" class="form-control" name="baddress2" value="{{address2}}" placeholder="Enter address 2">
                     </div>
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="bcity">City</label>
-                        <input type="text" class="form-control" name="bcity" value="{{city}}">
+                        <input type="text" class="form-control" name="bcity" value="{{city}}" placeholder="Enter city">
                       </div>
                       <div class="form-group col-md-4">
                         <label for="bstate">State</label>
@@ -414,7 +414,7 @@ post{
                     <div class="form-row">
                       <div class="form-group col-md-2">
                         <label for="bzipcode">Zip</label>
-                        <input type="text" class="form-control" name="bzipcode" value="{{zipcode}}">
+                        <input type="text" class="form-control" name="bzipcode" value="{{zipcode}}" placeholder="Enter zipcode">
                       </div>
                     </div>
               </div>
@@ -436,7 +436,7 @@ post{
               <div class="form-group">
 
                 <label for="cardName">Name on Card</label>
-                <input type="text" class="form-control" name="cardName" value="{{cardName}}">
+                <input type="text" class="form-control" name="cardName" value="{{cardName}}" placeholder="Enter name">
             </div>
                 <div class="icon-container">
                     <i class="fa fa-cc-visa" style="color:navy;"></i>
@@ -447,12 +447,12 @@ post{
                 <div class="form-group">
 
                     <label for="cardNum">Credit Card No.</label>
-                    <input type="text" class="form-control" name="cardNum" placeholder="{{cardNumber}}">
+                    <input type="text" class="form-control" name="cardNum" placeholder="{{cardNumber}}" placeholder="Enter card number">
                 </div>
                 <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="expirationDate">Expiration Date</label>
-                    <input type="text" class="form-control" name="expirationDate" value="{{expirationDate}}">
+                    <input type="text" class="form-control" name="expirationDate" value="{{expirationDate}}" placeholder="MM/YY">
                 </div>
                 <div class="form-group col-md-4">
                   <label for="cardType">Type</label>
@@ -475,7 +475,7 @@ post{
              </div>
              <input type="text" class="form-control" placeholder="Apply promo code" name="promoCode">
              <div class="input-group-append">
-               <button type="submit" name="submit_button" id="addtocart" value="applypromo">Apply</button>
+               <button class="btn btn-primary"type="submit" name="submit_button" id="addtocart" value="applypromo">Apply</button>
              </div>
            </div>
 
