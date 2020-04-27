@@ -106,6 +106,10 @@ def checkout(isbn):
         session['cart'] = []  #
     shoppingCart = session['cart']
     shoppingCart.append(isbn)
+
+    if request.method == "POST" and request.form['submit_button'] == "applypromo":
+        shoppingCart.remove(isbn)
+
     session['cart'] = shoppingCart  #
     #session['cart'].clear()
     print(shoppingCart)
