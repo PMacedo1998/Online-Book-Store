@@ -234,19 +234,20 @@ def checkout(isbn):
             if promoPrice:
                 promoPrice = promoPrice[0]
             print(promoPrice)
-            promoPrice = float(promoPrice)
-
             total = float(total)
+            promoPrice = (float(promoPrice)/100) * total
+
             print("total before " + str(total))
-            totalPromoApplied=total-promoPrice
-            print(totalPromoApplied)
+            totalBeforePromo = total
+            total=totalBeforePromo-promoPrice
+            print(total)
             total="{:.2f}".format(total)
-            totalPromoApplied="{:.2f}".format(totalPromoApplied)
+            totalBeforePromo="{:.2f}".format(totalBeforePromo)
 
             message = Markup("<post>Promo discount successfully applied!</post><br>")
             flash(message)
             valuePresent = True
-            return render_template('checkout.html', book = book, quantity=quantity,total=total, totalPromoApplied = totalPromoApplied, promoFound = promoFound,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+            return render_template('checkout.html', book = book, quantity=quantity,total=total, totalBeforePromo = totalBeforePromo, promoFound = promoFound,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
     
 
 
@@ -821,18 +822,19 @@ def checkoutmenu():
             if promoPrice:
                 promoPrice = promoPrice[0]
             print(promoPrice)
-            promoPrice = float(promoPrice)
+            promoPrice = (float(promoPrice)/100) * total
 
             print("total before " + str(total))
-            totalPromoApplied=total-promoPrice
-            print(totalPromoApplied)
+            totalBeforePromo = total
+            total=totalBeforePromo-promoPrice
+            print(total)
             total="{:.2f}".format(total)
-            totalPromoApplied="{:.2f}".format(totalPromoApplied)
+            totalBeforePromo="{:.2f}".format(totalBeforePromo)
 
             message = Markup("<post>Promo discount successfully applied!</post><br>")
             flash(message)
             valuePresent=True
-            return render_template('checkout.html', book = book, quantity=quantity,total=total, totalPromoApplied = totalPromoApplied, promoFound = promoFound,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+            return render_template('checkout.html', book = book, quantity=quantity,total=total, totalBeforePromo = totalBeforePromo, promoFound = promoFound,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
 
 
