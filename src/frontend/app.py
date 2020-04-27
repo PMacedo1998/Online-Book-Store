@@ -1587,7 +1587,7 @@ def updateinfo():
         if(cardType!=''):
             cursor.execute("UPDATE paymentMethod SET type='{}' WHERE paymentMethodID=%s;".format(cardType), (sessionID))
 
-       if(cardNumber!=''):
+        if(cardNumber!=''):
             #encrypt credit card
             file = open('static/key.key', 'rb')
             key = file.read()
