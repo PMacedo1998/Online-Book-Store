@@ -91,6 +91,8 @@
         </tbody>
       </table>
       <hr></hr>
+      <p>Fee: ${{fee}}</p>
+      <p>Sales Tax: ${{salesTax}}</p>
       <h4>Total: ${{total}}</h4>
 </div>
 <div class="col-3">
@@ -108,34 +110,34 @@
 <tr>
 <form class = "form" action = "/checkoutmenu" method = "POST">
 
-<td>		
+<td>
 
-  <select class="custom-select" id="quantity" >		
-   <option value="{{ value }}">{{ value }}</option>		
-   <option value="1">1</option>		
-   <option value="2">2</option>		
-   <option value="3">3</option>		
-   <option value="4">4</option>		
-   <option value="5">5</option>		
-   <option value="6">6</option>		
-   <option value="7">7</option>		
-   <option value="8">8</option>		
-   <option value="9">9</option>		
-   <option value="10">10</option>		
-   <option value="0">Delete All</option>		
- </select>		
+  <select class="custom-select" id="quantity" >
+   <option value="{{ value }}">{{ value }}</option>
+   <option value="1">1</option>
+   <option value="2">2</option>
+   <option value="3">3</option>
+   <option value="4">4</option>
+   <option value="5">5</option>
+   <option value="6">6</option>
+   <option value="7">7</option>
+   <option value="8">8</option>
+   <option value="9">9</option>
+   <option value="10">10</option>
+   <option value="0">Delete All</option>
+ </select>
 
-</td>		
-<td>		
- <div class="">		
+</td>
+<td>
+ <div class="">
 
-    <button class="btn btn-secondary" type="submit" name="submit_button" id="update" value="{{ value }}">Update</button>		
- </div>		
+    <button class="btn btn-secondary" type="submit" name="submit_button" id="update" value="{{ value }}">Update</button>
+ </div>
 
-</td>		
- </form>		
+</td>
+ </form>
 
-  {% endfor %}		
+  {% endfor %}
  {%endif%}
 
           </tr>
