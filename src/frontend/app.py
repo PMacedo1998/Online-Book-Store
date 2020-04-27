@@ -574,6 +574,8 @@ def checkoutmenu():
         cardName = request.form['cardName']
         expirationDate = request.form['expirationDate']
 
+        session['cart'].clear()
+
         return render_template('order_confirmation.html', fName = firstName,lName=lastName,email=email,total = total, salesTax=salesTax, fee=fee,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate, book=book)
 
 
