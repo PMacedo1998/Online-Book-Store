@@ -5,7 +5,7 @@ Python Developers: Dakota Vickers, Patricio Macedo-Flores, Tyler Rosen, Kimberly
 
 Web Developers: Dakota Vickers, Patricio Macedo-Flores, Tyler Rosen, Kimberly Nguyen
 
-Database Designers: Kimberly Nguyen, Dakota Vickers
+Database Designers: Kimberly Nguyen, Dakota Vickers, Patricio Macedo-Flores, Tyler Rosen
 
 Documentation: everyone
 
@@ -18,9 +18,8 @@ $ . venv/bin/activate
 Installation of other programs necesary:
 $ pip install sendgrid
 $ pip install passlib
-$pip install cryptography
-$ pip install ...
-[needs to be added on to]
+$ pip install cryptography
+
 
 To run program:
 $ export FLASK_APP=app.py
@@ -29,7 +28,6 @@ $ flask run
 To deactivate flask:
 $ deactivate
 
-Resources:
 
 
 
