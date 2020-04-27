@@ -377,8 +377,48 @@ def checkout(isbn):
     #cursor.execute("SELECT isbn,title,authorName,sellingPrice,filename FROM book WHERE title = %s ",request.form['search'])
     #book = cursor.fetchall()
     #print(book)
-    if request.method == "POST":
+    if request.method == "POST" and request.form['submit_button'] == 'applypromo':
+        promoCode = request.form['promoCode']
+        print(promoCode)
+        cursor.execute("SELECT promoCode FROM promotion")
 
+        promoFound=None
+        promoCount=0
+        promoIndex=None
+        promoCodes = cursor.fetchall()
+
+        for code in promoCodes:
+            print(code[0])
+            if str(code[0])==promoCode:
+                promoFound=True
+
+                promoIndex=promoCount
+                print("Hello")
+            promoCount+=1
+        print(promoIndex)
+
+        if promoFound == True:
+            cursor.execute("SELECT promoPrice FROM promotion where promoCode = %s;",(promoCode))
+            promoPrice = cursor.fetchone()
+            if promoPrice:
+                promoPrice = promoPrice[0]
+            print(promoPrice)
+            promoPrice = float(promoPrice)
+            total=float(total)
+            print("total before " + str(total))
+            totalPromoApplied=total-promoPrice
+            print(totalPromoApplied)
+            total="{:.2f}".format(total)
+            totalPromoApplied="{:.2f}".format(totalPromoApplied)
+
+            message = Markup("<post>Promo discount successfully applied!</post><br>")
+            flash(message)
+            return render_template('checkout.html', book = book, quantity = quantity, total = total,totalPromoApplied=totalPromoApplied,promoFound=promoFound,salesTax=salesTax,fee=fee)
+
+
+
+
+    if request.method == "POST" and request.form['submit_button'] == 'checkout':#hello
         firstName = request.form['firstName']
         lastName = request.form['lastName']
         email = request.form['email']
@@ -682,6 +722,7 @@ def checkoutmenu():
         expirationDate = request.form['expirationDate']
 
         session['cart'].clear()            
+
         return render_template('order_confirmation.html', fName = firstName,lName=lastName,email=email,total = total,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate, book=book)
 
 
