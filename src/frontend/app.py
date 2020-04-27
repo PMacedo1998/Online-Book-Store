@@ -213,6 +213,7 @@ def checkout(isbn):
     #book = cursor.fetchall()
     #print(book)
     if request.method == "POST" and request.form['submit_button'] == 'applypromo':
+        shoppingCart.remove(isbn)
         promoCode = request.form['promoCode']
         print(promoCode)
         cursor.execute("SELECT promoCode FROM promotion")
@@ -251,7 +252,7 @@ def checkout(isbn):
             message = Markup("<post>Promo discount successfully applied!</post><br>")
             flash(message)
             valuePresent = True
-            shoppingCart.remove(isbn)
+
             return render_template('checkout.html', book = book, quantity=quantity,total=total, totalBeforePromo = totalBeforePromo, promoFound = promoFound,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
 
 
@@ -277,7 +278,7 @@ def checkout(isbn):
         cardNum = request.form['cardNum']
         cardName = request.form['cardName']
         expirationDate = request.form['expirationDate']
-        
+
         #get order number
         counter = 1
         cursor.execute('SELECT * FROM orders')
@@ -296,7 +297,7 @@ def checkout(isbn):
             orderedBooks += x[1] + "\n\t"
 
         date_time = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nOrder ID: " + orderID +"\n\nTime of Order: " + date_time 
+        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nOrder ID: " + orderID +"\n\nTime of Order: " + date_time
 
         str2 =  "\n\nAddress: " + address1 + " " + address2 + " " + zipcode + " " + city + ", " + state
         str3 = "\n\nItems: \n\t" + orderedBooks
@@ -623,7 +624,7 @@ def checkoutmenu():
         expirationDate = request.form['expirationDate']
 
         session['cart'].clear()
-        
+
         #get order number
         counter = 1
         cursor.execute('SELECT * FROM orders')
@@ -642,7 +643,7 @@ def checkoutmenu():
             orderedBooks += x[1] + "\n\t"
 
         date_time = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nOrder ID: " + orderID +"\n\nTime of Order: " + date_time 
+        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nOrder ID: " + orderID +"\n\nTime of Order: " + date_time
 
         str2 =  "\n\nAddress: " + address1 + " " + address2 + " " + zipcode + " " + city + ", " + state
         str3 = "\n\nItems: \n\t" + orderedBooks

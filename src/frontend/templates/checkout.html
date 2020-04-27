@@ -68,6 +68,8 @@ post{
 
 
 <div class="container">
+
+  
   {% if promoFound %}
 
                     <div class="flashes">
@@ -112,8 +114,8 @@ post{
       <h4>Total: ${{total}}</h4>
       {% endif %}
       {% if promoFound %}
-      <h4>Old Total: ${{total}}</h4>
-      <h4>New Total: ${{totalPromoApplied}}</h4>
+      <h4>Old Total: ${{totalBeforePromo}}</h4>
+      <h4>New Total: ${{total}}</h4>
       {% endif %}
 </div>
 <div class="col-3">
@@ -145,7 +147,7 @@ post{
    <option value="8">8</option>
    <option value="9">9</option>
    <option value="10">10</option>
-   <option value="0">Delete All</option>
+   <option value="0">0</option>
  </select>
 
 </td>
