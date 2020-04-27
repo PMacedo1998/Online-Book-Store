@@ -35,6 +35,7 @@ def bookdetails():
 
 @app.route('/checkout/<isbn>', methods = ['GET','POST'])
 def checkout(isbn):
+    print(request.method)
     sessionID = session['id']
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
     #con.commit()
@@ -229,183 +230,278 @@ def checkoutmenu():
     #cursor.execute("INSERT INTO shoppingCart(isbn) VALUES (%s) WHERE shoppingCartID = %s;", (isbn,sessionID))
     #con.commit()
 
-    #get user info
-    cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
-    firstName = cursor.fetchone()
-    if firstName:
-        firstName=firstName[0]
+    if request.method == "GET":
+        #get user info
+        cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
+        firstName = cursor.fetchone()
+        if firstName:
+            firstName=firstName[0]
 
-    cursor.execute("SELECT lastName FROM profile WHERE id=%s;",(sessionID))
-    lastName=cursor.fetchone()
-    if lastName:
-        lastName=lastName[0]
+        cursor.execute("SELECT lastName FROM profile WHERE id=%s;",(sessionID))
+        lastName=cursor.fetchone()
+        if lastName:
+            lastName=lastName[0]
 
-    cursor.execute("SELECT email FROM profile WHERE id=%s;", (sessionID))
-    email=cursor.fetchone()
-    if email:
-        email=email[0]
+        cursor.execute("SELECT email FROM profile WHERE id=%s;", (sessionID))
+        email=cursor.fetchone()
+        if email:
+            email=email[0]
 
-    cursor.execute("SELECT phoneNum FROM profile WHERE id=%s;", (sessionID))
-    phoneNumber=cursor.fetchone()
-    if phoneNumber:
-        phoneNumber=phoneNumber[0]
+        cursor.execute("SELECT phoneNum FROM profile WHERE id=%s;", (sessionID))
+        phoneNumber=cursor.fetchone()
+        if phoneNumber:
+            phoneNumber=phoneNumber[0]
 
-    cursor.execute("SELECT address1 FROM profile WHERE id=%s;", (sessionID))
-    address1=cursor.fetchone()
-    if address1:
-        address1=address1[0]
+        cursor.execute("SELECT address1 FROM profile WHERE id=%s;", (sessionID))
+        address1=cursor.fetchone()
+        if address1:
+            address1=address1[0]
 
-    cursor.execute("SELECT address2 FROM profile WHERE id=%s;", (sessionID))
-    address2=cursor.fetchone()
-    if address2:
-        address2=address2[0]
+        cursor.execute("SELECT address2 FROM profile WHERE id=%s;", (sessionID))
+        address2=cursor.fetchone()
+        if address2:
+            address2=address2[0]
 
-    cursor.execute("SELECT zipcode FROM profile WHERE id=%s;", (sessionID))
-    zipcode=cursor.fetchone()
-    if zipcode:
-        zipcode=zipcode[0]
+        cursor.execute("SELECT zipcode FROM profile WHERE id=%s;", (sessionID))
+        zipcode=cursor.fetchone()
+        if zipcode:
+            zipcode=zipcode[0]
 
-    cursor.execute("SELECT city FROM profile WHERE id=%s;", (sessionID))
-    city=cursor.fetchone()
-    if city:
-        city=city[0]
+        cursor.execute("SELECT city FROM profile WHERE id=%s;", (sessionID))
+        city=cursor.fetchone()
+        if city:
+            city=city[0]
 
-    cursor.execute("SELECT state FROM profile WHERE id=%s;", (sessionID))
-    state=cursor.fetchone()
-    if state:
-        state=state[0]
+        cursor.execute("SELECT state FROM profile WHERE id=%s;", (sessionID))
+        state=cursor.fetchone()
+        if state:
+            state=state[0]
 
-    cursor.execute("SELECT name FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
-    cardName=cursor.fetchone()
-    if cardName:
-        cardName=cardName[0]
+        cursor.execute("SELECT name FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+        cardName=cursor.fetchone()
+        if cardName:
+            cardName=cardName[0]
 
-    cursor.execute("SELECT type FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
-    cardType=cursor.fetchone()
-    if cardType:
-        cardType=cardType[0]
+        cursor.execute("SELECT type FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+        cardType=cursor.fetchone()
+        if cardType:
+            cardType=cardType[0]
 
-    cursor.execute("SELECT expirationDate FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
-    expirationDate=cursor.fetchone()
-    if expirationDate:
-        expirationDate=expirationDate[0]
-
-
-    if 'cart' not in session:
-        session['cart'] = []  #
-        #return render_template('checkout.html')
-    shoppingCart = session['cart']
-
-    session['cart'] = shoppingCart  #
-    #session['cart'].clear()
-    print(shoppingCart)
-
-    count50=0
-    i=0
-    print("length of shopping cart is " +str(len(shoppingCart)))
-
-    #for item in shoppingCart:
-    #    print(item)
-        #while i < len(shoppingCart):
-#    if item in shoppingCart[i]:
-        #    count50 += 1
-        #    print(str(item)+" has " + str(count50))
-            #i+=1
-
-    quantity = {i:shoppingCart.count(i) for i in shoppingCart}
-    #quantity = Counter(shoppingCart)
-    quantity1 = collections.OrderedDict(sorted(quantity.items()))
-    print(quantity1)
+        cursor.execute("SELECT expirationDate FROM paymentMethod WHERE paymentMethodID=%s;", (sessionID))
+        expirationDate=cursor.fetchone()
+        if expirationDate:
+            expirationDate=expirationDate[0]
 
 
+        if 'cart' not in session:
+            session['cart'] = []  #
+            #return render_template('checkout.html')
+        shoppingCart = session['cart']
 
-    isbncount = ''
-    y=0
-    isbnvar={}
-    while y < len(shoppingCart):
-        for book in shoppingCart:
-            isbnvar["isbnNum{0}".format(y)]=book
+        session['cart'] = shoppingCart  #
+        #session['cart'].clear()
+        print(shoppingCart)
+
+        count50=0
+        i=0
+        print("length of shopping cart is " +str(len(shoppingCart)))
+
+        #for item in shoppingCart:
+        #    print(item)
+            #while i < len(shoppingCart):
+    #    if item in shoppingCart[i]:
+            #    count50 += 1
+            #    print(str(item)+" has " + str(count50))
+                #i+=1
+
+        quantity = {i:shoppingCart.count(i) for i in shoppingCart}
+        #quantity = Counter(shoppingCart)
+        quantity1 = collections.OrderedDict(sorted(quantity.items()))
+        print(quantity1)
 
 
-            #print(isbnvar)
-            #print(isbncount)
-            y+=1
 
-    x=0
-    values='SELECT isbn, title, sellingPrice FROM bookinfo WHERE '
-    while x < len(isbnvar.values()):
-        for value in isbnvar.values():
-            isbnvar["isbnNum{0}".format(x)]=book
-
-            if x != len(isbnvar.values()) - 1:
-                values += 'isbn=' + str(value) + ' OR '
-            else:
-                values += 'isbn=' + str(value) + ';'
+        isbncount = ''
+        y=0
+        isbnvar={}
+        while y < len(shoppingCart):
+            for book in shoppingCart:
+                isbnvar["isbnNum{0}".format(y)]=book
 
 
-            x+=1
-        print(values)
+                #print(isbnvar)
+                #print(isbncount)
+                y+=1
 
-    #value='1'
-    #value2='2'
-    #for value in isbnvar.values():
-    #    print("value: " + str(value))
-        #if value != len(isbnvar.values()) - 1:
-        #    values+=value
-        #else:
-        #    isbncount += '%s'
-    #    print()
-    if len(isbnvar.values()) != 0:
-        cursor.execute(values)
-        book = cursor.fetchall()
-        total=0.00
-        sellingPriceList=list()
-        quantityList=list()
-        while i < len(book):
+        x=0
+        values='SELECT isbn, title, sellingPrice FROM bookinfo WHERE '
+        while x < len(isbnvar.values()):
+            for value in isbnvar.values():
+                isbnvar["isbnNum{0}".format(x)]=book
 
-            book1 = book[i][2]
-            book1 = float(book1)
-            sellingPriceList.append(book1)
-            print("sellingprice is " + str(book1) + " for isbn " +str(book[i][0]))
+                if x != len(isbnvar.values()) - 1:
+                    values += 'isbn=' + str(value) + ' OR '
+                else:
+                    values += 'isbn=' + str(value) + ';'
 
-            i +=1
-        print(sellingPriceList)
-        for k, v in quantity1.items():
-            v = float(v)
-            quantityList.append(v)
-            print ("quantity is " +str(v) + " for isbn " +str(k))
-        print(quantityList)
 
-        for f, b in zip(sellingPriceList, quantityList):
-            total+= f*b
-            print(f,b)
-        print(total)
-        print("book is " + str(book))
-        valuePresent=True
-        return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+                x+=1
+            print(values)
 
-        if request.method == "POST":
-            firstName = request.form['firstName']
-            lastName = request.form['lastName']
-            email = request.form['email']
-            address1 = request.form['address1']
-            address2 = request.form['address2']
-            state = request.form['state']
-            city = request.form['city']
-            zipcode = request.form['zipcode']
+        #value='1'
+        #value2='2'
+        #for value in isbnvar.values():
+        #    print("value: " + str(value))
+            #if value != len(isbnvar.values()) - 1:
+            #    values+=value
+            #else:
+            #    isbncount += '%s'
+        #    print()
+        if len(isbnvar.values()) != 0:
+            cursor.execute(values)
+            book = cursor.fetchall()
+            total=0.00
+            sellingPriceList=list()
+            quantityList=list()
+            while i < len(book):
 
-            baddress1 = request.form['baddress1']
-            baddress2 = request.form['baddress2']
-            bstate = request.form['bstate']
-            bcity = request.form['bcity']
-            bzipcode = request.form['bzipcode']
+                book1 = book[i][2]
+                book1 = float(book1)
+                sellingPriceList.append(book1)
+                print("sellingprice is " + str(book1) + " for isbn " +str(book[i][0]))
 
-            cardType = request.form['cardType']
-            cardNum = request.form['cardNum']
-            cardName = request.form['cardName']
-            expirationDate = request.form['expirationDate']
-                
-            return render_template('order_confirmation.html', fName = firstName,lName=lastName,email=email,total = total, phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate)
+                i +=1
+            print(sellingPriceList)
+            for k, v in quantity1.items():
+                v = float(v)
+                quantityList.append(v)
+                print ("quantity is " +str(v) + " for isbn " +str(k))
+            print(quantityList)
+
+            for f, b in zip(sellingPriceList, quantityList):
+                total+= f*b
+                print(f,b)
+            print(total)
+            print("book is " + str(book))
+            valuePresent=True
+            return render_template('checkout.html',book=book,quantity=quantity,total=total,valuePresent=valuePresent, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
+
+    if request.method == "POST":
+        #print(request.form['submit_button'])
+        if 'cart' not in session:
+            session['cart'] = []  #
+            #return render_template('checkout.html')
+        shoppingCart = session['cart']
+
+        session['cart'] = shoppingCart  #
+        #session['cart'].clear()
+        print(shoppingCart)
+
+        count50=0
+        i=0
+        print("length of shopping cart is " +str(len(shoppingCart)))
+
+        #for item in shoppingCart:
+        #    print(item)
+            #while i < len(shoppingCart):
+    #    if item in shoppingCart[i]:
+            #    count50 += 1
+            #    print(str(item)+" has " + str(count50))
+                #i+=1
+
+        quantity = {i:shoppingCart.count(i) for i in shoppingCart}
+        #quantity = Counter(shoppingCart)
+        quantity1 = collections.OrderedDict(sorted(quantity.items()))
+        print(quantity1)
+
+
+
+        isbncount = ''
+        y=0
+        isbnvar={}
+        while y < len(shoppingCart):
+            for book in shoppingCart:
+                isbnvar["isbnNum{0}".format(y)]=book
+
+
+                #print(isbnvar)
+                #print(isbncount)
+                y+=1
+
+        x=0
+        values='SELECT isbn, title, sellingPrice FROM bookinfo WHERE '
+        while x < len(isbnvar.values()):
+            for value in isbnvar.values():
+                isbnvar["isbnNum{0}".format(x)]=book
+
+                if x != len(isbnvar.values()) - 1:
+                    values += 'isbn=' + str(value) + ' OR '
+                else:
+                    values += 'isbn=' + str(value) + ';'
+
+
+                x+=1
+            print(values)
+
+        #value='1'
+        #value2='2'
+        #for value in isbnvar.values():
+        #    print("value: " + str(value))
+            #if value != len(isbnvar.values()) - 1:
+            #    values+=value
+            #else:
+            #    isbncount += '%s'
+        #    print()
+        book = []
+        if len(isbnvar.values()) != 0:
+            cursor.execute(values)
+            book = cursor.fetchall()
+            total=0.00
+            sellingPriceList=list()
+            quantityList=list()
+            while i < len(book):
+
+                book1 = book[i][2]
+                book1 = float(book1)
+                sellingPriceList.append(book1)
+                print("sellingprice is " + str(book1) + " for isbn " +str(book[i][0]))
+
+                i +=1
+            print(sellingPriceList)
+            for k, v in quantity1.items():
+                v = float(v)
+                quantityList.append(v)
+                print ("quantity is " +str(v) + " for isbn " +str(k))
+            print(quantityList)
+
+            for f, b in zip(sellingPriceList, quantityList):
+                total+= f*b
+                print(f,b)
+            print(total)
+            print("book is " + str(book))
+            valuePresent=True
+
+        firstName = request.form['firstName']
+        lastName = request.form['lastName']
+        email = request.form['email']
+        address1 = request.form['address1']
+        address2 = request.form['address2']
+        state = request.form['state']
+        city = request.form['city']
+        zipcode = request.form['zipcode']
+
+        baddress1 = request.form['baddress1']
+        baddress2 = request.form['baddress2']
+        bstate = request.form['bstate']
+        bcity = request.form['bcity']
+        bzipcode = request.form['bzipcode']
+
+        cardType = request.form['cardType']
+        cardNum = request.form['cardNum']
+        cardName = request.form['cardName']
+        expirationDate = request.form['expirationDate']
+                    
+        return render_template('order_confirmation.html', fName = firstName,lName=lastName,email=email,total = total,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate, book=book)
 
     valuePresent=False
     return render_template('checkout.html',valuePresent=valuePresent)
