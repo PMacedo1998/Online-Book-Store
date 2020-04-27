@@ -217,7 +217,7 @@ def checkout(isbn):
         cardNum = request.form['cardNum']
         cardName = request.form['cardName']
         expirationDate = request.form['expirationDate']
-        
+
         return render_template('order_confirmation.html', book = book, quantity = quantity, total = total,  fName = firstName,lName=lastName,email=email, phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate)
 
     valuePresent=True
@@ -404,7 +404,7 @@ def checkoutmenu():
             cardNum = request.form['cardNum']
             cardName = request.form['cardName']
             expirationDate = request.form['expirationDate']
-                
+
             return render_template('order_confirmation.html', fName = firstName,lName=lastName,email=email,total = total, phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate)
 
     valuePresent=False
@@ -419,6 +419,8 @@ def checkoutmenu():
 def main():
     #session['cart'].clear()
     print(session)
+    #session.clear()
+
     if request.method == "POST":
 
         search=None
@@ -616,7 +618,7 @@ def register():
         #get promotion
         subscribed = 0
         promotion = request.form.get('promoApplied')
-        
+
         if promotion == "1":
             subscribed = 1
 
@@ -1066,7 +1068,7 @@ def sendPromo():
         discount[counter] = x[1]
         exp[counter] = x[2]
         counter += 1
-        
+
     if request.method == 'POST':
         emailpromoid = 0
         emaildiscount = 0
@@ -1085,9 +1087,9 @@ def sendPromo():
             message = Markup("<post>No promo selected.</post><br>")
             flash(message)
             return render_template('sendPromo.html', discount0 = discount[0], exp0 = exp[0], discount1 = discount[1], exp1 = exp[1])
-        
+
         emaildiscount = str(emaildiscount)
-        emailpromoid = str(emailpromoid) 
+        emailpromoid = str(emailpromoid)
         #email message
         content = "Use this promo code for a " + emaildiscount + " percent off discount! Code: " + emailpromoid + " Expires: " + emailexp
         #find subscribed users
@@ -1111,7 +1113,7 @@ def sendPromo():
         counter = str(counter)
         message = Markup("<post>Promotion sent to " + counter + " subscribed users.</post><br>")
         flash(message)
-        
+
     return render_template('sendPromo.html', discount0 = discount[0], exp0 = exp[0], discount1 = discount[1], exp1 = exp[1])
 
 @app.route('/order_confirmation', methods=['GET','POST'])
@@ -1138,4 +1140,3 @@ if __name__ == '__main__':
 #age = get.getCredentials("Patrick")
 
 #print(age)
-
