@@ -121,7 +121,7 @@ post{
         <thead>
           <tr>
             <th>Quantity</th>
-            <th>Delete</th>
+            <th>Update</th>
 
           </tr>
         </thead>
@@ -133,7 +133,7 @@ post{
 
 <td>
 
-  <select class="custom-select" id="quantity" >
+  <select class="custom-select" name="quantity" id="quantity">
    <option value="{{ value }}">{{ value }}</option>
    <option value="1">1</option>
    <option value="2">2</option>
@@ -152,7 +152,7 @@ post{
 <td>
  <div class="">
 
-    <button class="btn btn-secondary" href="/checkoutupdate" id="update" value="{{ value }}">Update</button>
+    <button class="btn btn-secondary" name="submit_button" id="update" value="{{ key }}">Update</button>
  </div>
 
 </td>
