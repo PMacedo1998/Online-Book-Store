@@ -357,7 +357,6 @@ def checkout(isbn):
         print(a,b)
 
 
-    total=f"{float(total):.2f}"
     salesTax=total*0.07
 
 
