@@ -361,7 +361,7 @@ def checkoutmenu():
            
         
         #decrypt card number
-        file = open('static/key.key', 'rb')
+        file = open('src/frontend/static/key.key', 'rb')
         key = file.read()
         file.close()
         f = Fernet(key)
@@ -718,7 +718,7 @@ def checkoutmenu():
 
     elif request.method == "POST" and request.form['submit_button'] == "applypromo":
         #decrypt card number
-        file = open('static/key.key', 'rb')
+        file = open('src/frontend/static/key.key', 'rb')
         key = file.read()
         file.close()
         f = Fernet(key)
@@ -727,8 +727,12 @@ def checkoutmenu():
         cardNumber=cursor.fetchone()
         if cardNumber:
             cardNumber=cardNumber[0]
-            cardNumber = f.decrypt(cardNumber)
-            cardNumber = cardNumber.decode()
+            try:
+                cardNumber = f.decrypt(cardNumber)
+                cardNumber = cardNumber.decode()
+            except:
+                cardNumber = ''
+                
         cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
         firstName = cursor.fetchone()
         if firstName:
@@ -939,7 +943,7 @@ def checkoutmenu():
             session.pop('promoTotal', None)
             
         #decrypt card number
-        file = open('static/key.key', 'rb')
+        file = open('src/frontend/static/key.key', 'rb')
         key = file.read()
         file.close()
         f = Fernet(key)
@@ -948,8 +952,11 @@ def checkoutmenu():
         cardNumber=cursor.fetchone()
         if cardNumber:
             cardNumber=cardNumber[0]
-            cardNumber = f.decrypt(cardNumber)
-            cardNumber = cardNumber.decode()
+            try:
+                cardNumber = f.decrypt(cardNumber)
+                cardNumber = cardNumber.decode()
+            except:
+                cardNumber = ''
 
         cursor.execute("SELECT firstName FROM profile WHERE id=%s;",(sessionID))
         firstName = cursor.fetchone()
@@ -1333,7 +1340,7 @@ def register():
         state = request.form['state']
 
         #encrypt credit card
-        file = open('static/key.key', 'rb')
+        file = open('src/frontend/static/key.key', 'rb')
         key = file.read()
         file.close()
         f = Fernet(key)
@@ -1601,7 +1608,7 @@ def updateinfo():
 
         if(cardNumber!=''):
             #encrypt credit card
-            file = open('static/key.key', 'rb')
+            file = open('src/frontend/static/key.key', 'rb')
             key = file.read()
             file.close()
             f = Fernet(key)
