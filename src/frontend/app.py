@@ -247,8 +247,9 @@ def checkout(isbn):
             message = Markup("<post>Promo discount successfully applied!</post><br>")
             flash(message)
             valuePresent = True
+            shoppingCart.remove(isbn)
             return render_template('checkout.html', book = book, quantity=quantity,total=total, totalBeforePromo = totalBeforePromo, promoFound = promoFound,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
-    
+
 
 
 
@@ -279,11 +280,11 @@ def checkout(isbn):
             orderedBooks += x[1] + "\n\t"
 
         date_time = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nTime of Order: " + date_time 
+        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nTime of Order: " + date_time
         str2 =  "\n\nAddress: " + address1 + " " + address2 + " " + zipcode + " " + city + ", " + state
         str3 = "\n\nItems: \n\t" + orderedBooks
         str4 = "\n\nTotal: $" + total
-        
+
         contents = str1 + str2 + str3 + str4
 
         #generate confirmation email
@@ -474,7 +475,7 @@ def checkoutmenu():
             print("book is " + str(book))
             valuePresent=True
             return render_template('checkout.html',book=book,quantity=quantity,total=total,salesTax=salesTax,fee=fee,valuePresent=valuePresent,fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
-        
+
         valuePresent=True
         quantity = {}
         return render_template('checkout.html', valuePresent=valuePresent, quantity=quantity, fName = firstName,lName=lastName,email=email,phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate)
@@ -570,7 +571,7 @@ def checkoutmenu():
             for f, b in zip(sellingPriceList, quantityList):
                 total+= f*b
                 print(f,b)
-            
+
             salesTax=total*0.07
 
             fee=0.05
@@ -613,11 +614,11 @@ def checkoutmenu():
             orderedBooks += x[1] + "\n\t"
 
         date_time = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nTime of Order: " + date_time 
+        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nTime of Order: " + date_time
         str2 =  "\n\nAddress: " + address1 + " " + address2 + " " + zipcode + " " + city + ", " + state
         str3 = "\n\nItems: \n\t" + orderedBooks
         str4 = "\n\nTotal: $" + total
-        
+
         contents = str1 + str2 + str3 + str4
 
         #generate confirmation email
@@ -783,7 +784,7 @@ def checkoutmenu():
             for f, b in zip(sellingPriceList, quantityList):
                 total+= f*b
                 print(f,b)
-            
+
             salesTax=total*0.07
 
             fee=0.05
@@ -996,7 +997,7 @@ def checkoutmenu():
             for f, b in zip(sellingPriceList, quantityList):
                 total+= f*b
                 print(f,b)
-            
+
             salesTax=total*0.07
 
             fee=0.05
