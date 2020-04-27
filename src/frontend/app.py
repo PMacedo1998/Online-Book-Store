@@ -269,6 +269,30 @@ def checkout(isbn):
         cardNum = request.form['cardNum']
         cardName = request.form['cardName']
         expirationDate = request.form['expirationDate']
+         #confirmation email
+        conno = ''.join(random.choices( string.digits, k=8))
+        orderedBooks =""
+        for x in book:
+            orderedBooks += x[1] + "\n\t"
+
+        date_time = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nTime of Order: " + date_time 
+        str2 =  "\n\nAddress: " + address1 + " " + address2 + " " + zipcode + " " + city + ", " + state
+        str3 = "\n\nItems: \n\t" + orderedBooks
+        str4 = "\n\nTotal: $" + total
+        
+        contents = str1 + str2 + str3 + str4
+
+        #generate confirmation email
+        mail = Mail(from_email = 'tylerrosen97@gmail.com',
+                    to_emails = email,
+                    subject = 'Bookstore Order Confirmation #' + conno,
+                    plain_text_content = contents
+                    )
+
+        #send confirmation email
+        sg = sendgrid.SendGridAPIClient(api_key='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')
+        response = sg.client.mail.send.post(request_body=mail.get())
 
         return render_template('order_confirmation.html', book = book, quantity = quantity, total = total,salesTax=salesTax,fee=fee,  fName = firstName,lName=lastName,email=email, phoneNum=phoneNumber,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate)
 
@@ -575,6 +599,30 @@ def checkoutmenu():
         expirationDate = request.form['expirationDate']
 
         session['cart'].clear()
+         #confirmation email
+        conno = ''.join(random.choices( string.digits, k=8))
+        orderedBooks =""
+        for x in book:
+            orderedBooks += x[1] + "\n\t"
+
+        date_time = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+        str1 = "Customer name: " + firstName + " " + lastName + "\n\nConfirmation number: " + conno + "\n\nTime of Order: " + date_time 
+        str2 =  "\n\nAddress: " + address1 + " " + address2 + " " + zipcode + " " + city + ", " + state
+        str3 = "\n\nItems: \n\t" + orderedBooks
+        str4 = "\n\nTotal: $" + total
+        
+        contents = str1 + str2 + str3 + str4
+
+        #generate confirmation email
+        mail = Mail(from_email = 'tylerrosen97@gmail.com',
+                    to_emails = email,
+                    subject = 'Bookstore Order Confirmation #' + conno,
+                    plain_text_content = contents
+                    )
+
+        #send confirmation email
+        sg = sendgrid.SendGridAPIClient(api_key='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')
+        response = sg.client.mail.send.post(request_body=mail.get())
 
         return render_template('order_confirmation.html', fName = firstName,lName=lastName,email=email,total = total, salesTax=salesTax, fee=fee,address1=address1,address2=address2,zipcode=zipcode,city=city,state=state,cardName=cardName,cardType=cardType,expirationDate=expirationDate,baddress1=baddress1,baddress2=baddress2,bzipcode=bzipcode,bcity=bcity,bstate=bstate, book=book)
 
