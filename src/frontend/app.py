@@ -640,7 +640,7 @@ def checkoutmenu():
             counter += 1
         orderID = str(counter)
         #store order in db
-        cursor.execute("INSERT INTO orders(paymentMethodID, shoppingCartID) VALUES (%s,%s)", (sessionID, sessionID))
+        cursor.execute("INSERT INTO orders(paymentMethodID) VALUES (%s)", (sessionID))
         con.commit()
 
         #confirmation email
